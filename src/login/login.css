@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap');
+.LoginComponent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.DescriptionSection{
+    width: 50%;
+    height: 100%;
+    background-color: #6383FA;
+}
+
+.LoginSection{
+    width: 50%;
+    height: 100%;
+    background-color: #E2E6F1;
+    display: grid;
+    place-content: center;
+    gap: 1rem;
+}
+
+.LoginSection .Container{
+    font-family: 'Lora', serif;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    letter-spacing: .1rem;
+}
+.LoginDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    width: 30vw;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.EmailContainer{
+    display: flex;
+    align-items: center;
+    padding:.3rem;
+    padding-left: .6rem;
+    gap: 1rem;
+    background-color: white;
+    border-radius: .3rem;
+}
+
+.EmailContainer input{
+    border: none;
+    outline: none;
+    height: 2.5rem;
+    width: 25rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    letter-spacing: .1rem;
+    font-size: 15px;
+}
+.EmailContainer input::placeholder{
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: .1rem;
+}
+.EmailLogo{
+    color: #6383FA;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+.email{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.ForgetSection{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.ForgetSection button{
+    background-color: #E2E6F1;
+    color: #6383FA;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: .5px;
+    border: none;
+    cursor: pointer;
+}
+.MismatchPassword{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    color: red;
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: .5px;
+}
+.ForgetSection button:hover{
+    text-decoration: underline;
+}
+.LoginButton button{
+    background-color: #6383FA;
+    height: 2.5rem;
+    width: 100%;
+    border: none;
+    color: white;
+    font-family: 'poppins','Open Sans', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: .3rem;
+}
+.OrContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 30vw;
+    font-family: 'Open Sans', sans-serif;
+}
+.OrContainer span{
+    width: 45%;
+    height: 3px;
+    background-color: #D7DAE6;
+}
+.SocialMediaLogin{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+    width: 30vw;
+}
+.SocialMediaLogin button{
+    border: none;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    border-radius: .3rem;
+}
+.SocialMediaLogin button img{
+    width: 25px;
+}
+.LoginSignup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 30vw;
+    padding: 1rem;
+    font-family: 'poppins','Open Sans', sans-serif;
+}
+.LoginSignup button{
+    background-color: #E2E6F1;
+    border: none;
+    color: #6383FA;
+    font-family: 'poppins','Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ForgetComponent{
+    position: absolute;
+    top: 0;
+    background: rgba(0,0,0,0.4);
+    display: grid;
+    place-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+.resetPassword{
+    width: 40rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #D7DAE6;
+    border-radius: .3rem;
+    padding: 1rem;
+    gap: 1rem;
+}
+.resetPassword p{
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-family: 'poppins','Open Sans', sans-serif;
+    letter-spacing: .1rem;
+}
+.ResetTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+.ResetTop img{
+    width: 50px;
+}
+.crossLogo{
+    font-size: 25px;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+.sendOTP{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sendOTP img{
+    width: 30px;
+}
+.sendOTP button{
+    background-color: #6383FA;
+    width: auto;
+    border: none;
+    color: white;
+    font-family: 'poppins','Open Sans', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: .3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    align-items: center;
+    padding: .7rem;
+}
+@media only screen and (max-width: 600px) {
+    .DescriptionSection {
+      display: none;
+    }
+    .LoginSection{
+        width: 100vw;
+    }
+    .Container{
+        width: 80vw;
+    }
+    .LoginDetails{
+        width: 80vw;
+    }
+    .OrContainer{
+        width: 80vw;
+    }
+    .SocialMediaLogin{
+        width: 80vw;
+    }
+    .LoginSignup{
+        width: 80vw;
+        font-size: 12px;
+    }
+    .EmailLogo{
+        width: 35px;
+        height: 35px;
+    }
+    .EmailContainer input{
+        width: 20rem;
+    }
+    .Container section img{
+        width: 80px;
+        height: 80px;
+    }
+  }

@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem;
+    font-family: 'poppins','Open Sans', sans-serif;
+    background-color: #6383FA;
+}
+.navbar .logo{
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 1px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.navbar .logo img{
+    width: 2rem;
+}
+.navbar .ProfileDetails img{
+    width: 2rem;
+    border-radius: 100%;
+}
+.ProfileDetails{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: white;
+    cursor: pointer;
+}
+.ProfileDetails .nameData{
+    font-size: 20px;
+}
+.navbar .search{
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 2rem;
+    border-radius: .3rem;
+}
+.navbar .search input{
+    width: 95%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-family: 'poppins','Open Sans', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+.navbar .search input::placeholder{
+    font-family: 'poppins','Open Sans', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+.searchLogo{
+    color: #6383FA;
+    font-size: 20px; 
+}

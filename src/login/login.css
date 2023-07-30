@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 .LoginComponent{
     display: flex;
     flex-direction: row;
@@ -8,13 +9,38 @@
     width: 100vw;
     height: 100vh;
 }
-
+.LoderComponent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    color: #6383FA;
+    gap: 1rem;
+    
+}
 .DescriptionSection{
     width: 50%;
     height: 100%;
-    background-color: #6383FA;
+    background-image: url('../images/Desktop\ -\ 1.svg');
 }
-
+.DescriptionSection .Description{
+    width: 100%;
+    height: 95%;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    line-height: 3rem;
+    margin-left: 1.5rem;
+}
+.DescriptionSection .Description p{
+    font-size: 40px;
+}
 .LoginSection{
     width: 50%;
     height: 100%;
@@ -82,7 +108,7 @@
 .ForgetSection{
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .ForgetSection button{
     background-color: #E2E6F1;
@@ -97,7 +123,7 @@
 .MismatchPassword{
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     color: red;
     font-size: 12px;
     font-family: 'Open Sans', sans-serif;
@@ -230,9 +256,44 @@
     align-items: center;
     padding: .7rem;
 }
+.Menu{
+    display: none;
+}
+.DescriptionSection{
+    padding: 1rem;
+}
+.DescriptionSection header{
+    width: 100%;
+}
+.DescriptionSection header .product{
+    display: flex;
+    color: white;
+    font-size: 20px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.DescriptionSection .Description p .quote{
+    display: flex;
+    color: white;
+    font-size: 35px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-family: 'poppins','Open Sans', sans-serif;
+} 
+.DescriptionSection header .product img{
+    display: none;
+}
 @media only screen and (max-width: 600px) {
-    .DescriptionSection {
-      display: none;
+    .DescriptionSection{
+        display: none;
+    }
+    .Menu{
+        display: block;
+        color: white;
+        font-size: 25px;
+        cursor: pointer;
     }
     .LoginSection{
         width: 100vw;
@@ -242,7 +303,7 @@
     }
     .LoginDetails{
         width: 80vw;
-    }
+    } 
     .OrContainer{
         width: 80vw;
     }
@@ -255,7 +316,7 @@
     }
     .EmailLogo{
         width: 35px;
-        height: 35px;
+        height: 35px; 
     }
     .EmailContainer input{
         width: 20rem;
@@ -264,4 +325,39 @@
         width: 80px;
         height: 80px;
     }
+    .resetPassword{
+        width: 20rem;
+    }
+    .resetPassword p{
+        font-size: 14px;
+    }
+    .ResetTop{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+    }
+    .ResetTop img{
+        width: 50px;
+    }
+    .crossLogo{
+        font-size: 25px;
+        font-weight: 700;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+    }
+    .sendOTP{
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+        
+    }
+    .sendOTP .EmailContainer input{
+        width: 65vw;
+    }
+    .sendOTP img{
+        width: 30px;
+    }
+    
   }
+

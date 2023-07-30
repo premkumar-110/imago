@@ -16,11 +16,26 @@ import { BsArrowRight } from "react-icons/bs";
 import otpLogo from '../images/otp.svg';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { AiOutlineMenu } from "react-icons/ai";
+import cookie from 'cookie';
 
 const Login = () => {
-  useEffect(() => {
+
+  const toaster = new ToasterUi();
+  const navigate = useNavigate();
+
+  useEffect(() => { 
     AOS.init();
+    const userId = getUserIdCookie();
+    if (userId) {
+      navigate('/home');
+    }
+    setisLoading(false)
   }, [])
+  const getUserIdCookie = () => {
+    const cookies = cookie.parse(document.cookie);
+    return cookies.user_id || null; 
+  };
 
   const [isValid, setIsValid] = useState(true);
   const validateEmail = (inputEmail) => {
@@ -33,14 +48,20 @@ const Login = () => {
   };
 
 
-  const toaster = new ToasterUi();
-  const navigate = useNavigate();
+  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passState, setPassState] = useState(0);
   const [resetPass,setResetPass]=useState(0);
   const [verifyPass,setVerifyPass]=useState(0);
+  const [forgetEmail,setforgetEmail]=useState('');
+  const [otp,setotp]=useState('');
+  const [getOTP,setgetOTP]=useState('');
+  const [resetPassword,setResetPassword]=useState('');
+  const [confirmResetPassword,setConfirmResetPassword]=useState('');
+  const [onLoginSpinner,setonLoginSpinner]=useState(false);
+  const [isLoading,setisLoading]=useState(true);
 
   const handleLogin = async () => {
     try {
@@ -54,13 +75,12 @@ const Login = () => {
         });
         return;
       }
-  
-      const response = await axios.post('http://localhost:8000/api/users/login', {
-        email,
-        password,
-      });
-  
+      setonLoginSpinner(true);
+      const data={email:email,password:password}
+      const response = await axios.post('https://server-imago.vercel.app/api/users/login', data);
+      console.log(response)
       if (response.status === 200) {
+        setonLoginSpinner(false);
         toaster.addToast('Successfully Logged In', 'success', {
           duration: 4000,
           styles: {
@@ -70,6 +90,7 @@ const Login = () => {
         });
         navigate('/home');
       } else {
+        setonLoginSpinner(false);
         toaster.addToast('Invalid email or password', 'warning', {
           duration: 4000,
           styles: {
@@ -79,6 +100,7 @@ const Login = () => {
         });
       }
     } catch (error) {
+      setonLoginSpinner(false);
       if (error.response && error.response.status === 401) {
         toaster.addToast('Invalid email or password', 'warning', {
           duration: 4000,
@@ -88,11 +110,12 @@ const Login = () => {
           },
         });
       } else {
+        setonLoginSpinner(false);
         console.log(error);
         toaster.addToast('An error occurred, please try again later', 'failure', {
           duration: 4000,
           styles: {
-            backgroundColor: '#FF3131',
+            backgroundColor: '#red',
             color: '#ffffff',
           },
         });
@@ -101,21 +124,129 @@ const Login = () => {
   };
   
   const handleGoogleLogin=async ()=>{
-    window.open(`http://localhost:5000/auth/google`, "_self");
+    window.open(`https://server-imago.vercel.app/auth/google`, "_self");
   }
   const handleFacebookLogin=async ()=>{
-    window.open(`http://localhost:5000/auth/facebook`, "_self");
+    window.open(`https://server-imago.vercel.app/auth/facebook`, "_self");
   }
   const handleGithubLogin=async ()=>{
-    window.open(`http://localhost:5000/auth/github`, "_self");
+    window.open(`https://server-imago.vercel.app/auth/github`, "_self");
   }
   const handleDiscordLogin=async ()=>{
-    window.open(`http://localhost:5000/auth/discord`, "_self");
+    window.open(`https://server-imago.vercel.app/auth/discord`, "_self");
   }
+
+  const sendEmail=async ()=>{
+    if(forgetEmail===''){
+      toaster.addToast('Email is required', 'warning', {
+        duration: 4000,
+        styles: {
+          backgroundColor: 'orange',
+          color: '#ffffff',
+        },
+      });
+    }
+    else{
+      const response=await axios.post('https://server-imago.vercel.app/api/users/sendEmail',{
+        email:forgetEmail
+      })
+      toaster.addToast('Email sent successfully', 'success', {
+        duration: 4000,
+        styles: {
+          backgroundColor: 'green',
+          color: '#ffffff',
+        },
+      });
+      const receivedOTP = response.data.data.otp;
+      console.log(response.data.data.otpValidity)
+      console.log(receivedOTP)
+      setotp(receivedOTP);
+    }
+  
+  }
+  const handleOTPverification=() =>{
+    console.log(otp);
+    console.log(getOTP)
+    if( otp==='' && getOTP===''){
+      toaster.addToast('OTP is required', 'warning', {
+        duration: 4000,
+        styles: {
+          backgroundColor: 'orange',
+          color: '#ffffff',
+        },
+      });
+    }
+    else if (otp == getOTP ) {
+      setVerifyPass(1);
+    } else {
+      toaster.addToast('Invalid OTP', 'warning', {
+        duration: 4000,
+        styles: {
+          backgroundColor: 'red',
+          color: '#ffffff',
+        },
+      });
+    }
+  };
+
+  const handleResetPassword=()=>{
+    if(resetPassword!==confirmResetPassword){
+      toaster.addToast('Password does not match', 'warning', {
+        duration: 4000,
+        styles: {
+          backgroundColor: 'red',
+          color: '#ffffff',
+        },
+      });
+    }
+    else{
+      const response=axios.post('https://server-imago.vercel.app/api/users/resetPassword',{
+        email:forgetEmail,
+        password:resetPassword
+      })
+      if(response){
+        toaster.addToast('Password changed successfully', 'warning', {
+          duration: 4000,
+          styles: {
+            backgroundColor: 'green',
+            color: '#ffffff',
+          },
+        });
+        setVerifyPass(0); 
+        setResetPass(0);
+      }  
+    }
+  }
+
   return (
-    <>
-    <div className='LoginComponent'>
-      <div className='DescriptionSection' />
+    <> 
+    {isLoading && <div className='LoderComponent'>
+      <div class="spinner-grow text-primary"  role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div></div>
+    }
+    {!isLoading && <><div className='LoginComponent'>
+      <div className='DescriptionSection'>
+        
+        <header>
+            <div className='product' onClick={()=>navigate('/login')}><img src={logo} alt='Logo'></img> IMAGO</div>
+            <AiOutlineMenu className='Menu' onClick={()=>{
+                document.getElementById('LoginSection').style.zIndex=100;
+            }}/>
+        </header>
+        <div className='Description'>
+          <p>
+            <div className='quote'>Enter the Enchanting Realm of<br/> Fluttering Dreams</div>
+            Start Exploring more
+          </p>
+        </div>
+      </div>
       <div className='LoginSection'>
         <div className='Container'>
           <section>
@@ -145,7 +276,9 @@ const Login = () => {
             <button className='Forget' onClick={()=>setResetPass(1)}>Reset Password !</button>
           </div>
           <div className='LoginButton'>
-            <button onClick={handleLogin}>Login</button>
+            <button onClick={handleLogin}>{!onLoginSpinner && <>Login</>} 
+            {onLoginSpinner && <div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div> }     
+            </button>
           </div>
         </div>
         <div className='OrContainer'>
@@ -165,55 +298,55 @@ const Login = () => {
       </div>
     </div>
     {
-      resetPass==1 && verifyPass!=1 && <div className='ForgetComponent'  data-aos="zoom-in">
+      resetPass===1 && verifyPass!==1 && 
+      <div className='ForgetComponent'  data-aos="zoom-in">
         <div className='resetPassword'>
           <div className='ResetTop'>
-            <img src={logo} ></img>
+            <img src={logo} alt='Logo'></img>
             <RxCross1 className='crossLogo'  onClick={()=>setResetPass(0)}/>
           </div>
           <p>Enter the email address associated with your account</p>
           <div className='EmailContainer'>
               <IoMail className='EmailLogo' />
-              <input type='email' placeholder='Enter your email address' onChange={(e) => setEmail(e.target.value)} />
+              <input type='email' placeholder='Enter your email address' onChange={(e) => setforgetEmail(e.target.value)} />
             </div>
             <div className='sendOTP'>
-            <button >Send OTP <BsArrowRight/></button>
+            <button onClick={sendEmail}>Send OTP <BsArrowRight/></button>
             <div className='EmailContainer'>
-            <img src={otpLogo}></img>
-              <input type='email' placeholder='Enter the OTP' onChange={(e) => setEmail(e.target.value)} />
+            <img src={otpLogo} alt='OTPLogo'></img>
+              <input type='email' placeholder='Enter the OTP' onChange={(e) => setgetOTP(e.target.value)} />
             </div>
           </div>
           <div className='LoginButton'>
-            <button onClick={()=>{
-              setVerifyPass(1)
-            }}>Verify</button>
-          </div>
+            <button onClick={handleOTPverification}>Verify</button>
+          </div> 
         </div>
       </div>
     }
     {
-      verifyPass==1  && <div className='ForgetComponent'  data-aos="zoom-in">
+      verifyPass===1  && 
+      <div className='ForgetComponent'  data-aos="zoom-in">
         <div className='resetPassword'>
           <div className='ResetTop'>
-            <img src={logo} ></img>
+            <img src={logo} alt='Logo' ></img>
             <RxCross1 className='crossLogo'  onClick={()=>{setVerifyPass(0);setResetPass(0)}}/>
           </div>
           <p>Enter the new Password</p>
           <div className='EmailContainer'>
               <MdPassword className='EmailLogo' />
-              <input type='email' placeholder='Enter your email address' onChange={(e) => setEmail(e.target.value)} />
+              <input type='password' placeholder='Enter the password' onChange={(e) => setResetPassword(e.target.value)} />
             </div>
             <p>Confirm your Password</p>
             <div className='EmailContainer'>
               <MdPassword className='EmailLogo' />
-              <input type='email' placeholder='Enter your email address' onChange={(e) => setEmail(e.target.value)} />
+              <input type='password' placeholder='Confirm your password' onChange={(e) => setConfirmResetPassword(e.target.value)} />
             </div>
           <div className='LoginButton'>
-            <button >Reset</button>
+            <button onClick={handleResetPassword}>Reset</button>
           </div>
         </div>
       </div>
-    }
+    }</>}
     </>
   );
 };

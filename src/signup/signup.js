@@ -13,6 +13,7 @@ import facebook from '../images/Facebook.svg';
 import { BsEyeSlashFill, BsEyeFill } from 'react-icons/bs';
 import ToasterUi from 'toaster-ui';
 import axios from 'axios';
+import { AiOutlineMenu } from "react-icons/ai";
 
 
 const Signup = () => {
@@ -36,6 +37,19 @@ const Signup = () => {
     setIsValid(validateEmail(email));
   };
 
+  const handleGoogleLogin=async ()=>{
+    window.open(`https://server-imago.vercel.app/auth/google`, "_self");
+  }
+  const handleFacebookLogin=async ()=>{
+    window.open(`https://server-imago.vercel.app/auth/facebook`, "_self");
+  }
+  const handleGithubLogin=async ()=>{
+    window.open(`https://server-imago.vercel.app/auth/github`, "_self");
+  }
+  const handleDiscordLogin=async ()=>{
+    window.open(`https://server-imago.vercel.app/auth/discord`, "_self");
+  }
+
   const handleSignup=async ()=>{
     try{
         if(!email||!password||!confirmPassword){
@@ -48,11 +62,20 @@ const Signup = () => {
               });
         }
         else{
-            const response = await axios.post('http://localhost:8000/api/users/signup', {
-            email,
-            password,
+            const response = await axios.post('https://server-imago.vercel.app/api/users/signup', {
+            email:email,
+            password:password,
             });
-            if(response.status===200){
+            if(response.status===409){
+              toaster.addToast('User already exists', 'success', {
+                duration: 4000,
+                styles: {
+                  backgroundColor: 'red',
+                  color: '#ffffff',
+                },
+              });
+            }
+            else if(response.status===200){
                 toaster.addToast('Account created Successfully', 'success', {
                     duration: 4000,
                     styles: {
@@ -61,6 +84,15 @@ const Signup = () => {
                     },
                   });
                   navigate('/login');
+            }
+            else{
+              toaster.addToast('Sign up failed', 'success', {
+                duration: 4000,
+                styles: {
+                  backgroundColor: 'red',
+                  color: '#ffffff',
+                },
+              });
             }
         }
     }catch(e){
@@ -71,12 +103,23 @@ const Signup = () => {
   return (
     <div className='LoginComponent'>
         <div className='DescriptionSection'>
-
+        <header>
+            <div className='product' onClick={()=>navigate('/login')}><img src={logo} alt='Logo'></img> IMAGO</div>
+            <AiOutlineMenu className='Menu' onClick={()=>{
+                document.getElementById('LoginSection').style.zIndex=100;
+            }}/>
+        </header>
+        <div className='Description'>
+          <p>
+            <div className='quote'>Enter the Enchanting Realm of<br/> Fluttering Dreams</div>
+            Start Exploring more
+          </p>
+        </div>
         </div>
         <div className='LoginSection'>
 
             <div className='Container'>
-                <section><img src={logo}></img></section>
+                <section><img src={logo} alt='Logo'></img></section>
                 <p>Hello ! Welcome back</p>
             </div>
 
@@ -108,7 +151,7 @@ const Signup = () => {
                     </div>
                 </div>
                 <div className='MismatchPassword'>
-                   {confirmPassword!=password && confirmPassword.length>0 && <p>Passwords does not match!</p>} 
+                   {confirmPassword!==password && confirmPassword.length>0 && <p>Passwords does not match!</p>} 
                 </div>
                 <div className='LoginButton'>
                     <button onClick={handleSignup}>Create Account</button>
@@ -118,10 +161,10 @@ const Signup = () => {
                 <span></span><p>Or</p><span></span>
             </div>
             <div className='SocialMediaLogin'>
-                <button><img src={google}></img></button>
-                <button><img src={facebook}></img></button>
-                <button><img src={github}></img></button>
-                <button><img src={discord}></img></button>
+            <button><img src={google} onClick={handleGoogleLogin} alt='Google'/></button>
+            <button><img src={facebook} onClick={handleFacebookLogin} alt='Facebook' /></button>
+            <button><img src={github} onClick={handleGithubLogin} alt='GitHub'  /></button>
+            <button><img src={discord} onClick={handleDiscordLogin} alt='Discord' /></button>
             </div>
             <div className='LoginSignup'>
                 <p>Don't have an account? <button onClick={() => navigate('/login')}>Sign In</button></p>

@@ -82,7 +82,7 @@
 .ForgetSection{
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .ForgetSection button{
     background-color: #E2E6F1;
@@ -97,7 +97,7 @@
 .MismatchPassword{
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     color: red;
     font-size: 12px;
     font-family: 'Open Sans', sans-serif;

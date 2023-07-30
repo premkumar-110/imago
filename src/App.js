@@ -1,11 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import Login from './login/login';
 import Signup from './signup/signup';
 import Home from './dashboard/home';
-import { useState,useEffect } from 'react';
-import axios from 'axios';
 function App() {
   
   

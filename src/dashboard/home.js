@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import '../dashboard/home.css';
+import logo from '../logo.svg';
+import { AiOutlineSearch } from "react-icons/ai";
+
+
+
 
 const Home = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
-      fetch("http://localhost:5000/auth/login/success", {
+      fetch("https://server-imago.vercel.app/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -17,7 +23,7 @@ const Home = () => {
       })
         .then((response) => {
           if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
+          throw new Error("Authentication has failed!");
         })
         .then((resObject) => {
           setUser(resObject.user);
@@ -27,28 +33,34 @@ const Home = () => {
         });
     };
     getUser();
-    console.log(user);
   }, []);
+
+  const handleLogout=async ()=>{
+    window.location.href = "http://localhost:3000/login";
+    
+  }
   return (
+    <>
     <div className="navbar">
-      {user ? (
-        <>
-          <ul className="list">
-            <li className="listItem">
-              <img
-                src={user.photos[0]?.value || ''}
-                alt=""
-                className="avatar"
-              />
-            </li>
-            <li className="listItem">{user.displayName}</li>
-          </ul>
-        </>
-      ) : (
-        // Render some placeholder content if user is not logged in
-        <p>Please log in to view your profile.</p>
-      )}
+      <div className='logo'><img src={logo}></img>IMAGO</div>
+      <div className='search'>
+        <input type='text' placeholder='Search your products'></input><AiOutlineSearch className='searchLogo'/>
+      </div>
+      
+      {user && ( // <-- Add a conditional check here
+          <div className='ProfileDetails'>
+            <section className='nameData'>{user.displayName}</section>
+            <img
+              src={user.photos[0]?.value || ''}
+              alt=""
+              className="avatar"
+            />
+          </div>
+        )}
+      
     </div>
+    
+    </>
   );
   
 }

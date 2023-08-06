@@ -1,68 +1,84 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
 import '../dashboard/home.css';
-import logo from '../logo.svg';
-import { AiOutlineSearch } from "react-icons/ai";
-
-
-
-
-const Home = () => {
-  const [user, setUser] = useState(null);
+import coverimg from '../images/Cover Page.svg';
+import { AiFillStar } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
+import Filter from '../filter/Filter';
+import Header from '../header/header';
+import AOS from 'aos';
+const Home = ({ productID, setproductID, productsList, setProduct }) => {
+  const [isLoading, setisLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const getUser = () => {
-      fetch("https://server-imago.vercel.app/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("Authentication has failed!");
-        })
-        .then((resObject) => {
-          setUser(resObject.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, []);
-
-  const handleLogout=async ()=>{
-    window.location.href = "http://localhost:3000/login";
+    AOS.init();
+    setTimeout(()=>{
+      setisLoading(false);
+    },2000)
     
-  }
+    console.log({ productsList });
+  }, [productsList]);
+
+  const handleGetProduct = async (id) => {
+    sessionStorage.setItem('id', id);
+    setproductID(id);
+    console.log(id);
+    navigate('/product');
+  };
+
   return (
     <>
-    <div className="navbar">
-      <div className='logo'><img src={logo}></img>IMAGO</div>
-      <div className='search'>
-        <input type='text' placeholder='Search your products'></input><AiOutlineSearch className='searchLogo'/>
-      </div>
-      
-      {user && ( // <-- Add a conditional check here
-          <div className='ProfileDetails'>
-            <section className='nameData'>{user.displayName}</section>
-            <img
-              src={user.photos[0]?.value || ''}
-              alt=""
-              className="avatar"
-            />
+      {isLoading ? (
+        <div className='LoderComponent'>
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
-        )}
-      
-    </div>
-    
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <>
+          <Header productID={productID} setproductID={setproductID} />
+          <div className='Homesection'>
+            <header>
+              <img src={coverimg} alt='CoverImage'></img>
+            </header>
+            <section className='ProductsSection'>
+              <div className='FilterSection'>
+                {/* Pass productsList and setProduct to the Filter component */}
+                <Filter productsList={productsList} setProduct={setProduct} />
+              </div>
+              <div className='Products'>
+                { productsList.length>0 &&
+                  productsList.map((item) => {
+                    return (
+                      <div className='ProductCard' data-aos="zoom-in" key={item.id} onClick={() => handleGetProduct(item.id)}>
+                        <img src={item.thumbnail} alt={item.title} />
+                        <h5>{item.title.length > 20 ? item.title.slice(0, 20) + "..." : item.title}</h5>
+                        <div className='PriceDetails'><h3>₹{Math.floor(item.price) * 80}</h3>Onwards</div>
+                        <p>Free Delivery</p>
+                        <div className='RatingSection'>
+                          <div className='Ratings'>{item.rating}<AiFillStar className='RatingLogo' /></div>
+                          <p>{Math.floor(item.rating * 100 + 20)} Reviews</p>
+                        </div>
+                      </div>
+                    );
+                  })
+                }
+                { productsList.length===0 &&
+                  <h3>No product to display</h3>
+                }
+              </div>
+            </section>
+          </div>
+        </>
+      )}
     </>
   );
-  
-}
+};
 
-export default Home
+export default Home;

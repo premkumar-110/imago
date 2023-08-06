@@ -1,0 +1,138 @@
+/* VerifyNumber.css */
+
+/* Style for the container of the OtpInput */
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+.verify-number-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #5277F7;
+    font-family: 'poppins','Open Sans', sans-serif;
+  }
+  
+  .otp_verification{
+    display: flex;
+    border: 1px solid gray;
+  }
+  .OTP_Container{
+    height:auto;
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3rem;
+    padding: 2rem;
+  }
+  .OTP_Container input{
+    width: 3rem;
+    outline: none;
+    margin: .5rem;
+  }
+ 
+  
+  /* Style for the separator between inputs */
+  .otp-input span {
+    font-size: 20px;
+    margin: 0 5px;
+  }
+  .Ph_Container{
+    display: flex;
+    width: 100%;
+    height: 18%;
+    align-items: center;
+    justify-content: center;
+  }
+  .Ph_Container input{
+    width: 50%;
+    padding: .5rem;
+    border: 1px solid gray;
+    outline: none;
+  }
+  .Ph_Container button{
+    width: auto;
+    padding: .6rem;
+    background-color: #5277F7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    letter-spacing: 1px;
+  }
+  .otpContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .otpContainer p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .VerifyBtn{
+    width: auto;
+    padding: .6rem;
+    background-color: #5277F7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+  .PersonalDetails{
+    width: 100%;
+    padding: 1rem;
+  }
+  .PersonalDetails .email{
+     display: flex;
+     align-items: flex-start;
+     width: 100%;
+  }
+  .PersonalDetails p{
+    display: grid;
+    place-content: center;
+  }
+  .PersonalDetails .EmailContainer{
+    width: 100%;
+    border: 1px solid gray;
+    height: 2.5rem;
+  }
+  .PersonalDetails .EmailContainer input{
+    height: 100%;
+    width: 100%;
+  }
+  .PersonalDetails .addressContainer{
+    height: 100%;
+    border: none;
+    outline: none;
+    width: 100%;
+    resize: none;
+    border: 1px solid gray;
+    border-radius: .3rem;
+    padding: 1rem;
+  }
+  .SubmitDetails{
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .SubmitDetails button{
+    width: 60%;
+    border: none;
+    outline: none;
+    background-color: #5277F7;
+    color: white;
+    padding: .5rem;
+    border-radius: .3rem;
+  }

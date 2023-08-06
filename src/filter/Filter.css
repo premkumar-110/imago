@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+.filter{
+    width: 100%;
+    font-family: 'poppins','Open Sans', sans-serif;
+}
+.filterData{
+    border: 1px solid lightgray;
+    box-shadow: 1px 2px 3px lightgray;
+    padding: 1rem;
+    border-radius: .3rem;
+    
+}
+.title{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 400;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.filterIcons{
+    font-size: 30px;
+}
+.CategoryList{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.CategoryList ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+   
+}
+.CategoryList ul li{
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+.PriceList{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.PriceList ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+   
+}
+.PriceList ul li{
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    padding: .5rem;
+    border: 1px solid lightgray;
+    width: fit-content;
+    border-radius: .3rem;
+}
+.DiscountList{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.DiscountList ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+   
+}
+.DiscountList ul li{
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    padding: .5rem;
+    border: 1px solid lightgray;
+    width: fit-content;
+    border-radius: .3rem;
+}
+
+.filterData .ClearBtn{
+    font-weight: 500;
+    font-size: 20px;
+}
+.filterData .ClearBtn:hover{
+    color: #5277F7;
+    text-decoration: underline;
+}
+.FilterClearContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}

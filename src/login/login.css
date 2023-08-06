@@ -8,6 +8,7 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 .LoderComponent{
     display: flex;
@@ -103,7 +104,6 @@
 .email{
     display: flex;
     flex-direction: column;
-    gap: .5rem;
 }
 .ForgetSection{
     display: flex;

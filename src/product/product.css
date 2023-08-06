@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+.ParticularProduct{
+    width: 100%;
+    padding: 1rem 15rem;
+    font-family: 'poppins','Open Sans', sans-serif;
+    display: flex;
+    gap: 5%;
+}
+.ImageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 70%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 1.5rem;
+}
+.ProductImages{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.showImage{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.showImage img{
+    padding: 1rem;
+    width:30rem;
+    height: 30rem;
+}
+.imageSlide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.imageSlide img{
+    width: 100px;
+    height: 75px;
+    cursor: pointer;
+}
+.productButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+}
+.AddtoCart{
+    border: 2px solid #5277F7;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    background-color: white;
+    color: #5277F7;
+    border-radius: .3rem;
+    width: 40%;
+}
+.BuyNow{
+    border: 2px solid #5277F7;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    background-color: #5277F7;
+    color: #ffffff;
+    border-radius: .3rem;
+    width: 40%;
+} 
+.ProductDescriptionContainer{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.ParticularProduct .Product_details{
+    padding: 1rem;
+    border-radius: .5rem;
+    border: 2px solid lightgray;
+}
+.ParticularProduct .Price{
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.ParticularProduct .Price h6{
+    display: flex;
+    align-items: center;
+}
+.ProductDescriptionContainer .title{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    letter-spacing: .5px;
+}
+.SizeDetails{
+    padding: 1rem;
+    border-radius: .5rem;
+    border: 2px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.size_title{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.sizeButton{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+.sizebtn{
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: .5rem 1.5rem;
+    border: 1px solid gray;
+    border-radius: 1rem;
+}
+.ProductDescription{
+    padding: 1rem;
+    border-radius: .5rem;
+    border: 2px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.ProductDescription .description{
+    letter-spacing: 1px;
+    line-height: 2rem;
+}
+.OfferDescription{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2rem;
+    background-color: aliceblue;
+    border-radius: .5rem;
+
+}
+.OfferDescription section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.OfferDescription section img{
+    width: 2rem;
+}
+.RemainingProductContainer{
+    width: 100%;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+.RemainingProductContainer .Products{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.RemainingProductContainer .Products .ProductCard{
+    height: 40rem;
+    width: 24%;
+}
+
+.UpArrow{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #5277F7;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+}

@@ -71,8 +71,8 @@ const Header = ({ productID, setproductID }) => {
         </div>
         {user && (
           <div className='ProfileDetails' onClick={() => setShowDropDown(!showDropDown)}>
-            <section className='nameData'>{user.displayName}</section>
-            <img src={user.photos[0]?.value || ''} alt="userLogo" className="avatar" />
+            <section className='nameData'>{user.displayName || "Welcome"}</section>
+            <img src={user.photos[0]?.value || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsEC-AcpMSEBeqwQdUVhjb5fciR-GG2-cuwQ&usqp=CAU'} alt="userLogo" className="avatar" />
           </div>
         )}
       </div>

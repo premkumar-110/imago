@@ -18,7 +18,7 @@ const VerifyNumber = () => {
 
   const handlesendotp = async () => {
     try {
-      const response = await axios.post('https://imago-alpha.vercel.app/api/users/sendSMS', {
+      const response = await axios.post('http://localhost:5000/api/users/sendSMS', {
         no: number,
       });
       if (response && response.data && response.data.otp) {
@@ -69,7 +69,7 @@ const VerifyNumber = () => {
   };
 
   const handleSubmit=async ()=>{
-    const response=await axios.post('https://imago-alpha.vercel.app/api/users/addDetails',{
+    const response=await axios.post('http://localhost:5000/api/users/addDetails',{
       "name":name,
       "email":"scpprem006@gmail.com",
       "phoneNumber":number,
@@ -92,11 +92,11 @@ const VerifyNumber = () => {
     <div className="verify-number-container">
       <div className="OTP_Container">
         <img src={logo} alt="logo" />
-        <h3>VERIFY MOBILE NUMBER</h3>
+        <h3>SUBMIT YOUR DETAILS</h3>
         <div className="Ph_Container">
           <input
             type="phone"
-            placeholder="Enter your mobile number with country code"
+            placeholder="Mobile number with country code"
             required
             onChange={(e) => setNumber(e.target.value)}
           />

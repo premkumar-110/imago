@@ -18,7 +18,7 @@ const Header = ({ productID, setproductID}) => {
   useEffect(() => {
 
     const products = async () => {
-      const productData = await axios.get('https://imago-alpha.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       setProduct(productData.data.response);
       
     };
@@ -26,7 +26,7 @@ const Header = ({ productID, setproductID}) => {
   }, []);
   useEffect(() => {
     const getUser = async () => {
-      await fetch("https://imago-alpha.vercel.app/auth/login/success", {
+      await fetch("http://localhost:5000/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -61,7 +61,7 @@ const Header = ({ productID, setproductID}) => {
   
 
   const handleLogout = () => {
-    window.location.href = "https://imago-alpha.vercel.app/login";
+    window.location.href = "http://localhost:5000/login";
   };
   const handleGetProduct = async (id) => {
     setSearchItem('')

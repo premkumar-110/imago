@@ -199,3 +199,223 @@
     cursor: pointer;
     border-radius: 50%;
 }
+@media only screen and (max-width: 850px) {
+    .ParticularProduct{
+        width: 100%;
+        font-family: 'poppins','Open Sans', sans-serif;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .ImageContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        width: 100%;
+        border-bottom: 0px solid lightgray;
+        padding-bottom: 1.5rem;
+    }
+    .ProductImages{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+    }
+    .showImage img{
+        padding: 0rem;
+        width:20rem;
+        height: 20rem;
+        padding: 0;
+    }
+    .imageSlide img{
+        width: 100px;
+        height: 75px;
+        cursor: pointer;
+    }
+    .AddtoCart{
+        width: 45%;
+    }
+    .BuyNow{
+        width: 45%;
+    } 
+    .ProductDescriptionContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+    .ProductDescriptionContainer .title{
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .SizeDetails{
+        padding: 1rem;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+    }
+    .size_title{
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    
+    .sizeButton{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+    }
+    .ProductDescription{
+        padding: 1rem;
+        border-radius: .5rem;
+        border: 2px solid lightgray;
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+    }
+    .ProductDescription .description{
+        letter-spacing: 1px;
+        line-height: 2rem;
+    }
+    .OfferDescription{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 2rem;
+        background-color: aliceblue;
+        border-radius: .5rem;
+    
+    }
+    .RemainingProductContainer{
+        width: 100%;
+        padding: 1rem;
+        margin-top: 0rem;
+    }
+    .RemainingProductContainer .Products{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .RemainingProductContainer .Products .ProductCard{
+        height: 25rem;
+        width: 30%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .ImageContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        width: 100%;
+        border-bottom: 0px solid lightgray;
+        padding-bottom: 1.5rem;
+    }
+    .ProductImages{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+    }
+    .showImage img{
+        padding: 0rem;
+        width:15rem;
+        height: 15rem;
+        padding: 0;
+    }
+    .imageSlide img{
+        width: 75px;
+        height: 50px;
+        cursor: pointer;
+    }
+    .AddtoCart{
+        width:fit-content;
+        gap: .1rem;
+        padding: 5px;
+    }
+    .BuyNow{
+        padding: 5px;
+        gap: .1rem;
+        width: fit-content;
+    } 
+    .ProductDescriptionContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .ProductDescriptionContainer .title{
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .SizeDetails{
+        padding: 1rem;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+    }
+    .size_title{
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    
+    .sizeButton{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+    }
+    .ProductDescription{
+        padding: 1rem;
+        border-radius: .5rem;
+        border: 2px solid lightgray;
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+    }
+    .ProductDescription .description{
+        letter-spacing: 1px;
+        line-height: 2rem;
+    }
+    .OfferDescription{
+        display: flex;
+        flex-direction: row;
+        gap: .5rem;
+        align-items: center;
+        justify-content: space-around;
+        padding: 1rem;
+        background-color: aliceblue;
+        border-radius: .5rem;
+    
+    }
+    .RemainingProductContainer{
+        width: 100%;
+        padding: 1rem;
+        margin-top: 0rem;
+    }
+    .RemainingProductContainer .Products{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .RemainingProductContainer .Products .ProductCard{
+        gap: 0;
+        height: 20rem;
+        width: 45%;
+    }
+}

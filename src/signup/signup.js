@@ -38,16 +38,16 @@ const Signup = () => {
   };
 
   const handleGoogleLogin=async ()=>{
-    window.open(`https://imago-alpha.vercel.app/auth/google`, "_self");
+    window.open(`http://localhost:5000/auth/google`, "_self");
   }
   const handleFacebookLogin=async ()=>{
-    window.open(`https://imago-alpha.vercel.app/auth/facebook`, "_self");
+    window.open(`http://localhost:5000/auth/facebook`, "_self");
   }
   const handleGithubLogin=async ()=>{
-    window.open(`https://imago-alpha.vercel.app/auth/github`, "_self");
+    window.open(`http://localhost:5000/auth/github`, "_self");
   }
   const handleDiscordLogin=async ()=>{
-    window.open(`https://imago-alpha.vercel.app/auth/discord`, "_self");
+    window.open(`http://localhost:5000/auth/discord`, "_self");
   }
 
   const handleSignup=async ()=>{
@@ -62,7 +62,7 @@ const Signup = () => {
               });
         }
         else{
-            const response = await axios.post('https://imago-alpha.vercel.app/api/users/signup', {
+            const response = await axios.post('http://localhost:5000/api/users/signup', {
             email:email,
             password:password,
             });

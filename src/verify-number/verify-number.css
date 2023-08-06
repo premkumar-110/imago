@@ -136,3 +136,113 @@
     padding: .5rem;
     border-radius: .3rem;
   }
+
+  @media only screen and (max-width: 850px) {
+    .OTP_Container img{
+      height: 4rem;
+    }
+    .otp_verification{
+      display: flex;
+      border: 1px solid gray;
+    }
+    .OTP_Container{
+      height:100%;
+      width: 100%;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0rem;
+      padding: 2rem;
+    }
+   
+    .Ph_Container{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .Ph_Container input{
+      width: 100%;
+      padding: .5rem;
+      border: 1px solid gray;
+      outline: none;
+    }
+    .Ph_Container button{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+    .otpContainer{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .otpContainer p{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .VerifyBtn{
+      width: auto;
+      padding: .6rem;
+      background-color: #5277F7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+    .PersonalDetails{
+      width: 100%;
+      padding: 1rem;
+    }
+    .PersonalDetails .email{
+       display: flex;
+       align-items: flex-start;
+       width: 100%;
+    }
+    .PersonalDetails p{
+      display: grid;
+      place-content: center;
+    }
+    .PersonalDetails .EmailContainer{
+      width: 100%;
+      border: 1px solid gray;
+      height: 2.5rem;
+    }
+    .PersonalDetails .EmailContainer input{
+      height: 100%;
+      width: 100%;
+    }
+    .PersonalDetails .addressContainer{
+      height: 100%;
+      border: none;
+      outline: none;
+      width: 100%;
+      resize: none;
+      border: 1px solid gray;
+      border-radius: .3rem;
+      padding: 1rem;
+    }
+    .SubmitDetails{
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .SubmitDetails button{
+      width: 60%;
+      border: none;
+      outline: none;
+      background-color: #5277F7;
+      color: white;
+      padding: .5rem;
+      border-radius: .3rem;
+    }
+  }

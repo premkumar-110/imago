@@ -79,10 +79,10 @@ const Login = () => {
       const data={email:email,password:password}
       const response = await axios.post('http://localhost:5000/api/users/login', data);
       console.log(response)
-      if (response.status === 200) {
+      if (response.status == 200) {
         setonLoginSpinner(false);
         toaster.addToast('Successfully Logged In', 'success', {
-          duration: 4000,
+          duration: 3000,
           styles: {
             backgroundColor: 'green',
             color: '#ffffff',
@@ -100,16 +100,6 @@ const Login = () => {
         });
       }
     } catch (error) {
-      setonLoginSpinner(false);
-      if (error.response && error.response.status === 401) {
-        toaster.addToast('Invalid email or password', 'warning', {
-          duration: 4000,
-          styles: {
-            backgroundColor: 'orange',
-            color: '#ffffff',
-          },
-        });
-      } else {
         setonLoginSpinner(false);
         console.log(error);
         toaster.addToast('An error occurred, please try again later', 'failure', {
@@ -119,7 +109,6 @@ const Login = () => {
             color: '#ffffff',
           },
         });
-      }
     }
   };
   

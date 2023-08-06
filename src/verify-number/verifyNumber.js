@@ -18,7 +18,7 @@ const VerifyNumber = () => {
 
   const handlesendotp = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/users/sendSMS', {
+      const response = await axios.post('https://server-imago.vercel.app/api/users/sendSMS', {
         no: number,
       });
       if (response && response.data && response.data.otp) {
@@ -69,7 +69,7 @@ const VerifyNumber = () => {
   };
 
   const handleSubmit=async ()=>{
-    const response=await axios.post('http://localhost:5000/api/users/addDetails',{
+    const response=await axios.post('https://server-imago.vercel.app/api/users/addDetails',{
       "name":name,
       "email":"scpprem006@gmail.com",
       "phoneNumber":number,

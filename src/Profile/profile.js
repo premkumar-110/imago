@@ -14,7 +14,7 @@ const Profile = () => {
 
     useEffect(() => {
         const getUser = async () => {
-          await fetch("http://localhost:5000/auth/login/success", {
+          await fetch("https://server-imago.vercel.app/auth/login/success", {
             method: "GET",
             credentials: "include",
             headers: {

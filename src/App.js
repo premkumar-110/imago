@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
 
     const products = async () => {
-      const productData = await axios.get('https://server-imago.vercel.app/api/users/getProducts');
+      const productData = await axios.get('https://imago-alpha.vercel.app/api/users/getProducts');
       
       setProduct(productData.data.response);
       

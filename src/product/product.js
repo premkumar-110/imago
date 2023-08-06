@@ -32,7 +32,7 @@ const Product = ({ productID, setproductID,productsList,setProduct }) => {
               return; 
             }
           }
-          const response = await axios.post('https://server-imago.vercel.app/api/users/getSingleProduct', { id: productID });
+          const response = await axios.post('http://localhost:5000/api/users/getSingleProduct', { id: productID });
           console.log(response);
           setSingleProduct(response.data.response);
           setisLoading(false);

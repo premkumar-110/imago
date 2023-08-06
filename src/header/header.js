@@ -18,7 +18,7 @@ const Header = ({ productID, setproductID}) => {
   useEffect(() => {
 
     const products = async () => {
-      const productData = await axios.get('https://server-imago.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       setProduct(productData.data.response);
       
     };
@@ -26,7 +26,7 @@ const Header = ({ productID, setproductID}) => {
   }, []);
   useEffect(() => {
     const getUser = async () => {
-      await fetch("https://server-imago.vercel.app/auth/login/success", {
+      await fetch("http://localhost:5000/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -48,6 +48,8 @@ const Header = ({ productID, setproductID}) => {
     };
     getUser();
   }, []);
+  
+  
 
   useEffect(() => {
     const response = productsList?.filter((item) => {
@@ -70,6 +72,7 @@ const Header = ({ productID, setproductID}) => {
   };
   return (
     <>
+    <div className='NavSection'>
       <div className="navbar">
         <div className='logo' onClick={()=>navigate('/home')}><img src={logo} alt="logo"></img>IMAGO</div>
         <div className='search'>
@@ -79,7 +82,7 @@ const Header = ({ productID, setproductID}) => {
           <div className='ProfileDetails' onClick={() => {
             setShowDropDown(!showDropDown);
           }}>
-            <section className='nameData'>{user.displayName}</section>
+            <section className='nameData'>{user.displayName || "Welcome"}</section>
             <img
               src={user.photos[0]?.value || ''}
               alt="userLogo" 
@@ -111,6 +114,7 @@ const Header = ({ productID, setproductID}) => {
           </div>
         </>
       }
+      </div>
     </>
   )
 }

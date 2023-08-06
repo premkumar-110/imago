@@ -77,7 +77,7 @@ const Login = () => {
       }
       setonLoginSpinner(true);
       const data={email:email,password:password}
-      const response = await axios.post('https://server-imago.vercel.app/api/users/login', data);
+      const response = await axios.post('http://localhost:5000/api/users/login', data);
       console.log(response)
       if (response.status === 200) {
         setonLoginSpinner(false);
@@ -124,16 +124,16 @@ const Login = () => {
   };
   
   const handleGoogleLogin=async ()=>{
-    window.open(`https://server-imago.vercel.app/auth/google`, "_self");
+    window.open(`http://localhost:5000/auth/google`, "_self");
   }
   const handleFacebookLogin=async ()=>{
-    window.open(`https://server-imago.vercel.app/auth/facebook`, "_self");
+    window.open(`http://localhost:5000/auth/facebook`, "_self");
   }
   const handleGithubLogin=async ()=>{
-    window.open(`https://server-imago.vercel.app/auth/github`, "_self");
+    window.open(`http://localhost:5000/auth/github`, "_self");
   }
   const handleDiscordLogin=async ()=>{
-    window.open(`https://server-imago.vercel.app/auth/discord`, "_self");
+    window.open(`http://localhost:5000/auth/discord`, "_self");
   }
 
   const sendEmail=async ()=>{
@@ -147,7 +147,7 @@ const Login = () => {
       });
     }
     else{
-      const response=await axios.post('https://server-imago.vercel.app/api/users/sendEmail',{
+      const response=await axios.post('http://localhost:5000/api/users/sendEmail',{
         email:forgetEmail
       })
       toaster.addToast('Email sent successfully', 'success', {
@@ -200,7 +200,7 @@ const Login = () => {
       });
     }
     else{
-      const response=axios.post('https://server-imago.vercel.app/api/users/resetPassword',{
+      const response=axios.post('http://localhost:5000/api/users/resetPassword',{
         email:forgetEmail,
         password:resetPassword
       })
@@ -212,7 +212,7 @@ const Login = () => {
             color: '#ffffff',
           },
         });
-        setVerifyPass(0); 
+        setVerifyPass(0);  
         setResetPass(0);
       }  
     }

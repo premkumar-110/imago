@@ -6,26 +6,32 @@ import { useNavigate } from 'react-router-dom';
 import Filter from '../filter/Filter';
 import Header from '../header/header';
 import AOS from 'aos';
+import { BsArrowUp } from "react-icons/bs";
 const Home = ({ productID, setproductID, productsList, setProduct }) => {
   const [isLoading, setisLoading] = useState(true);
   const navigate = useNavigate();
-
+  const [originalProductsList, setOriginalProductsList] = useState([]);
   useEffect(() => {
     AOS.init();
     setTimeout(()=>{
       setisLoading(false);
     },2000)
-    
+    setOriginalProductsList(productsList);
     console.log({ productsList });
   }, [productsList]);
 
   const handleGetProduct = async (id) => {
-    sessionStorage.setItem('id', id);
+    setProduct(originalProductsList)
     setproductID(id);
     console.log(id);
-    navigate('/product');
+    navigate(`/product/${id}`);
   };
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
   return (
     <>
       {isLoading ? (
@@ -37,7 +43,7 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
             <span class="visually-hidden">Loading...</span>
           </div>
           <div class="spinner-grow text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Loading...</span> 
           </div>
         </div>
       ) : (
@@ -74,9 +80,10 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
                 }
               </div>
             </section>
-          </div>
+          </div><BsArrowUp className="scroll-button" onClick={scrollToTop} />
         </>
       )}
+      
     </>
   );
 };

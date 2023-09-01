@@ -4,14 +4,14 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icon
 import axios from 'axios';
 
 const Filter = ({ productsList, setProduct }) => {
-  const [categorychecked, setCategoryChecked] = useState(false);
+  const [categorychecked, setCategoryChecked] = useState(true);
   const [pricechecked, setPriceChecked] = useState(false);
   const [discountchecked, setDiscountChecked] = useState(false);
   const [originalProductsList, setOriginalProductsList] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
+      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
       setOriginalProductsList(productData.data.response);
     };
     fetchProducts();
@@ -21,7 +21,8 @@ const Filter = ({ productsList, setProduct }) => {
     setCategoryChecked(true);
     setPriceChecked(false);
     setDiscountChecked(false);
-    const filteredProducts = productsList.filter((product) => product.category === category);
+    handleClearAll();
+    const filteredProducts = originalProductsList.filter((product) => product.category === category);
     setProduct(filteredProducts);
   };
 
@@ -29,7 +30,8 @@ const Filter = ({ productsList, setProduct }) => {
     setCategoryChecked(false);
     setPriceChecked(true);
     setDiscountChecked(false);
-    const filteredProducts = productsList.filter((product) => product.price * 80 <= maxPrice);
+    handleClearAll();
+    const filteredProducts = originalProductsList.filter((product) => product.price * 80 <= maxPrice);
     setProduct(filteredProducts);
   };
 
@@ -37,7 +39,8 @@ const Filter = ({ productsList, setProduct }) => {
     setCategoryChecked(false);
     setPriceChecked(false);
     setDiscountChecked(true);
-    const filteredProducts = productsList.filter((product) => Math.floor(product.discountPercentage) >= minDiscount);
+    handleClearAll();
+    const filteredProducts = originalProductsList.filter((product) => Math.floor(product.discountPercentage) >= minDiscount);
     setProduct(filteredProducts);
   };
 
@@ -78,6 +81,20 @@ const Filter = ({ productsList, setProduct }) => {
                 <li onClick={() => handleCategoryFilter('laptops')}>LAPTOPS</li>
                 <li onClick={() => handleCategoryFilter('fragrances')}>FRAGRANCES</li>
                 <li onClick={() => handleCategoryFilter('skincare')}>SKIN CARE</li>
+                <li onClick={() => handleCategoryFilter('mens-shirts')}>MENS SHIRT</li>
+                <li onClick={() => handleCategoryFilter('mens-shoes')}>MENS SHOES</li>
+                <li onClick={() => handleCategoryFilter('mens-watches')}>MENS WATCHES</li>
+                <li onClick={() => handleCategoryFilter('tops')}>TOPS</li>
+                <li onClick={() => handleCategoryFilter('furniture')}>FURNITURE</li>
+                <li onClick={() => handleCategoryFilter('womens-shoes')}>WOMENS SHOES</li>
+                <li onClick={() => handleCategoryFilter('womens-dresses')}>WOMENS DRESSES</li>
+                <li onClick={() => handleCategoryFilter('womens-watches')}>WOMENS WATCHES</li>
+                <li onClick={() => handleCategoryFilter('womens-bags')}>WOMENS BAGS</li>
+                <li onClick={() => handleCategoryFilter('womens-jewellery')}>WOMENS JWELLERY</li>
+                <li onClick={() => handleCategoryFilter('sunglasses')}>SUN GLASSES</li>
+                <li onClick={() => handleCategoryFilter('automotive')}>AUTOMOTIVE</li>
+                <li onClick={() => handleCategoryFilter('motorcycle')}>MOTORCYCLE</li>
+                <li onClick={() => handleCategoryFilter('lighting')}>LIGHTNING</li>
               </ul>
             )}
           </span>

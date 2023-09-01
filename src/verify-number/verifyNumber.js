@@ -7,7 +7,7 @@ import axios from 'axios';
 import ToasterUi from 'toaster-ui';
 import { useNavigate } from 'react-router-dom';
 
-const VerifyNumber = () => {
+const VerifyNumber = ({userEmail}) => {
   const toaster = new ToasterUi();
   const [otp, setOtp] = useState('');
   const [gotp, setGotp] = useState('');
@@ -15,10 +15,11 @@ const VerifyNumber = () => {
   const [name,setName]=useState('');
   const [address,setAddress]=useState('');
   const navigate=useNavigate();
+  const [validno,setValidNo]=useState(true); 
 
   const handlesendotp = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/users/sendSMS', {
+      const response = await axios.post('https://imago-backend.vercel.app/api/users/sendSMS', {
         no: number,
       });
       if (response && response.data && response.data.otp) {
@@ -56,6 +57,15 @@ const VerifyNumber = () => {
   const handleVerifyOTP = () => {
     console.log(gotp,otp)
     if (otp == gotp) {
+      setValidNo(false);
+      toaster.addToast('OTP Verified successfully', 'error', {
+        duration: 4000,
+        styles: {
+          backgroundColor: 'green',
+          color: '#ffffff',
+        },
+      });
+    } else {
       toaster.addToast('Invalid OTP', 'error', {
         duration: 4000,
         styles: {
@@ -63,15 +73,13 @@ const VerifyNumber = () => {
           color: '#ffffff',
         },
       });
-    } else {
-      alert('Invalid OTP');
     }
   };
 
   const handleSubmit=async ()=>{
-    const response=await axios.post('http://localhost:5000/api/users/addDetails',{
+    const response=await axios.post('https://imago-backend.vercel.app/api/users/addDetails',{
       "name":name,
-      "email":"scpprem006@gmail.com",
+      "email":userEmail,
       "phoneNumber":number,
       "address":address
     });
@@ -93,6 +101,7 @@ const VerifyNumber = () => {
       <div className="OTP_Container">
         <img src={logo} alt="logo" />
         <h3>SUBMIT YOUR DETAILS</h3>
+        { validno && <>
         <div className="Ph_Container">
           <input
             type="phone"
@@ -104,23 +113,22 @@ const VerifyNumber = () => {
             SEND OTP <BsArrowUpRight className="otpicons" />
           </button>
         </div>
-        <div className="otpContainer">
-          <p>ENTER THE OTP TO VERIFY</p>
+        <div className="otpContainer"> 
           <OtpInput
             className="otp_verification"
-            value={otp}
+            value={otp}  
             onChange={setOtp}
             numInputs={6}
-            renderSeparator={<span>-</span>}
+            renderSeparator={<span>-</span>} 
             renderInput={(props) => <input {...props} className="otp-input" />}
           />
-        </div>
-        <button className="VerifyBtn" onClick={handleVerifyOTP}>
-          VERIFY
-        </button>
+          <button className="VerifyBtn" onClick={handleVerifyOTP}>VERIFY</button>
+        </div></>
+}
+        
         <div className='PersonalDetails'>
             <div className='email'>
-              <p>NAME</p>
+              <p>NAME <span>*</span></p>
               <div className='EmailContainer'>
                 <input type='text' placeholder='Enter your name'  onChange={(e)=>{setName(e.target.value)}}/>
               </div>
@@ -128,7 +136,7 @@ const VerifyNumber = () => {
         </div>
         <div className='PersonalDetails'>
             <div className='email'>
-              <p>ADDRESS</p>
+              <p>ADDRESS <span>*</span></p>
                 <textarea className='addressContainer' type='text' placeholder='Enter your address' onChange={(e)=>{setAddress(e.target.value)}} />
             </div>
         </div>

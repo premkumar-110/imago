@@ -18,7 +18,7 @@ const Header = ({ productID, setproductID}) => {
   useEffect(() => {
 
     const products = async () => {
-      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
+      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
       setProduct(productData.data.response);
       
     };
@@ -26,7 +26,7 @@ const Header = ({ productID, setproductID}) => {
   }, []);
   useEffect(() => {
     const getUser = async () => {
-      await fetch("http://localhost:5000/auth/login/success", {
+      await fetch("https://imago-backend.vercel.app/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -55,20 +55,17 @@ const Header = ({ productID, setproductID}) => {
     const response = productsList?.filter((item) => {
       return item.title.toLowerCase().includes(searchitem.toLowerCase());
     });
-    console.log(response)
     setFilterItems(response || []);
   }, [searchitem, productsList]);
   
 
   const handleLogout = () => {
-    window.location.href = "http://localhost:5000/login";
+    window.location.href = "http://localhost:3000/login";
   };
   const handleGetProduct = async (id) => {
     setSearchItem('')
-    sessionStorage.setItem('id', id);
     setproductID(id);
-    console.log(id);
-    navigate('/product');
+    navigate(`/product/${id}`);
   };
   return (
     <>
@@ -109,7 +106,7 @@ const Header = ({ productID, setproductID}) => {
                   {item.title}
                 </div>
               )
-            })
+            }) 
           }
           </div>
         </>

@@ -3,7 +3,7 @@ import '../product/product.css'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../dashboard/home.css';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import { AiFillStar } from "react-icons/ai";
@@ -13,14 +13,25 @@ import ReturnPolicy from '../images/ReturnProduct.svg';
 import { BsArrowUp } from "react-icons/bs";
 import Header from '../header/header';
 import AOS from 'aos';
+import ToasterUi from 'toaster-ui';
 const Product = ({ productID, setproductID,productsList,setProduct }) => {
+    const toaster = new ToasterUi();
     const [isLoading,setisLoading]=useState(true);
     const navigate = useNavigate();
     const [singleProduct,setSingleProduct]=useState({});
     const [imgCount,setImageCount]=useState(0)
+    const {id}=useParams();
 
     useEffect(() => {
+        console.log(id);
         AOS.init();
+        const products = async () => {
+          const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+          
+          setProduct(productData.data.response);
+          
+        };
+        products();
         const productdata = async () => {
           if (!productID) {
             const storedProductID = sessionStorage.getItem('id');
@@ -32,8 +43,7 @@ const Product = ({ productID, setproductID,productsList,setProduct }) => {
               return; 
             }
           }
-          const response = await axios.post('http://localhost:5000/api/users/getSingleProduct', { id: productID });
-          console.log(response);
+          const response = await axios.post('https://imago-backend.vercel.app/api/users/getSingleProduct', { id: id });
           setSingleProduct(response.data.response);
           setisLoading(false);
         };
@@ -44,15 +54,35 @@ const Product = ({ productID, setproductID,productsList,setProduct }) => {
       const handleGetProduct = async (id) => {
         // Set the product ID in session storage
         
-        sessionStorage.setItem('id', id);
         window.scrollTo({
           top: 0
         });
         setproductID(id); // Update the productID state directly
         console.log(id); 
         setImageCount(0)
-        navigate('/product');
+        navigate(`/product/${id}`);
       };
+      const handleaddtoCart=async (id)=>{
+        const response = await axios.post('https://imago-backend.vercel.app/api/users/addToCart',{email:"scpprem006@gmail.com",id:id});
+        if(response.status==200){
+          toaster.addToast('Successfully added to Cart', 'success', {
+            duration: 3000,
+            styles: {
+              backgroundColor: 'green',
+              color: '#ffffff',
+            },
+          });
+        }
+        else{
+          toaster.addToast(response.message, 'failure', {
+            duration: 3000,
+            styles: {
+              backgroundColor: 'green',
+              color: '#ffffff',
+            },
+          });
+        }
+      }
       const handleSubmit = () => {
             var option = {
                 key: "rzp_test_PVrN8Q8hFzJ7Je",
@@ -61,7 +91,7 @@ const Product = ({ productID, setproductID,productsList,setProduct }) => {
                 currency: "INR",
                 name: "Payment Check",
                 description: "Testing",
-                handler: function (res) {
+                handler: function (res) { 
                     alert(res.razorpay_payment_id)
                 },
                 prefill: {
@@ -118,7 +148,7 @@ const Product = ({ productID, setproductID,productsList,setProduct }) => {
 
 
                 <div className='productButtons'>
-                    <button className='AddtoCart' onClick={()=>navigate('/verify_details')}><AiOutlineShoppingCart className='ATCLogo'/> Add to Cart</button>
+                    <button className='AddtoCart' onClick={()=>handleaddtoCart(singleProduct.id)}><AiOutlineShoppingCart className='ATCLogo'/> Add to Cart</button>
                     <button className='BuyNow' onClick={handleSubmit}><RxDoubleArrowRight className='BNLogo'/> Buy Now</button>
                 </div>
             </div>

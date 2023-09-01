@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora&family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz@10..48&family=Roboto&display=swap');
 .LoginComponent{
     display: flex;
     flex-direction: row;
@@ -264,12 +265,19 @@
 }
 .DescriptionSection header{
     width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.DescriptionSection header img{
+    width: 2rem;
+    height: 2rem;
 }
 .DescriptionSection header .product{
     display: flex;
     color: white;
     font-size: 20px;
-    font-family: sans-serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     letter-spacing: 1px;
     cursor: pointer;
 }
@@ -286,15 +294,28 @@
     display: none;
 }
 @media only screen and (max-width: 600px) {
+    .LoginComponent{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
     .DescriptionSection{
+        height: 10vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .DescriptionSection .Description{
+        font-size: 20px;
         display: none;
     }
-    .Menu{
-        display: block;
+    .DescriptionSection .Description p .quote{
+        display: flex; 
         color: white;
-        font-size: 25px;
-        cursor: pointer;
-    }
+        font-size: 20px;
+    } 
     .LoginSection{
         width: 100vw;
     }

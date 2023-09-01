@@ -136,7 +136,13 @@
     padding: .5rem;
     border-radius: .3rem;
   }
-
+.PersonalDetails .email p{
+  display: flex;
+  gap: .3rem;
+}
+.PersonalDetails .email p span{
+  color: red;
+}
   @media only screen and (max-width: 850px) {
     .OTP_Container img{
       height: 4rem;

@@ -13,13 +13,14 @@ import Filter from './filter/Filter';
 import Cart from './cart/cart'
 function App() {
   const [productsList, setProduct] = useState([]);
+  const [userEmail,setUserEmail]=useState('');
   useEffect(() => {
 
     const products = async () => {
-      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
+      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
       
       setProduct(productData.data.response);
-      
+      setUserEmail(sessionStorage.getItem('email'))
     };
     products();
   }, []);
@@ -27,12 +28,12 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path='/login' element={<Login />}/>
+      <Route path='/login' element={<Login setUserEmail={setUserEmail} />}/>
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/home' element={<Home productID={productID} setproductID={setproductID} productsList={productsList} setProduct={setProduct}/>}/>
-      <Route path='/product' element={<Product productID={productID} setproductID={setproductID} productsList={productsList} setProduct={setProduct}/>}/>
-      <Route path='/verify_details' element={<VerifyNumber/>}/>
-      <Route path='/profile' element={<Profile/>}/>
+      <Route path='/product/:id' element={<Product productID={productID} setproductID={setproductID} productsList={productsList} setProduct={setProduct}/>}/>
+      <Route path='/verify_details' element={<VerifyNumber userEmail={userEmail}/>}/>
+      <Route path='/profile' element={<Profile userEmail={userEmail}/>}/>
       <Route path='/header' element={<Header productID={productID} setproductID={setproductID}/>}/>
       <Route path='/filter' element={<Filter productsList={productsList} setProduct={setProduct}/>}/>
       <Route path='/cart' element={<Cart/> }/>

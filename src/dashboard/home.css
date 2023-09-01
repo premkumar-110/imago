@@ -26,6 +26,7 @@
 }
 .Products{
     width: 80%;
+    height: fit-content; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,8 +35,8 @@
     font-family: 'poppins','Open Sans', sans-serif;
 }
 .ProductCard{
-    height: 30rem;
-    width: 30%;
+    height: 25rem;
+    width: 22%;
     padding: 2rem;
     border: 1px solid lightgray;
     display: flex;
@@ -79,7 +80,20 @@
 .RatingSection p{
     margin-top: 1rem;
 }
-
+.scroll-button{
+    padding: .5rem;
+    background-color: #5277F7;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    font-size: 2.7rem;
+    font-weight: bold;
+    border-radius: .4rem;
+}
 
 @media only screen and (max-width: 850px) {
     

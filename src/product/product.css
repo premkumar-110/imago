@@ -199,6 +199,25 @@
     cursor: pointer;
     border-radius: 50%;
 }
+.Pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0 4rem 0;
+    /* border-top: 1px solid black; */
+    width: 100%;
+    gap: 2rem;
+}
+.Pagination button{
+    padding: .6rem 2rem;
+    border: none;
+    background-color: #5277F7;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
 @media only screen and (max-width: 850px) {
     .ParticularProduct{
         width: 100%;

@@ -60,7 +60,7 @@ const Header = ({ productID, setproductID}) => {
   
 
   const handleLogout = () => {
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "https://imago-backend.vercel.app/login";
   };
   const handleGetProduct = async (id) => {
     setSearchItem('')

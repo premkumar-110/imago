@@ -1,9 +1,8 @@
-
 import '../product/product.css'
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../dashboard/home.css';
-import {  useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import { AiFillStar } from "react-icons/ai";
@@ -14,104 +13,109 @@ import { BsArrowUp } from "react-icons/bs";
 import Header from '../header/header';
 import AOS from 'aos';
 import ToasterUi from 'toaster-ui';
-const Product = ({ productID, setproductID,productsList,setProduct }) => {
-    const toaster = new ToasterUi();
-    const [isLoading,setisLoading]=useState(true);
-    const navigate = useNavigate();
-    const [singleProduct,setSingleProduct]=useState({});
-    const [imgCount,setImageCount]=useState(0)
-    const {id}=useParams();
+import { AiOutlineDoubleRight ,AiOutlineDoubleLeft } from "react-icons/ai";
 
-    useEffect(() => {
-        console.log(id);
-        AOS.init();
-        const products = async () => {
-          const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
-          
-          setProduct(productData.data.response);
-          
-        };
-        products();
-        const productdata = async () => {
-          if (!productID) {
-            const storedProductID = sessionStorage.getItem('id');
-            if (storedProductID) {
-              setproductID(storedProductID);
-              return; 
-            } else {
-              setproductID(1);
-              return; 
-            }
-          }
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/getSingleProduct', { id: id });
-          setSingleProduct(response.data.response);
-          setisLoading(false);
-        };
-        productdata();
-      }, [productID, setproductID]);
+const Product = ({ productID, setproductID, productsList, setProduct }) => {
+  const toaster = new ToasterUi();
+  const [isLoading, setisLoading] = useState(true);
+  const navigate = useNavigate();
+  const [singleProduct, setSingleProduct] = useState({});
+  const [imgCount, setImageCount] = useState(0);
+  const { id } = useParams();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
 
-      const handleGetProduct = async (id) => {
-        // Set the product ID in session storage
-        
-        window.scrollTo({
-          top: 0
-        });
-        setproductID(id); // Update the productID state directly
-        console.log(id); 
-        setImageCount(0)
-        navigate(`/product/${id}`);
-      };
-      const handleaddtoCart=async (id)=>{
-        const response = await axios.post('https://imago-backend.vercel.app/api/users/addToCart',{email:"scpprem006@gmail.com",id:id});
-        if(response.status==200){
-          toaster.addToast('Successfully added to Cart', 'success', {
-            duration: 3000,
-            styles: {
-              backgroundColor: 'green',
-              color: '#ffffff',
-            },
-          });
-        }
-        else{
-          toaster.addToast(response.message, 'failure', {
-            duration: 3000,
-            styles: {
-              backgroundColor: 'green',
-              color: '#ffffff',
-            },
-          });
+  useEffect(() => {
+    AOS.init();
+
+    const products = async () => {
+      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      setProduct(productData.data.response);
+    };
+    products();
+
+    const productdata = async () => {
+      if (!productID) {
+        const storedProductID = sessionStorage.getItem('id');
+        if (storedProductID) {
+          setproductID(storedProductID);
+        } else {
+          setproductID(1);
         }
       }
-      const handleSubmit = () => {
-            var option = {
-                key: "rzp_test_PVrN8Q8hFzJ7Je",
-                key_secret: "jcRs9PXi3lR2eJdm3qgyl1WC",
-                amount: singleProduct.price * 80 * 100,
-                currency: "INR",
-                name: "Payment Check",
-                description: "Testing",
-                handler: function (res) { 
-                    alert(res.razorpay_payment_id)
-                },
-                prefill: {
-                    name: "premkumar",
-                    email: "scpprem006@gmail.com",
-                    contact: "1234567890"
-                },
-                notes: {
-                    address: "RazorPay Corporate Office"
-                },
-                theme: {
-                    color: "#6383FA"
-                }
-            };
-            var pay = new window.Razorpay(option);
-            pay.open();
+      const response = await axios.post('https://imago-backend.vercel.app/api/users/getSingleProduct', { id: id });
+      setSingleProduct(response.data.response);
+      setisLoading(false);
     };
-    return (
-      <> 
-        {isLoading ? (
+    productdata();
+  }, [productID, setproductID]);
+
+  const handleGetProduct = async (id) => {
+    window.scrollTo({
+      top: 0
+    });
+    setproductID(id);
+    setImageCount(0);
+    navigate(`/product/${id}`);
+  };
+
+  const handleaddtoCart = async (id) => {
+    const response = await axios.post('https://imago-backend.vercel.app/api/users/addToCart', { email: "scpprem006@gmail.com", id: id });
+    if (response.status === 200) {
+      toaster.addToast('Successfully added to Cart', 'success', {
+        duration: 3000,
+        styles: {
+          backgroundColor: 'green',
+          color: '#ffffff',
+        },
+      });
+    } else {
+      toaster.addToast(response.message, 'failure', {
+        duration: 3000,
+        styles: {
+          backgroundColor: 'green',
+          color: '#ffffff',
+        },
+      });
+    }
+  };
+
+  const handleSubmit = () => {
+    var option = {
+      key: "rzp_test_PVrN8Q8hFzJ7Je",
+      key_secret: "jcRs9PXi3lR2eJdm3qgyl1WC",
+      amount: singleProduct.price * 80 * 100,
+      currency: "INR",
+      name: "Payment Check",
+      description: "Testing",
+      handler: function (res) {
+        alert(res.razorpay_payment_id);
+      },
+      prefill: {
+        name: "premkumar",
+        email: "scpprem006@gmail.com",
+        contact: "1234567890"
+      },
+      notes: {
+        address: "RazorPay Corporate Office"
+      },
+      theme: {
+        color: "#6383FA"
+      }
+    };
+    var pay = new window.Razorpay(option);
+    pay.open();
+  };
+
+  // Calculate current products based on pagination
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = productsList.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  return (
+    <>
+      {isLoading ? (
         <div className='LoderComponent'>
           <div class="spinner-grow text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -122,106 +126,108 @@ const Product = ({ productID, setproductID,productsList,setProduct }) => {
           <div class="spinner-grow text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
-        </div> 
-        ):(
+        </div>
+      ) : (
         <>
-           
-
-           <Header productID={productID} setproductID={setproductID} />
-        <div className='ParticularProduct' id='ParticularProduct'>
+          <Header productID={productID} setproductID={setproductID} />
+          <div className='ParticularProduct' id='ParticularProduct'>
             <div className='ImageContainer' data-aos="fade-right">
-            <div className='ProductImages'>
-              <div className='imageSlide'>
-                {singleProduct.images?.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    onClick={() => setImageCount(index)}
-                    alt='logo'
-                  />
-                ))}
-              </div>
-              <div className='showImage'>
-                <img src={singleProduct.images?.[imgCount]} alt={singleProduct?.title}/> 
-              </div>
-            </div>
-
-
-                <div className='productButtons'>
-                    <button className='AddtoCart' onClick={()=>handleaddtoCart(singleProduct.id)}><AiOutlineShoppingCart className='ATCLogo'/> Add to Cart</button>
-                    <button className='BuyNow' onClick={handleSubmit}><RxDoubleArrowRight className='BNLogo'/> Buy Now</button>
+              <div className='ProductImages'>
+                <div className='imageSlide'>
+                  {singleProduct.images?.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      onClick={() => setImageCount(index)}
+                      alt='logo'
+                    />
+                  ))}
                 </div>
-            </div>
-            
-              <div className='ProductDescriptionContainer' data-aos="fade-left">
-                <div className='Product_details'>
-                    <div className='title'>{singleProduct?.title}</div>
-                    <div className='Price'>₹{Math.floor(singleProduct.price)*80} <h6><s>₹{Math.floor(singleProduct.price*80) + 50}</s></h6></div>
-                    {singleProduct?.rating ? (
-                      <div className='RatingSection'>
-                        <div className='Ratings'>
-                          {singleProduct.rating}
-                          <AiFillStar className='RatingLogo' /> 
-                        </div>
-                        <p>{Math.floor(singleProduct.rating *100 +20)}Reviews</p>
-                      </div>
-                    ) : (
-                      <div>No rating available</div>
-                    )}
-                    <small><p>Free Delivery</p></small>
+                <div className='showImage'>
+                  <img src={singleProduct.images?.[imgCount]} alt={singleProduct?.title} />
+                </div>
               </div>
-              
-              <div className='ProductDescription'>
-                  <div className='size_title'>Product Description</div>
-                  <div className='description'>
-                    {singleProduct.description}
+              <div className='productButtons'>
+                <button className='AddtoCart' onClick={() => handleaddtoCart(singleProduct.id)}><AiOutlineShoppingCart className='ATCLogo' /> Add to Cart</button>
+                <button className='BuyNow' onClick={handleSubmit}><RxDoubleArrowRight className='BNLogo' /> Buy Now</button>
+              </div>
+            </div>
+            <div className='ProductDescriptionContainer' data-aos="fade-left">
+              <div className='Product_details'>
+                <div className='title'>{singleProduct?.title}</div>
+                <div className='Price'>₹{Math.floor(singleProduct.price) * 80} <h6><s>₹{Math.floor(singleProduct.price * 80) + 50}</s></h6></div>
+                {singleProduct?.rating ? (
+                  <div className='RatingSection'>
+                    <div className='Ratings'>
+                      {singleProduct.rating}
+                      <AiFillStar className='RatingLogo' />
+                    </div>
+                    <p>{Math.floor(singleProduct.rating * 100 + 20)} Reviews</p>
                   </div>
-                  <div className='category'><b>Brand : </b>{singleProduct.brand}</div>
-                  <div className='category'><b>Category : </b>{singleProduct.category}</div>
-                  <div className='category'><b>Stocks Available : </b>{singleProduct.stock}</div>
-                  <div className='category'><b>Category : </b>{singleProduct.category}</div>
+                ) : (
+                  <div>No rating available</div>
+                )}
+                <small><p>Free Delivery</p></small>
+              </div>
+              <div className='ProductDescription'>
+                <div className='size_title'>Product Description</div>
+                <div className='description'>
+                  {singleProduct.description}
                 </div>
+                <div className='category'><b>Brand : </b>{singleProduct.brand}</div>
+                <div className='category'><b>Category : </b>{singleProduct.category}</div>
+                <div className='category'><b>Stocks Available : </b>{singleProduct.stock}</div>
+                <div className='category'><b>Category : </b>{singleProduct.category}</div>
+              </div>
               <div className='OfferDescription'>
                 <section className='LowestPrice'><img src={LowestPrice} alt='Lowest Price'></img><small>Lowest Price</small> </section>
                 <section className='COD'><img src={CashOnDelivery} alt='Cash On Delivery'></img><small>Cash on Delivery</small> </section>
-                <section className='ReturnPolicy'><img src={ReturnPolicy} alt='ReturnPolicy'></img><small>7-day Returns</small> </section>  
+                <section className='ReturnPolicy'><img src={ReturnPolicy} alt='ReturnPolicy'></img><small>7-day Returns</small> </section>
               </div>
-
             </div>
-
-            
-
-        </div>
-        <div className='RemainingProductContainer'>
+          </div>
+          <div className='RemainingProductContainer'>
             <div className='Products'>
-            {
-              productsList.map((item)=>{
+              {currentProducts.map((item) => {
                 return (
-                  <div className='ProductCard' data-aos="zoom-in" key={item.id} onClick={()=>handleGetProduct(item.id)}>
+                  <div className='ProductCard' data-aos="zoom-in" key={item.id} onClick={() => handleGetProduct(item.id)}>
                     <img src={item.thumbnail} alt={item.title} />
                     <h5>{item.title.length > 20 ? item.title.slice(0, 20) + "..." : item.title}</h5>
-                    <div className='PriceDetails'><h3>₹{Math.floor(item.price*80)}</h3>Onwards</div>
+                    <div className='PriceDetails'><h3>₹{Math.floor(item.price * 80)}</h3>Onwards</div>
                     <p>Free Delivery</p>
                     <div className='RatingSection'>
-                      <div className='Ratings'>{item.rating}<AiFillStar className='RatingLogo'/></div>
-                      <p>{Math.floor(item.rating *100 +20)} Reviews</p>
+                      <div className='Ratings'>{item.rating}<AiFillStar className='RatingLogo' /></div>
+                      <p>{Math.floor(item.rating * 100 + 20)} Reviews</p>
                     </div>
                   </div>
-                ); 
-              })
-            }
+                );
+              })}
+            </div>
           </div>
-        </div>
-
-        <div className='UpArrow' onClick={()=>{
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Adds a smooth scrolling animation, you can omit this if you prefer an instant jump to the top
-          });
-        }}><BsArrowUp className='UparrowIcon'/></div>
-        </>  )}
-      </>
-    );
+          <div className='Pagination'>
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+             <AiOutlineDoubleLeft/> PREVIOUS
+            </button>
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={indexOfLastProduct >= productsList.length}
+            >
+              NEXT <AiOutlineDoubleRight/>
+            </button>
+          </div>
+          <div className='UpArrow' onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          }}><BsArrowUp className='UparrowIcon' /></div>
+        </>
+      )}
+    </>
+  );
 }
 
 export default Product;

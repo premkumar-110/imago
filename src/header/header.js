@@ -97,7 +97,7 @@ const Header = ({ productID, setproductID}) => {
           <div className='ProfileDetails' onClick={() => {
             setShowDropDown(!showDropDown);
           }}>
-            <section className='nameData'>{userDetails.name}</section>
+            <section className='nameData'>{userDetails.name.split(' ')[0]}</section>
             <img
               src={user.photos[0]?.value || ''}
               alt="userLogo" 

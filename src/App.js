@@ -11,13 +11,14 @@ import axios from 'axios';
 import Header from './header/header';
 import Filter from './filter/Filter';
 import Cart from './cart/cart'
+import Cookies from 'js-cookie';
 function App() {
   const [productsList, setProduct] = useState([]);
   const [userEmail,setUserEmail]=useState('');
   useEffect(() => {
-
+    
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       
       setProduct(productData.data.response);
       setUserEmail(sessionStorage.getItem('email'))

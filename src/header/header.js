@@ -8,6 +8,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../header/header.css';
+import Cookies from "js-cookie";
 const Header = ({ productID, setproductID}) => {
   const [user, setUser] = useState(null);
   const [showDropDown, setShowDropDown] = useState(false);
@@ -15,18 +16,32 @@ const Header = ({ productID, setproductID}) => {
   const [searchitem, setSearchItem] = useState('');
   const [filtereditems, setFilterItems] = useState([]);
   const [productsList, setProduct] = useState([]);
+  const [userDetails,setUserDetails] = useState({})
   useEffect(() => {
-
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       setProduct(productData.data.response);
       
     };
     products();
   }, []);
   useEffect(() => {
+    const GetCookie = async () => {
+      const user_id = Cookies.get("user_id");
+      if (user_id) {
+        try {
+          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          setUserDetails(response.data.verifiedUser)
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    };
+    
+    GetCookie();
+
     const getUser = async () => {
-      await fetch("https://imago-backend.vercel.app/auth/login/success", {
+      await fetch("http://localhost:5000/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -60,12 +75,15 @@ const Header = ({ productID, setproductID}) => {
   
 
   const handleLogout = () => {
-    window.location.href = "https://imago-alpha.vercel.app/login";
+    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "http://localhost:3000/login";
   };
   const handleGetProduct = async (id) => {
     setSearchItem('')
+    sessionStorage.setItem('id', id);
     setproductID(id);
-    navigate(`/product/${id}`);
+    console.log(id);
+    navigate('/product');
   };
   return (
     <>
@@ -79,7 +97,7 @@ const Header = ({ productID, setproductID}) => {
           <div className='ProfileDetails' onClick={() => {
             setShowDropDown(!showDropDown);
           }}>
-            <section className='nameData'>{user.displayName}</section>
+            <section className='nameData'>{userDetails.name}</section>
             <img
               src={user.photos[0]?.value || ''}
               alt="userLogo" 

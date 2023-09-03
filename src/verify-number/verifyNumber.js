@@ -6,6 +6,7 @@ import { BsArrowUpRight } from 'react-icons/bs';
 import axios from 'axios';
 import ToasterUi from 'toaster-ui';
 import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 const VerifyNumber = ({userEmail}) => {
   const toaster = new ToasterUi();
@@ -16,10 +17,27 @@ const VerifyNumber = ({userEmail}) => {
   const [address,setAddress]=useState('');
   const navigate=useNavigate();
   const [validno,setValidNo]=useState(true); 
-
+  const [validuserDetails,setVaildUserDetails] = useState({})
+  useEffect(()=>{
+    const GetCookie = async () => {
+      const user_id = Cookies.get("user_id");
+      if (user_id) {
+        try {
+          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          // console.log(response.data.verifiedUser); // Access the response data using response.data
+          setVaildUserDetails(response.data.verifiedUser)
+          
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    };
+    
+    GetCookie();
+  },[])
   const handlesendotp = async () => {
     try {
-      const response = await axios.post('https://imago-backend.vercel.app/api/users/sendSMS', {
+      const response = await axios.post('http://localhost:5000/api/users/sendSMS', {
         no: number,
       });
       if (response && response.data && response.data.otp) {
@@ -77,9 +95,9 @@ const VerifyNumber = ({userEmail}) => {
   };
 
   const handleSubmit=async ()=>{
-    const response=await axios.post('https://imago-backend.vercel.app/api/users/addDetails',{
+    const response=await axios.post('http://localhost:5000/api/users/addDetails',{
       "name":name,
-      "email":userEmail,
+      "email":validuserDetails.email,
       "phoneNumber":number,
       "address":address
     });

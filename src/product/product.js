@@ -14,6 +14,7 @@ import Header from '../header/header';
 import AOS from 'aos';
 import ToasterUi from 'toaster-ui';
 import { AiOutlineDoubleRight ,AiOutlineDoubleLeft } from "react-icons/ai";
+import Cookies from "js-cookie";
 
 const Product = ({ productID, setproductID, productsList, setProduct }) => {
   const toaster = new ToasterUi();
@@ -22,15 +23,29 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
   const [singleProduct, setSingleProduct] = useState({});
   const [imgCount, setImageCount] = useState(0);
   const { id } = useParams();
+  const [userDetails,setUserDetails] = useState({})
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
 
   useEffect(() => {
     AOS.init();
-
+    const GetCookie = async () => {
+      const user_id = Cookies.get("user_id");
+      if (user_id) {
+        try {
+          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          // console.log(response.data.verifiedUser); // Access the response data using response.data
+          setUserDetails(response.data.verifiedUser)
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    };
+    
+    GetCookie();
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       setProduct(productData.data.response);
     };
     products();
@@ -44,7 +59,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
           setproductID(1);
         }
       }
-      const response = await axios.post('https://imago-backend.vercel.app/api/users/getSingleProduct', { id: id });
+      const response = await axios.post('http://localhost:5000/api/users/getSingleProduct', { id: id });
       setSingleProduct(response.data.response);
       setisLoading(false);
     };
@@ -61,7 +76,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
   };
 
   const handleaddtoCart = async (id) => {
-    const response = await axios.post('https://imago-backend.vercel.app/api/users/addToCart', { email: "scpprem006@gmail.com", id: id });
+    const response = await axios.post('http://localhost:5000/api/users/addToCart', { email: userDetails.email, id: id });
     if (response.status === 200) {
       toaster.addToast('Successfully added to Cart', 'success', {
         duration: 3000,

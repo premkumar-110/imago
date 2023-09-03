@@ -17,7 +17,6 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
       setisLoading(false);
     },2000)
     setOriginalProductsList(productsList);
-    console.log({ productsList });
   }, [productsList]);
 
   const handleGetProduct = async (id) => {

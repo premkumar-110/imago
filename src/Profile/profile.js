@@ -6,17 +6,33 @@ import { IoPersonSharp } from "react-icons/io5";
 import { FaHistory } from "react-icons/fa";
 import { MdLocationOn, MdEmail, MdLanguage } from "react-icons/md";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 const Profile = ({userEmail}) => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [userDetails, setUserDetails] = useState({});
     const [visibility, setVisibility] = useState(true);
-
+    const [validuserDetails,setVaildUserDetails] = useState({})
     useEffect(() => {
-        console.log(userEmail)
+        const GetCookie = async () => {
+            const user_id = Cookies.get("user_id");
+            if (user_id) {
+              try {
+                const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+                // console.log(response.data.verifiedUser); // Access the response data using response.data
+                setVaildUserDetails(response.data.verifiedUser)
+                
+              } catch (error) {
+                console.error('Error:', error);
+              }
+            }
+          };
+          
+          GetCookie();
+
         const getUser = async () => {
-            await fetch("https://imago-backend.vercel.app/auth/login/success", {
+            await fetch("http://localhost:5000/auth/login/success", {
                 method: "GET",
                 credentials: "include",
                 headers: {
@@ -42,7 +58,7 @@ const Profile = ({userEmail}) => {
 
             try {
                 console.log("Email" + {userEmail})
-                const response = await axios.post('https://imago-backend.vercel.app/api/users/getDetails', { email: userEmail });
+                const response = await axios.post('http://localhost:5000/api/users/getDetails', { email: userEmail });
                 
                 console.log(response.data.response); // Add this line
                 setUserDetails(response.data.response);
@@ -83,8 +99,8 @@ const Profile = ({userEmail}) => {
                                         alt="userLogo"
                                         className="avatar"
                                     />
-                                    <section className='nameData'>Username : {user.displayName}</section>
-                                    <section className='nameData'>Email : {userDetails[0]?.email || 'Loading...'}</section>
+                                    <section className='nameData'>USERNAME : {validuserDetails.name}</section>
+                                    <section className='nameData'>EMAIL : {validuserDetails.email}</section>
                                 </div>
                                 <div className='profileRouteSection'>
                                     <button onClick={()=>{setVisibility(true)}}>
@@ -102,15 +118,15 @@ const Profile = ({userEmail}) => {
                                         <div className='PersonalCard'>
                                             <div className='Card'>
                                                 <h5>Name <IoPersonSharp /></h5>
-                                                <p>{userDetails[0]?.name || 'Loading...'}</p>
+                                                <p>{validuserDetails.name}</p>
                                             </div>
                                             <div className='Card'>
                                                 <h5>Address <MdLocationOn /></h5>
-                                                <p>{userDetails[0]?.address || 'Loading...'}</p>
+                                                <p>{validuserDetails.address}</p>
                                             </div>
                                             <div className='Card'>
                                                 <h5>Email <MdEmail /></h5>
-                                                <p>{userDetails[0]?.email || 'Loading...'}</p>
+                                                <p>{validuserDetails.email}</p>
                                             </div>
                                             <div className='Card'>
                                                 <h5>Language <MdLanguage /></h5>

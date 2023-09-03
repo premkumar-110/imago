@@ -29,7 +29,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
 }
 .showImage img{
     padding: 1rem;
@@ -222,6 +221,59 @@
     justify-content: center;
     gap: 1rem;
 }
+.NewofferContainer{
+    background-color: #5277F7;
+    color: white;
+    width: 100%;
+    height: fit-content;
+    padding: 4rem 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.NewofferDescription{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.NewofferImage{
+    height: 100%;
+    width: 30%;
+    display: grid;
+    place-content: center;
+    padding: 0;
+} 
+.NewofferImage img{
+    width: 20rem;
+   object-fit: contain;
+}
+.NewofferContainer button{
+    padding: .5rem;
+    background-color: white;
+    border: none;
+    border-radius: .3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+ .NewofferContainer button:hover{
+    transition: all .2s ease-in;
+    color: #5277F7;
+}
+.Timer{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.countDown{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 @media only screen and (max-width: 850px) {
     .ParticularProduct{
         width: 100%;
@@ -254,6 +306,7 @@
         width:20rem;
         height: 20rem;
         padding: 0;
+
     }
     .imageSlide img{
         width: 100px;
@@ -332,8 +385,48 @@
         height: 25rem;
         width: 30%;
     }
+    .NewofferContainer{
+        gap: 2rem;
+        padding: 2rem 10rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .NewofferDescription{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .NewofferImage{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        place-content: center;
+        padding: 0;
+    } 
 }
 @media only screen and (max-width: 600px) {
+    .NewofferContainer{
+        gap: 2rem;
+        padding: 2rem 2rem;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .NewofferDescription{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .NewofferImage{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        place-content: center;
+        padding: 0;
+    } 
     .ImageContainer{
         display: flex;
         flex-direction: column;

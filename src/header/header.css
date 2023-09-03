@@ -9,17 +9,20 @@
 }
 .SearchFilter {
   background-color: #ffffff;
-  width: 100%;
-  overflow-y: hidden;
-  overflow-x: scroll;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  width: 40%;
+  position: fixed;
+  left: 28%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 2rem;
   padding: 2rem;
 }
-.SerachItem {
-  padding: 0.5rem;
+.SerachItem { 
+  padding: 0.5rem; 
   background-color: #6383fa;
   border-radius: 0.5rem;
   color: white;

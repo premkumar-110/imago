@@ -71,7 +71,7 @@ const Header = ({ productID, setproductID}) => {
     const response = productsList?.filter((item) => {
       return item.title.toLowerCase().includes(searchitem.toLowerCase());
     });
-    setFilterItems(response || []);
+    setFilterItems(response.splice(0,10) || []);
   }, [searchitem, productsList]);
   
 
@@ -84,7 +84,7 @@ const Header = ({ productID, setproductID}) => {
     navigate(`/product/${id}`);
     window.location.reload();
   };
-  return (
+  return ( 
     <>
     <div className='NavSection'>
       <div className="navbar">

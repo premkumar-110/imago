@@ -1,4 +1,4 @@
-import '../product/product.css'
+import '../product/product.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../dashboard/home.css';
@@ -13,8 +13,10 @@ import { BsArrowUp } from "react-icons/bs";
 import Header from '../header/header';
 import AOS from 'aos';
 import ToasterUi from 'toaster-ui';
-import { AiOutlineDoubleRight ,AiOutlineDoubleLeft } from "react-icons/ai";
+import { AiOutlineDoubleRight, AiOutlineDoubleLeft } from "react-icons/ai";
 import Cookies from "js-cookie";
+import Offer_Image from '../images/Offer_Wish.svg';
+import { MdViewInAr } from "react-icons/md";
 
 const Product = ({ productID, setproductID, productsList, setProduct }) => {
   const toaster = new ToasterUi();
@@ -23,10 +25,14 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
   const [singleProduct, setSingleProduct] = useState({});
   const [imgCount, setImageCount] = useState(0);
   const { id } = useParams();
-  const [userDetails,setUserDetails] = useState({})
+  const [userDetails, setUserDetails] = useState({});
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
+  const [offerVisible,setOfferVisible] = useState(true) 
+
+  // Countdown timer state
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     AOS.init();
@@ -35,14 +41,13 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
       if (user_id) {
         try {
           const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
-          // console.log(response.data.verifiedUser); // Access the response data using response.data
-          setUserDetails(response.data.verifiedUser)
+          setUserDetails(response.data.verifiedUser);
         } catch (error) {
           console.error('Error:', error);
         }
       }
     };
-    
+
     GetCookie();
     const products = async () => {
       const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
@@ -64,7 +69,41 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
       setisLoading(false);
     };
     productdata();
-  }, [productID, setproductID]);
+  }, [productID, setproductID, setProduct, id]);
+
+  const endTime = new Date("2023-10-03T20:01:00"); // Set the end time to a future date and time
+ // Set the end time here
+
+useEffect(() => {
+  // Calculate the time remaining until the offer ends
+  const updateCountdown = () => {
+    const currentTime = new Date().getTime();
+    const timeRemaining = Math.max(endTime - currentTime, 0);
+
+    if (timeRemaining === 0) {
+      setOfferVisible(false); // Set offerVisible to false when the countdown expires
+    } else {
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      setCountdown({ days, hours, minutes, seconds });
+    }
+  };
+
+  // Update the countdown every second
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
+  // Initial update
+  updateCountdown();
+
+  return () => {
+    clearInterval(countdownInterval);
+  };
+}, [endTime, setOfferVisible]);
+
+  
 
   const handleGetProduct = async (id) => {
     window.scrollTo({
@@ -132,14 +171,14 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
     <>
       {isLoading ? (
         <div className='LoderComponent'>
-          <div class="spinner-grow text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-grow text-primary" role="status">
+            <span className="visually-impaired">Loading...</span>
           </div>
-          <div class="spinner-grow text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-grow text-primary" role="status">
+            <span className="visually-impaired">Loading...</span>
           </div>
-          <div class="spinner-grow text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-grow text-primary" role="status">
+            <span className="visually-impaired">Loading...</span>
           </div>
         </div>
       ) : (
@@ -201,11 +240,45 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
               </div>
             </div>
           </div>
+          {offerVisible && <><div className='NewofferContainer'>
+            <div className='NewofferDescription'>
+              <div>
+                <h4>Limited Time Offer</h4>
+                <p>Make the Product to be your's</p>
+              </div>
+              <div className='Timer'>
+                <div className='countDown'>
+                  <div>{countdown.days}</div>
+                  <div>Days</div>
+                </div>
+                <div>:</div>
+                <div className='countDown'>
+                  <div>{countdown.hours}</div>
+                  <div>Hours</div>
+                </div>
+                <div>:</div>
+                <div className='countDown'>
+                  <div>{countdown.minutes}</div>
+                  <div>Minutes</div>
+                </div>
+                <div>:</div>
+                <div className='countDown'>
+                  <div>{countdown.seconds}</div>
+                  <div>Seconds</div>
+                </div>
+              </div>
+              <div><button>View Product <MdViewInAr/></button></div>
+            </div>
+            <div className='NewofferImage'>
+              <img src={Offer_Image} alt="Offer"/>
+            </div>
+          </div></>
+        }
           <div className='RemainingProductContainer'>
             <div className='Products'>
               {currentProducts.map((item) => {
                 return (
-                  <div className='ProductCard' data-aos="zoom-in" key={item.id} onClick={() => handleGetProduct(item.id)}>
+                  <div className='ProductCard' /*data-aos="fade-right"*/ key={item.id} onClick={() => handleGetProduct(item.id)}>
                     <img src={item.thumbnail} alt={item.title} />
                     <h5>{item.title.length > 20 ? item.title.slice(0, 20) + "..." : item.title}</h5>
                     <div className='PriceDetails'><h3>₹{Math.floor(item.price * 80)}</h3>Onwards</div>
@@ -224,13 +297,13 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
             >
-             <AiOutlineDoubleLeft/> PREVIOUS
+              <AiOutlineDoubleLeft /> PREVIOUS
             </button>
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={indexOfLastProduct >= productsList.length}
             >
-              NEXT <AiOutlineDoubleRight/>
+              NEXT <AiOutlineDoubleRight />
             </button>
           </div>
           <div className='UpArrow' onClick={() => {

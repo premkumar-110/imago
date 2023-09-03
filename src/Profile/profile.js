@@ -19,7 +19,7 @@ const Profile = ({userEmail}) => {
             const user_id = Cookies.get("user_id");
             if (user_id) {
               try {
-                const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+                const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
                 // console.log(response.data.verifiedUser); // Access the response data using response.data
                 setVaildUserDetails(response.data.verifiedUser)
                 
@@ -32,7 +32,7 @@ const Profile = ({userEmail}) => {
           GetCookie();
 
         const getUser = async () => {
-            await fetch("http://localhost:5000/auth/login/success", {
+            await fetch("https://imago-backend.vercel.app/auth/login/success", {
                 method: "GET",
                 credentials: "include",
                 headers: {
@@ -58,7 +58,7 @@ const Profile = ({userEmail}) => {
 
             try {
                 console.log("Email" + {userEmail})
-                const response = await axios.post('http://localhost:5000/api/users/getDetails', { email: userEmail });
+                const response = await axios.post('https://imago-backend.vercel.app/api/users/getDetails', { email: userEmail });
                 
                 console.log(response.data.response); // Add this line
                 setUserDetails(response.data.response);

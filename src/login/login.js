@@ -29,7 +29,7 @@ const Login = ({ setUserEmail }) => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
           console.log(response.data.verifiedUser); // Access the response data using response.data
           navigate('/home')
         } catch (error) {
@@ -44,7 +44,7 @@ const Login = ({ setUserEmail }) => {
     AOS.init();
     // const data= async ()=>{
     //   const response = await axios.post(
-    //     "http://localhost:5000/api/users/verifyToken", 
+    //     "https://imago-backend.vercel.app/api/users/verifyToken", 
     //     {},
     //     {
     //       headers: {
@@ -113,7 +113,7 @@ const Login = ({ setUserEmail }) => {
       setonLoginSpinner(true);
       const data = { email: email, password: password };
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "https://imago-backend.vercel.app/api/users/login",
         data
       );
       if (response.status == 200) {
@@ -154,16 +154,16 @@ const Login = ({ setUserEmail }) => {
   };
 
   const handleGoogleLogin = async () => {
-    window.open(`http://localhost:5000/auth/google`, "_self");
+    window.open(`https://imago-backend.vercel.app/auth/google`, "_self");
   };
   const handleFacebookLogin = async () => {
-    window.open(`http://localhost:5000/auth/facebook`, "_self");
+    window.open(`https://imago-backend.vercel.app/auth/facebook`, "_self");
   };
   const handleGithubLogin = async () => {
-    window.open(`http://localhost:5000/auth/github`, "_self");
+    window.open(`https://imago-backend.vercel.app/auth/github`, "_self");
   };
   const handleDiscordLogin = async () => {
-    window.open(`http://localhost:5000/auth/discord`, "_self");
+    window.open(`https://imago-backend.vercel.app/auth/discord`, "_self");
   };
 
   const sendEmail = async () => {
@@ -177,7 +177,7 @@ const Login = ({ setUserEmail }) => {
       });
     } else {
       const response = await axios.post(
-        "http://localhost:5000/api/users/sendEmail",
+        "https://imago-backend.vercel.app/api/users/sendEmail",
         {
           email: forgetEmail,
         }
@@ -230,7 +230,7 @@ const Login = ({ setUserEmail }) => {
       });
     } else {
       const response = axios.post(
-        "http://localhost:5000/api/users/resetPassword",
+        "https://imago-backend.vercel.app/api/users/resetPassword",
         {
           email: forgetEmail,
           password: resetPassword,

@@ -19,7 +19,7 @@ import "aos/dist/aos.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import cookie from "cookie";
 import Cookies from "js-cookie";
-
+import { HiOutlineChevronDoubleRight } from "react-icons/hi";
 const Login = ({ setUserEmail }) => {
   const toaster = new ToasterUi();
   const navigate = useNavigate();
@@ -285,7 +285,7 @@ const Login = ({ setUserEmail }) => {
                     Enter the Enchanting Realm of
                     <br /> Fluttering Dreams
                   </div>
-                  Start Exploring more
+                  Start Exploring more <HiOutlineChevronDoubleRight/>
                 </p>
               </div>
             </div>

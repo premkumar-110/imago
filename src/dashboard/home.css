@@ -32,22 +32,26 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: .2rem;
-    font-family: 'poppins','Open Sans', sans-serif;
+    
 }
 .ProductCard{
-    height: 25rem;
+    height: 23rem;
+    overflow: hidden;
     width: 22%;
-    padding: 2rem;
+    padding: 1rem;
     border: 1px solid lightgray;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: .5rem;
+    gap: 0rem;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .ProductCard img{
     width: 100%;
     height: 50%;
+    margin-bottom: .5rem;
+    object-fit: contain;
 }
 .PriceDetails{
     display: flex;
@@ -60,10 +64,11 @@
     font-weight: 500;
 }
 .RatingSection{
+    padding: 0;
     width: auto;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
 }
 .Ratings{
     display: flex;
@@ -139,8 +144,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-    
-    .ProductsSection{
+        .ProductsSection{
         width: 100%;
         height: auto;
         padding: 2rem;

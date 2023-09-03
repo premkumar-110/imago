@@ -4,7 +4,7 @@
 .ParticularProduct{
     width: 100%;
     padding: 1rem 15rem;
-    font-family: 'poppins','Open Sans', sans-serif;
+    
     display: flex;
     gap: 5%;
 }
@@ -29,11 +29,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 .showImage img{
     padding: 1rem;
     width:30rem;
     height: 30rem;
+    border-radius: 2rem;
+    object-fit: contain;
 }
 .imageSlide{
     display: flex;
@@ -45,6 +48,7 @@
 .imageSlide img{
     width: 100px;
     height: 75px;
+    object-fit: contain;
     cursor: pointer;
 }
 .productButtons{
@@ -197,7 +201,7 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: .5rem;
 }
 .Pagination{
     display: flex;
@@ -221,7 +225,7 @@
 @media only screen and (max-width: 850px) {
     .ParticularProduct{
         width: 100%;
-        font-family: 'poppins','Open Sans', sans-serif;
+        
         display: flex;
         align-items: center;
         flex-direction: column;

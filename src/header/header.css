@@ -5,11 +5,13 @@
   position: sticky;
   top: 0;
   z-index: 99;
-  font-family: "poppins", "Open Sans", sans-serif;
+  
 }
 .SearchFilter {
   background-color: #ffffff;
   width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -125,7 +127,9 @@
   border-bottom: 1px solid rgb(255, 255, 255);
   padding: 5px;
 }
-
+.HomeNav{
+  display:none
+}
 @media only screen and (max-width: 850px) {
   .SearchFilter {
     gap: 0.5rem;
@@ -240,12 +244,19 @@
   }
   
   .DropDownLogo {
-    font-size: .9rem;
+    font-size: 15px;
+  }
+  .HomeNav{
+    display: contents;
+  }
+  .DropDownHomeLogo{
+    display: block;
+    font-size: 20px;
   }
   .ProfileDropDown {
     right: 0.1rem;
   }
   .ProfileDropDown ul li {
-    font-size: .5rem;
+    font-size: 15px;
   }
 }

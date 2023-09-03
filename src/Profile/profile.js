@@ -72,20 +72,25 @@ const Profile = ({userEmail}) => {
     }, []);
 
     const handleClick = () => {
+        
         navigate('/home');
     }
+    const handleLogout = () => {
+        document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = "http://localhost:3000/login";
+      };
 
     return (
         <>
             <div className='ProfileContainer'>
                 <header>
-                    <div className='logo' onClick={handleClick}>
+                    <div className='logo' style={{color:"white",fontWeight:"normal"}} onClick={handleClick}>
                         <img src={logo} alt="Logo"></img>IMAGO
                     </div>
                     <div className='ProfileNav'>
                         <div className='Logout' onClick={() => { navigate('/home') }}>Home</div>
                         <div className='Logout' onClick={() => { navigate('/cart') }}>View Cart</div>
-                        <div className='Logout' onClick={() => { navigate('/login') }}>Sign out</div>
+                        <div className='Logout' onClick={handleLogout}>Sign out</div>
                     </div>
                 </header>
 

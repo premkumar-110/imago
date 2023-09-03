@@ -8,17 +8,26 @@ import EmptyCart from '../images/Emptycart.svg';
 import Cookies from "js-cookie";
 
 const Cart = () => {
+  const [isLoading, setisLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
   const [cost, setCost] = useState(0);
   const navigate=useNavigate();
-  const [userDetails,setUserDetails] = useState({})
   useEffect(() => {
     const GetCookie = async () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
           const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
-          setUserDetails(response.data.verifiedUser)
+          console.log(response.data.verifiedUser.email); 
+          
+              const response1 = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: response.data.verifiedUser.email });
+              setCartItems(response1.data);
+      
+              // Calculate total cost
+              const totalCost = response1.data.reduce((acc, item) => acc + item.price, 0);
+              setCost(totalCost);
+           
+          
         } catch (error) {
           console.error('Error:', error);
         }
@@ -26,20 +35,8 @@ const Cart = () => {
     };
     
     GetCookie();
-    const fetchData = async () => {
-      try {
-        const response = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: 'scpprem008@gmail.com' });
-        setCartItems(response.data);
-
-        // Calculate total cost
-        const totalCost = response.data.reduce((acc, item) => acc + item.price, 0);
-        setCost(totalCost);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
-
-    fetchData();
+    setisLoading(false)
+    
   }, []);
 
   const handleRemove = async (id) => {
@@ -64,6 +61,20 @@ const Cart = () => {
   }
   return (
     <>
+      {isLoading ? (
+        <div className='LoderComponent'>
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span> 
+          </div>
+        </div>
+      ) : (
+    <>
       <Header />
       { cartItems.length>0 &&
         <div className='Container'>
@@ -76,7 +87,8 @@ const Cart = () => {
                   <h4>{item.title}</h4>
                   <p>{item.description}</p>
                 </div>
-                <button onClick={() => handleRemove(item.id)}><GrClose className='logo' /> Remove</button>
+                {/* <GrClose className='logo' /> */}
+                <button onClick={() => handleRemove(item.id)}> Remove</button>
               </div>
             ))}
             </div>
@@ -84,6 +96,7 @@ const Cart = () => {
               <h3>Price Details</h3>
               <p>Total Product Price: <b>{cost*80} Rs</b></p>
               <hr></hr>
+              <button onClick={()=>{navigate('/home')}} className='ViewProduct'>Buy all Products</button>
             </div>
           </div>
         </div>
@@ -97,8 +110,9 @@ const Cart = () => {
           </div>
         </div>
       }
-    </>
-  );
+    </>)
+    }
+  </>);
 };
 
 export default Cart;

@@ -22,6 +22,7 @@ img{
     gap: 1rem;
     justify-content: space-between;
     border-right: 1px solid lightgray;
+    cursor: pointer;
 }
 .colCart{
     width: 70%;
@@ -42,11 +43,13 @@ img{
     align-items: center;
     justify-content: center;
     gap: .4rem;
-    font-weight: bold;
 } 
 .logo{
     color: #5277F7;
 
+}
+.Contents{
+    width: 100%;
 }
 
 .PriceContainer{
@@ -89,15 +92,18 @@ img{
         display: flex;
         flex-direction: column-reverse;
         justify-content: center;
+        padding: 1rem;
     }
     .CartCard{
+        margin-top: .5rem;
         width: 100%;
         padding: 2rem;
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 1rem;
         justify-content: space-between;
-        border-right: 0px solid lightgray;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
     .colCart{
         width: 100%;
@@ -119,7 +125,6 @@ img{
         align-items: center;
         justify-content: center;
         gap: .4rem;
-        font-weight: bold;
     } 
     .logo{
         color: #5277F7;
@@ -131,6 +136,7 @@ img{
         width: 100%;
         padding: 2rem;
         border-bottom: 1px solid gray;
+        margin-bottom: 1rem;
     }
     
     .NoAvailabilityCartContainer{

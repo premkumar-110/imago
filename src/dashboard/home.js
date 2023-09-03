@@ -50,7 +50,7 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
           <Header productID={productID} setproductID={setproductID} />
           <div className='Homesection'>
             <header>
-              <img src={coverimg} alt='CoverImage'></img>
+              <img src={coverimg} alt='CoverImage' ></img>
             </header>
             <section className='ProductsSection'>
               <div className='FilterSection'>
@@ -69,9 +69,10 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
                         <div className='RatingSection'>
                           <div className='Ratings'>{item.rating}<AiFillStar className='RatingLogo' /></div>
                           <p>{Math.floor(item.rating * 100 + 20)} Reviews</p>
+
                         </div>
                       </div>
-                    );
+                    ); 
                   })
                 }
                 { productsList.length===0 &&

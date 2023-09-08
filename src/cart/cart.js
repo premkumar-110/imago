@@ -18,10 +18,10 @@ const Cart = () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
           console.log(response.data.verifiedUser.email); 
           
-              const response1 = await axios.post('http://localhost:5000/api/users/getProductById', { email: response.data.verifiedUser.email });
+              const response1 = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: response.data.verifiedUser.email });
               setCartItems(response1.data);
       
               // Calculate total cost
@@ -42,12 +42,12 @@ const Cart = () => {
 
   const handleRemove = async (id) => {
     const removeCartItem = async () => {
-      await axios.post('http://localhost:5000/api/users/removefromCart', { email: "scpprem006@gmail.com", id: id });
+      await axios.post('https://imago-backend.vercel.app/api/users/removefromCart', { email: "scpprem006@gmail.com", id: id });
     }
     await removeCartItem();
 
     // After removing the item, update cart items and total cost
-    const response = await axios.post('http://localhost:5000/api/users/getProductById', { email: "scpprem006@gmail.com" });
+    const response = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: "scpprem006@gmail.com" });
     console.log(response.data);
     setCartItems(response.data);
 

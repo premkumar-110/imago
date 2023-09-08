@@ -2,71 +2,79 @@ import React from 'react'
 
 const TandC = () => {
   return (
-    <div>Terms and Conditions for [Your E-commerce Website Name]
+    <div><div style={{ fontFamily: 'Arial, sans-serif', margin: '20px' }}>
+    <h1 style={{ fontSize: '24px', textAlign: 'center' }}>Product Information</h1>
+    <p style={{ fontSize: '16px', lineHeight: '1.5' }}>
+      We make every effort to provide accurate product descriptions, prices, and availability information.
+      However, we do not warrant that product descriptions or other content on the website are accurate, complete,
+      reliable, current, or error-free.
+      Terms and Conditions for [Your E-commerce Website Name]
 
     1. Acceptance of Terms
     
-    By accessing and using [Your E-commerce Website Name], you agree to comply with and be bound by these terms and conditions. If you do not agree with these terms, please do not use this website.
+    By accessing and using [Your E-commerce Website Name], you agree to comply with and be bound by these terms and conditions. If you do not agree with these terms, please do not use this website.<br></br>
     
     2. Privacy Policy
     
-    Please review our Privacy Policy, which governs the collection, use, and disclosure of personal information on the website.
+    Please review our Privacy Policy, which governs the collection, use, and disclosure of personal information on the website.<br></br>
     
     3. Product Information
     
-    We make every effort to provide accurate product descriptions, prices, and availability information. However, we do not warrant that product descriptions or other content on the website are accurate, complete, reliable, current, or error-free.
+    We make every effort to provide accurate product descriptions, prices, and availability information. However, we do not warrant that product descriptions or other content on the website are accurate, complete, reliable, current, or error-free.<br></br>
     
     4. Orders and Payment
     
-    a. By placing an order, you agree to pay the specified price for the products or services, including any applicable taxes and shipping fees.
+    a. By placing an order, you agree to pay the specified price for the products or services, including any applicable taxes and shipping fees.<br></br>
     
-    b. Payment methods and details will be provided during the checkout process.
+    b. Payment methods and details will be provided during the checkout process.<br></br>
     
     5. Shipping and Delivery
     
-    a. We will make reasonable efforts to deliver products within the estimated timeframe, but we are not responsible for delays beyond our control.
+    a. We will make reasonable efforts to deliver products within the estimated timeframe, but we are not responsible for delays beyond our control.<br></br>
     
-    b. Risk of loss or damage to products passes to you upon delivery.
+    b. Risk of loss or damage to products passes to you upon delivery.<br></br>
     
     6. Returns and Refunds
     
-    Please review our Return and Refund Policy for information on returning products and requesting refunds.
+    Please review our Return and Refund Policy for information on returning products and requesting refunds.<br></br>
     
     7. User Accounts
     
-    a. You are responsible for maintaining the confidentiality of your account information and password.
+    a. You are responsible for maintaining the confidentiality of your account information and password.<br></br>
     
-    b. You are responsible for all activities that occur under your account.
+    b. You are responsible for all activities that occur under your account.<br></br>
     
     8. Prohibited Activities
     
-    You agree not to engage in any unlawful, abusive, or disruptive behavior on the website. This includes, but is not limited to, hacking, spamming, or transmitting harmful code.
+    You agree not to engage in any unlawful, abusive, or disruptive behavior on the website. This includes, but is not limited to, hacking, spamming, or transmitting harmful code.<br></br>
     
     9. Intellectual Property
     
-    All content on this website, including text, images, logos, and trademarks, is protected by copyright and other intellectual property laws. You may not use, reproduce, or distribute our content without our written permission.
+    All content on this website, including text, images, logos, and trademarks, is protected by copyright and other intellectual property laws. You may not use, reproduce, or distribute our content without our written permission.<br></br>
     
     10. Limitation of Liability
     
-    We are not liable for any direct, indirect, incidental, special, or consequential damages arising from the use of our website or products.
+    We are not liable for any direct, indirect, incidental, special, or consequential damages arising from the use of our website or products.<br></br>
     
     11. Termination
     
-    We reserve the right to terminate or suspend your access to the website at our discretion, without notice, for any reason.
+    We reserve the right to terminate or suspend your access to the website at our discretion, without notice, for any reason.<br></br>
     
     12. Governing Law
     
-    These terms and conditions are governed by and construed in accordance with the laws of [Your Jurisdiction]. Any disputes shall be subject to the exclusive jurisdiction of the courts in [Your Jurisdiction].
+    These terms and conditions are governed by and construed in accordance with the laws of [Your Jurisdiction]. Any disputes shall be subject to the exclusive jurisdiction of the courts in [Your Jurisdiction].<br></br>
     
     13. Changes to Terms
     
-    We reserve the right to modify these terms and conditions at any time. Please check this page regularly for updates.
+    We reserve the right to modify these terms and conditions at any time. Please check this page regularly for updates.<br></br>
     
     14. Contact Information
     
-    If you have any questions or concerns about these terms and conditions, please contact us at [Your Contact Information].
+    If you have any questions or concerns about these terms and conditions, please contact us at [Your Contact Information].<br></br>
     
-    These terms and conditions are a basic template and should be customized to fit the specific needs and legal requirements of your e-commerce website. It's crucial to seek legal advice to ensure compliance with relevant laws and regulations in your jurisdiction.
+    These terms and conditions are a basic template and should be customized to fit the specific needs and legal requirements of your e-commerce website. It's crucial to seek legal advice to ensure compliance with relevant laws and regulations in your jurisdiction. make it properly look in a web page
+    </p>
+  </div>
     </div>
   )
 }

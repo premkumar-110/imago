@@ -11,7 +11,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/admin/getPurchase');
+        const response = await axios.get('https://imago-backend.vercel.app/admin/getPurchase');
         setProduct(response.data.response);
         setFilteredProducts(response.data.response); // Initialize filteredProducts with all products
       } catch (error) {

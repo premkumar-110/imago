@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     
     const products = async () => {
-      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
+      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
       
       setProduct(productData.data.response);
       setUserEmail(sessionStorage.getItem('email'))

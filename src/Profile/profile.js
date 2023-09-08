@@ -20,7 +20,7 @@ const Profile = () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
           setUserDetails(response.data.verifiedUser);
         } catch (error) {
           console.error('Error fetching user details:', error);
@@ -33,7 +33,7 @@ const Profile = () => {
 
       try {
         setLoading(true);
-        const response = await axios.post('http://localhost:5000/admin/getUserPurchase', { useremail: userDetails.email });
+        const response = await axios.post('https://imago-backend.vercel.app/admin/getUserPurchase', { useremail: userDetails.email });
 
         // Set purchasedItems to the data response from the API
         setPurchasedItems(response.data.response);

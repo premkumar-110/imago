@@ -11,14 +11,17 @@ import axios from 'axios';
 import Header from './header/header';
 import Filter from './filter/Filter';
 import Cart from './cart/cart'
-import Cookies from 'js-cookie';
+import AdminLogin from './adminlogin/adminlogin';
+import Admindashboard from './admindashboard/admindashboard';
+import Payment from './payment/payment';
+import TandC from './termsandconditions/TandC';
 function App() {
   const [productsList, setProduct] = useState([]);
   const [userEmail,setUserEmail]=useState('');
   useEffect(() => {
     
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       
       setProduct(productData.data.response);
       setUserEmail(sessionStorage.getItem('email'))
@@ -38,6 +41,10 @@ function App() {
       <Route path='/header' element={<Header productID={productID} setproductID={setproductID}/>}/>
       <Route path='/filter' element={<Filter productsList={productsList} setProduct={setProduct}/>}/>
       <Route path='/cart' element={<Cart/> }/>
+      <Route path='/payment/:id' element={<Payment/> }/>
+      <Route path='/adminlogin' element={<AdminLogin/>}/>
+      <Route path='/admindashboard' element={<Admindashboard/>}/>
+      <Route path='/terms-and-conditions' element={<TandC/>}/>
     </Routes>
     </>
   );

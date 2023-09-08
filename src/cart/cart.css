@@ -22,12 +22,16 @@ img{
     gap: 1rem;
     justify-content: space-between;
     border-right: 1px solid lightgray;
-    cursor: pointer;
+    cursor: pointer; 
+    border: 1px solid lightgray;
+    margin: 1rem;
+    border-radius: .5rem; 
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .colCart{
     width: 70%;
     padding: 2rem;
-    display: flex;
+    display: flex; 
     flex-direction: column;
     justify-content: space-between;
     border-right: 1px solid lightgray;
@@ -73,6 +77,23 @@ img{
 }
 .NoAvailabilityCartContainer img{
     width: 20rem;
+}
+.Quantity{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    height: fit-content;
+}
+.Quantity p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+.Quantity button{
+    height: auto;
 }
 @media only screen and (max-width: 600px) {
     img{

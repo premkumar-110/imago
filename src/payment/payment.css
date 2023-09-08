@@ -1,0 +1,489 @@
+.Container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.Container header{
+    width: 100%;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    border-bottom: 1px solid lightgray;
+}
+.Container header img{
+    width: 2.5rem;
+}
+.Container header .logo{
+    color: rgb(0, 0, 0);
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    width: 40%;
+}
+.Steps{
+    color: white;
+    width: fit-content;
+}
+.PaymentPriceContainer{
+    width: 30%;
+    padding: 2rem;
+}
+.PaymentPriceContainer h3{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.PaymentContainer{
+    padding: 1rem;
+}
+
+.verify-number-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width:100%;
+    height: 100%;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .verify-number-container input{
+    width: 3rem;
+    outline: none;
+    margin: .5rem;
+  }
+ 
+  
+  /* Style for the separator between inputs */
+  .otp-input span {
+    font-size: 20px;
+    margin: 0 5px;
+  }
+  .Ph_Container{
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+  }
+  .Ph_Container input{
+    width: 80%;
+    padding: .5rem;
+    border: 1px solid gray;
+    outline: none;
+    border-radius: .3rem;
+  }
+  .Ph_Container button{
+    width: auto;
+    padding: .6rem;
+    background-color: #5277F7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    letter-spacing: 1px;
+  }
+  .VerifyBtn{
+    width: auto;
+    padding: .6rem;
+    background-color: #5277F7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+  .PersonalDetails{
+    width: 60%;
+    padding: 1rem;
+  }
+  .PersonalDetails .email{
+     display: flex;
+     align-items: flex-start;
+     width: 100%;
+  }
+  .PersonalDetails p{
+    display: grid;
+    place-content: center;
+  }
+  .PersonalDetails .EmailContainer{
+    width: 100%;
+    border: 1px solid gray;
+    height: 2.5rem;
+  }
+  .PersonalDetails .EmailContainer input{
+    height: 100%;
+    width: 100%;
+  }
+  .PersonalDetails .addressContainer{
+    height: 100%;
+    border: none;
+    outline: none;
+    width: 100%;
+    resize: none;
+    border: 1px solid gray;
+    border-radius: .3rem;
+    padding: 1rem;
+  }
+  .SubmitDetails{
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .SubmitDetails button{
+    width: 60%;
+    border: none;
+    outline: none;
+    background-color: #5277F7;
+    color: white;
+    padding: .5rem;
+    border-radius: .3rem;
+  }
+.PersonalDetails .email p{
+  display: flex;
+  gap: .3rem;
+}
+.PersonalDetails .email p span{
+  color: red;
+}
+.base {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Inter", sans-serif;
+}
+.base h1 {
+    font-size: 1.2rem;
+}
+.base .otp-base {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 0.5rem;
+}
+.base .otp-base input {
+    width: 1ch;
+    padding: 1rem;
+    border-top: 0px solid transparent;
+    border-left: 0px solid transparent; 
+    border-right: 0px solid transparent;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    font-size: 2rem;
+    transition: all 0.2s ease;
+}
+.base .otp-base input:focus {
+    border-bottom: 3px solid #574b90;
+}
+.base .button {
+    visibility: hidden;
+    position: absolute;
+    margin-top: 2rem;
+    right: 0;
+    text-transform: uppercase;
+    padding: 0.4rem;
+    background: none;
+    border: 1px solid #574b90;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.base .button.show {
+    visibility: visible;
+}
+.base .button:hover {
+    background: #574b90;
+    color: #fff;
+}
+.base .otp-error {
+    animation: shake 0.3s ease forwards;
+    pointer-events: none;
+}
+.base .otp-error input {
+    border-bottom: 2px solid red;
+    pointer-events: none;
+}
+.base .otp-error input:focus {
+    border-bottom: 2px solid red;
+}
+.PaymentContainer{
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  text-align: center;
+}
+.PaymentDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+.PaymentMode{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.PaymentMode button{
+  background-color: #5277F7;
+  color: white;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  border: none;
+}
+.PaymentDetails{
+  text-align: start;
+  padding: 2rem;
+}
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+   }
+    25% {
+        transform: translateX(5px);
+   }
+    50% {
+        transform: translateX(-5px);
+   }
+    75% {
+        transform: translateX(5px);
+   }
+    100% {
+        transform: translateX(0);
+   }
+}
+
+
+  @media only screen and (max-width: 850px) {
+    .OTP_Container img{
+      height: 4rem;
+    }
+    .otp_verification{
+      display: flex;
+      border: 1px solid gray;
+    }
+    .OTP_Container{
+      height:100%;
+      width: 100%;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0rem;
+      padding: 2rem;
+    }
+   
+    .Ph_Container{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .Ph_Container input{
+      width: 100%;
+      padding: .5rem;
+      border: 1px solid gray;
+      outline: none;
+    }
+    .Ph_Container button{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+    .otpContainer{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .otpContainer p{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .VerifyBtn{
+      width: auto;
+      padding: .6rem;
+      background-color: #5277F7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+    .PersonalDetails{
+      width: 100%;
+      padding: 1rem;
+    }
+    .PersonalDetails .email{
+       display: flex;
+       align-items: flex-start;
+       width: 100%;
+    }
+    .PersonalDetails p{
+      display: grid;
+      place-content: center;
+    }
+    .PersonalDetails .EmailContainer{
+      width: 100%;
+      border: 1px solid gray;
+      height: 2.5rem;
+    }
+    .PersonalDetails .EmailContainer input{
+      height: 100%;
+      width: 100%;
+    }
+    .PersonalDetails .addressContainer{
+      height: 100%;
+      border: none;
+      outline: none;
+      width: 100%;
+      resize: none;
+      border: 1px solid gray;
+      border-radius: .3rem;
+      padding: 1rem;
+    }
+    .SubmitDetails{
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .SubmitDetails button{
+      width: 60%;
+      border: none;
+      outline: none;
+      background-color: #5277F7;
+      color: white;
+      padding: .5rem;
+      border-radius: .3rem;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .Container header{
+      width: 100%;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid lightgray;
+  }
+  .Container header img{
+      width: 2.5rem;
+  }
+  .Container header .logo{
+      color: rgb(0, 0, 0);
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      width: 40%;
+  }
+  .Steps{
+      color: white;
+      width: 100%;
+  }
+  .CartContainer{
+    display: flex;
+    flex-direction: column;
+  }
+  .PaymentPriceContainer{
+      width: 100%;
+      padding: 2rem;
+      
+  }
+  .Container .CartCard{
+    padding: 1rem;
+  }
+  .Container .CartCard img{
+    object-fit: contain;
+  }
+  .PaymentPriceContainer h3{
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+  }
+  
+  .PaymentContainer{
+      padding: .2rem;
+  }
+    
+    /* Style for the separator between inputs */
+    .otp-input span {
+      font-size: 20px;
+      margin: 0 5px;
+    }
+    .Ph_Container{
+      display: flex;
+      width: 90%;
+      gap: .4rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .Ph_Container input{
+      width: 80%;
+      padding: .5rem;
+      border: 1px solid gray;
+      outline: none;
+      border-radius: .3rem;
+    }
+    .VerifyBtn{
+      width: auto;
+      padding: .6rem;
+      background-color: #5277F7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+    .PersonalDetails{
+      width: 90%;
+      padding: .4rem;
+    }
+  .PaymentContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    text-align: center;
+  }
+  .PaymentDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  .PaymentMode{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .PaymentMode button{
+    background-color: #5277F7;
+    color: white;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border: none;
+  }
+  .PaymentDetails{
+    text-align: start;
+    padding: 2rem;
+  }
+  }

@@ -2,159 +2,157 @@ import React, { useEffect, useState } from 'react';
 import '../Profile/profile.css';
 import logo from '../logo.svg';
 import { useNavigate } from 'react-router-dom';
-import { IoPersonSharp } from "react-icons/io5";
 import { FaHistory } from "react-icons/fa";
-import { MdLocationOn, MdEmail, MdLanguage } from "react-icons/md";
 import axios from 'axios';
 import Cookies from "js-cookie";
+import EmptyPurchase from '../images/Emptycart.svg';
+import { Steps } from 'antd';
+import ExternalIcon from '../images/externel-icon.svg'
+const Profile = () => {
+  const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useState({});
+  const [purchasedItems, setPurchasedItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [visibility, setVisibility] = useState(true);
 
-const Profile = ({userEmail}) => {
-    const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [userDetails, setUserDetails] = useState({});
-    const [visibility, setVisibility] = useState(true);
-    const [validuserDetails,setVaildUserDetails] = useState({})
-    useEffect(() => {
-        const GetCookie = async () => {
-            const user_id = Cookies.get("user_id");
-            if (user_id) {
-              try {
-                const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
-                // console.log(response.data.verifiedUser); // Access the response data using response.data
-                setVaildUserDetails(response.data.verifiedUser)
-                
-              } catch (error) {
-                console.error('Error:', error);
-              }
-            }
-          };
-          
-          GetCookie();
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const user_id = Cookies.get("user_id");
+      if (user_id) {
+        try {
+          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          setUserDetails(response.data.verifiedUser);
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      }
+    };
 
-        const getUser = async () => {
-            await fetch("https://imago-backend.vercel.app/auth/login/success", {
-                method: "GET",
-                credentials: "include",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Credentials": true,
-                },
-            })
-            .then((response) => {
-                if (response.status === 200) return response.json();
-                throw new Error("Authentication has failed!");
-            })
-            .then((resObject) => {
-                setUser(resObject.user);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        }; 
-        getUser();
+    const getPurchased = async () => {
+      if (!userDetails.email) return; // Check if userDetails has email before fetching purchased items
 
-        const getDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post('http://localhost:5000/admin/getUserPurchase', { useremail: userDetails.email });
 
-            try {
-                console.log("Email" + {userEmail})
-                const response = await axios.post('https://imago-backend.vercel.app/api/users/getDetails', { email: userEmail });
-                
-                console.log(response.data.response); // Add this line
-                setUserDetails(response.data.response);
-                
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        
-        getDetails();
-    }, []);
+        // Set purchasedItems to the data response from the API
+        setPurchasedItems(response.data.response);
 
-    const handleClick = () => {
-        
-        navigate('/home');
-    }
-    const handleLogout = () => {
-        document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        window.location.href = "http://localhost:3000/login";
-      };
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching purchased items:', error);
+        setLoading(false);
+      }
+    };
 
-    return (
-        <>
-            <div className='ProfileContainer'>
-                <header>
-                    <div className='logo' style={{color:"white",fontWeight:"normal"}} onClick={handleClick}>
-                        <img src={logo} alt="Logo"></img>IMAGO
-                    </div>
-                    <div className='ProfileNav'>
-                        <div className='Logout' onClick={() => { navigate('/home') }}>Home</div>
-                        <div className='Logout' onClick={() => { navigate('/cart') }}>View Cart</div>
-                        <div className='Logout' onClick={handleLogout}>Sign out</div>
-                    </div>
-                </header>
+    fetchUserDetails();
+    getPurchased();
+  }, [userDetails.email]);
 
-                <div className='AccountDetails'>
-                    {user ? (
-                        <>
-                            <div className='AccInfoSection'>
-                                <div className='prfiledata'>
-                                    <img
-                                        src={user.photos[0]?.value || ''}
-                                        alt="userLogo"
-                                        className="avatar"
-                                    />
-                                    <section className='nameData'>USERNAME : {validuserDetails.name}</section>
-                                    <section className='nameData'>EMAIL : {validuserDetails.email}</section>
-                                </div>
-                                <div className='profileRouteSection'>
-                                    <button onClick={()=>{setVisibility(true)}}>
-                                        <IoPersonSharp /> Profile Information
-                                    </button>
-                                    <button onClick={()=>{setVisibility(false)}}>
-                                        <FaHistory /> Order History
-                                    </button>
-                                </div>
-                            </div>
-                            {visibility && (
-                                <div className='IndividualData'>
-                                    <div className='PersonalInfo'>
-                                        <h3>Personal Information</h3>
-                                        <div className='PersonalCard'>
-                                            <div className='Card'>
-                                                <h5>Name <IoPersonSharp /></h5>
-                                                <p>{validuserDetails.name}</p>
-                                            </div>
-                                            <div className='Card'>
-                                                <h5>Address <MdLocationOn /></h5>
-                                                <p>{validuserDetails.address}</p>
-                                            </div>
-                                            <div className='Card'>
-                                                <h5>Email <MdEmail /></h5>
-                                                <p>{validuserDetails.email}</p>
-                                            </div>
-                                            <div className='Card'>
-                                                <h5>Language <MdLanguage /></h5>
-                                                <p>English (UK) - English</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            { !visibility &&
-                            <div className='OrderHistory'> 
-                                <b>YOU HAVE NOT YET PRUCHSED ANYTHING</b>
-                            </div>
+  const handleClick = () => {
+    navigate('/home');
+  }
 
-                            }
-                        </>
-                    ) : (
-                        <div>Loading user data...</div>
-                    )}
+  const handleLogout = () => {
+    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "http://localhost:3000/login";
+  };
+
+  return (
+    <>
+      <div className='ProfileContainer'>
+        <header>
+          <div className='logo' style={{ color: "white", fontWeight: "normal" }} onClick={handleClick}>
+            <img src={logo} alt="Logo" />IMAGO
+          </div>
+          <div className='ProfileNav'>
+            <div className='Logout' onClick={() => { navigate('/home') }}>Home</div>
+            <div className='Logout' onClick={() => { navigate('/cart') }}>View Cart</div>
+            <div className='Logout' onClick={handleLogout}>Sign out</div>
+          </div>
+        </header>
+
+        <div className='AccountDetails'>
+          {loading ? (
+            <div>Loading user data...</div>
+          ) : userDetails.email ? (
+            <>
+              <div className='AccInfoSection'>
+                <div className='prfiledata'>
+                  <img
+                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsEC-AcpMSEBeqwQdUVhjb5fciR-GG2-cuwQ&usqp=CAU'
+                    alt="userLogo"
+                    className="avatar"
+                  />
+                  <section className='nameData'>USERNAME : {userDetails.name}</section>
+                  <section className='nameData'>EMAIL : {userDetails.email}</section>
                 </div>
+                <div className='profileRouteSection'>
+                  <button onClick={() => { setVisibility(false) }}>
+                    <FaHistory /> Order History
+                  </button>
+                </div>
+              </div>
+
+              <div className='OrderHistory'>
+                {purchasedItems?.length === 0 && (
+                  <div className='EmptyPurchase'>
+                    <img src={EmptyPurchase} alt="EmptyPurchase" />
+                    <button onClick={() => { navigate('/home') }}>Explore Now</button>
+                    <b>YOU HAVE NOT YET PURCHASED ANYTHING</b>
+                  </div>
+                )}
+                {purchasedItems.length !== 0 && (
+            <div>
+              <div className='PurchasesList'>
+              {purchasedItems.map((item) => (
+                  item.purchases.map((purchase, index) => (
+                    <div key={item._id} className='PurchaseCard' >
+                       <Steps current={1}>
+                        <Steps.Step style={{marginBottom:20}}
+                          key={purchase._id}
+                          title={`Product ${index + 1}`}
+                          description={`Status: ${purchase.status || 'Placed'}`}
+                        />
+                        <Steps.Step
+                          key={purchase._id}
+                          title={`Product ${index + 1}`}
+                          description={`Status: ${purchase.status || 'In Process'}`}
+                        />
+                      </Steps>
+                      <h5>Order ID: {purchase.productid}</h5>
+                      <p>User Email: {item.useremail}</p>
+                      <p>Payment Mode: {purchase.paymentMode}</p>
+                      <p>Address: {purchase.address}</p>
+                      <p>Total Price: {purchase.price}</p>
+                      <p>Phone Number: {purchase.phoneNumber}</p>
+                      <button onClick={()=>{navigate(`/product/${purchase.productid}`)}}>View Product <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+</svg></button>
+                    </div> 
+                  ))
+                ))}
+
+              </div>  
+
             </div>
-        </>
-    );
+          )}
+
+
+
+
+
+
+              </div>
+            </>
+          ) : (
+            <div>User not logged in.</div>
+          )}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Profile;

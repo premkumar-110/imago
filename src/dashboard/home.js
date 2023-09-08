@@ -48,10 +48,12 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
       ) : (
         <>
           <Header productID={productID} setproductID={setproductID} />
+          
           <div className='Homesection'>
             <header>
               <img src={coverimg} alt='CoverImage' ></img>
             </header>
+          <hr></hr>
             <section className='ProductsSection'>
               <div className='FilterSection'>
                 {/* Pass productsList and setProduct to the Filter component */}

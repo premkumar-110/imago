@@ -1,0 +1,39 @@
+.Layout{
+    height: 100vh;
+}
+.demo-logo-vertical{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 2rem;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+.demo-logo-vertical img{
+    width: 2rem;
+}
+.AdminDropDownButton{
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    height: fit-content;
+    text-decoration: none;
+}
+.AdminDropdown{
+    font-weight: bold;
+}
+.MenuItems{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.ant-layout-sider-children{
+    position: sticky;
+    top: 0;
+}

@@ -1,0 +1,14 @@
+.ProductsDropDown{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
+    color: gray;
+}
+.NewProductContainer{
+    padding: 2rem;
+}
+.ImageList{
+    width: 100%;
+    padding: 1rem; 
+} 

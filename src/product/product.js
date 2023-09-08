@@ -40,7 +40,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
+          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
           setUserDetails(response.data.verifiedUser);
         } catch (error) {
           console.error('Error:', error);
@@ -50,7 +50,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
 
     GetCookie();
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       setProduct(productData.data.response);
     };
     products();
@@ -64,7 +64,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
           setproductID(1);
         }
       }
-      const response = await axios.post('https://imago-backend.vercel.app/api/users/getSingleProduct', { id: id });
+      const response = await axios.post('http://localhost:5000/api/users/getSingleProduct', { id: id });
       setSingleProduct(response.data.response);
       setisLoading(false);
     };
@@ -115,7 +115,7 @@ useEffect(() => {
   };
 
   const handleaddtoCart = async (id) => {
-    const response = await axios.post('https://imago-backend.vercel.app/api/users/addToCart', { email: userDetails.email, id: id });
+    const response = await axios.post('http://localhost:5000/api/users/addToCart', { email: userDetails.email, id: id });
     if (response.status === 200) {
       toaster.addToast('Successfully added to Cart', 'success', {
         duration: 3000,
@@ -136,30 +136,38 @@ useEffect(() => {
   };
 
   const handleSubmit = () => {
-    var option = {
-      key: "rzp_test_PVrN8Q8hFzJ7Je",
-      key_secret: "jcRs9PXi3lR2eJdm3qgyl1WC",
-      amount: singleProduct.price * 80 * 100,
-      currency: "INR",
-      name: "Payment Check",
-      description: "Testing",
-      handler: function (res) {
-        alert(res.razorpay_payment_id);
-      },
-      prefill: {
-        name: "premkumar",
-        email: "scpprem006@gmail.com",
-        contact: "1234567890"
-      },
-      notes: {
-        address: "RazorPay Corporate Office"
-      },
-      theme: {
-        color: "#6383FA"
-      }
-    };
-    var pay = new window.Razorpay(option);
-    pay.open();
+    // var option = {
+    //   key: "rzp_test_PVrN8Q8hFzJ7Je",
+    //   key_secret: "jcRs9PXi3lR2eJdm3qgyl1WC",
+    //   amount: singleProduct.price * 80 * 100,
+    //   currency: "INR",
+    //   name: "Payment Check",
+    //   description: "Testing",
+    //   handler: function (res) {
+    //     alert(res.razorpay_payment_id);
+    //   },
+    //   prefill: {
+    //     name: "premkumar",
+    //     email: "scpprem006@gmail.com",
+    //     contact: "1234567890"
+    //   },
+    //   notes: {
+    //     address: "RazorPay Corporate Office"
+    //   },
+    //   theme: {
+    //     color: "#6383FA"
+    //   }
+    // };
+    // var pay = new window.Razorpay(option);
+    // pay.open();
+    const purchase = async ()=>{
+      navigate(`/payment/${singleProduct.id}`)
+      // const response = axios.post('http://localhost:5000/api/users/addToPurchased',{email:userDetails.email,id:singleProduct.id});
+      // if(response.status===200){
+
+      // }
+    }
+    purchase();
   };
 
   // Calculate current products based on pagination

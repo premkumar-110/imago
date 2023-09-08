@@ -14,12 +14,12 @@ import { BsEyeSlashFill, BsEyeFill } from 'react-icons/bs';
 import ToasterUi from 'toaster-ui';
 import axios from 'axios';
 import { AiOutlineMenu } from "react-icons/ai";
-
+import { HiOutlineChevronDoubleRight } from "react-icons/hi";
 
 const Signup = () => {
   const navigate = useNavigate();
   const toaster = new ToasterUi();
-
+  const [onLoginSpinner, setonLoginSpinner] = useState(false);
   const [passState, setPassState] = useState(0);
   const [confpassState,setconfPassState]=useState(0);
   const [email,setEmail]=useState('');
@@ -38,35 +38,38 @@ const Signup = () => {
   };
 
   const handleGoogleLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/google`, "_self");
+    window.open(`http://localhost:5000/auth/google`, "_self");
   }
   const handleFacebookLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/facebook`, "_self");
+    window.open(`http://localhost:5000/auth/facebook`, "_self");
   }
   const handleGithubLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/github`, "_self");
+    window.open(`http://localhost:5000/auth/github`, "_self");
   }
   const handleDiscordLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/discord`, "_self");
+    window.open(`http://localhost:5000/auth/discord`, "_self");
   }
 
   const handleSignup=async ()=>{
+    setonLoginSpinner(true)
     try{
-        if(!email||!password||!confirmPassword){
+        if(!email||!password||!confirmPassword|| !isValid){
             toaster.addToast('Email and Password is required', 'success', {
                 duration: 4000,
                 styles: {
-                  backgroundColor: 'red',
+                  backgroundColor: 'red', 
                   color: '#ffffff',
                 },
               });
+              
         }
         else{
-            const response = await axios.post('https://imago-backend.vercel.app/api/users/signup', {
+            const response = await axios.post('http://localhost:5000/api/users/signup', {
             email:email,
             password:password,
             });
-            if(response.status===409){
+            console.log(response.data)
+            if(response.data.status=="exists"){
               toaster.addToast('User already exists', 'success', {
                 duration: 4000,
                 styles: {
@@ -77,7 +80,7 @@ const Signup = () => {
             }
             else if(response.status===200){
                 toaster.addToast('Account created Successfully', 'success', {
-                    duration: 4000,
+                    duration: 4000, 
                     styles: {
                       backgroundColor: 'green',
                       color: '#ffffff',
@@ -98,6 +101,9 @@ const Signup = () => {
     }catch(e){
 
     }
+    finally{
+     setonLoginSpinner(false);
+    }
   }
 
   return (
@@ -113,7 +119,7 @@ const Signup = () => {
         <div className='Description'>
           <p>
             <div className='quote'>Enter the Enchanting Realm of<br/> Fluttering Dreams</div>
-            Start Exploring more
+            Start Exploring more <HiOutlineChevronDoubleRight/>
           </p>
         </div>
         </div>
@@ -154,7 +160,14 @@ const Signup = () => {
                    {confirmPassword!==password && confirmPassword.length>0 && <p>Passwords does not match!</p>} 
                 </div>
                 <div className='LoginButton'>
-                    <button onClick={handleSignup}>Create Account</button>
+                <button onClick={handleSignup}>
+                    {!onLoginSpinner && <>Create Account</>}
+                    {onLoginSpinner && (
+                      <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    )}
+                  </button>
                 </div>
             </div>
             <div className='OrContainer'>

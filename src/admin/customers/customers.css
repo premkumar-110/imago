@@ -1,0 +1,51 @@
+.CustomerHeader{
+    display: flex;
+    padding: .5rem .5rem 1.5rem .5rem;
+    border-bottom: 1px solid lightgray;
+}
+.CustomerHeader .title{
+    display: grid;
+}
+.CustomerHeader .Search{
+    display: flex;
+    width: 50%;
+}
+.CustomerHeader .Search .input{
+    border-radius: 0;
+}
+.CustomerHeader .Search button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    background-color: #5277F7;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 0 1rem;
+    gap: .5rem;
+}
+table{
+    width: 100%;
+    margin-top: 1rem;
+}
+th{
+    padding: 1rem;
+    border: 1px solid lightgray;
+}
+table td{
+    padding: .8rem 1rem;
+    border: 1px solid lightgray;
+}
+table td button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    background-color: #5277F7;
+    color: white;
+    border: none;
+    outline: none;
+    padding: .2rem 1rem;
+    gap: .5rem;
+}

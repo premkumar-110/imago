@@ -53,7 +53,7 @@ const Header = ({ productID, setproductID }) => {
 
   const handleLogout = () => {
     Cookies.remove("user_id");
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "https://imago-alpha.vercel.app/login";
   };
 
   const handleGetProduct = async (id) => {

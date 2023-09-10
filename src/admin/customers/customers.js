@@ -27,8 +27,7 @@ const Customers = () => {
   }, []);
 
   // Function to handle search input change
-  // Function to handle search input change
-const handleSearchChange = (e) => {
+  const handleSearchChange = (e) => {
     const searchValue = e.target.value;
     setSearchCustomer(searchValue);
     // Filter the users based on the search input
@@ -40,7 +39,6 @@ const handleSearchChange = (e) => {
     );
     setFilteredUsers(filtered);
   };
-  
 
   // Function to clear the search input
   const clearSearch = () => {

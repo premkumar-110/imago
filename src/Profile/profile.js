@@ -7,7 +7,8 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import EmptyPurchase from '../images/Emptycart.svg';
 import { Steps } from 'antd';
-import ExternalIcon from '../images/externel-icon.svg'
+import ExternalIcon from '../images/externel-icon.svg';
+import { DeleteOutlined } from '@ant-design/icons';
 const Profile = () => {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({});
@@ -57,7 +58,20 @@ const Profile = () => {
     document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.href = "http://localhost:3000/login";
   };
-
+  const handleCancelOrder = async (id)=>{
+    const removeProduct = async ()=>{
+      const response = await axios.post('https://imago-backend.vercel.app/admin/removePurchaseById',{id:id,useremail:userDetails.email})
+      if(response.status==200){
+        console.log(response.data)
+        const response1 = await axios.post('https://imago-backend.vercel.app/admin/getUserPurchase', { useremail: userDetails.email });
+  
+          // Set purchasedItems to the data response from the API
+          setPurchasedItems(response1.data.response);
+      }
+    }
+    removeProduct();
+    
+  }
   return (
     <>
       <div className='ProfileContainer'>
@@ -107,8 +121,8 @@ const Profile = () => {
               <div className='PurchasesList'>
               {purchasedItems.map((item) => (
                   item.purchases.map((purchase, index) => (
-                    <div key={item._id} className='PurchaseCard' >
-                       <Steps current={1}>
+                    <div key={purchase._id} className='PurchaseCard' >
+                       <Steps current={purchase.delivered==true ? 2 :1}>
                         <Steps.Step style={{marginBottom:20}}
                           key={purchase._id}
                           title={`Product ${index + 1}`}
@@ -117,10 +131,10 @@ const Profile = () => {
                         <Steps.Step
                           key={purchase._id}
                           title={`Product ${index + 1}`}
-                          description={`Status: ${purchase.status || 'In Process'}`}
+                          description={`Status: ${purchase.delivered==true ? "Delivered" : "In Process"}`} 
                         />
                       </Steps>
-                      <h5>Order ID: {purchase.productid}</h5>
+                     <div className='IdandCancel'> <h5>Order ID: {purchase._id}</h5> {purchase.delivered==false && <button onClick={()=>{handleCancelOrder(purchase._id)}}><DeleteOutlined /> Cancel Order</button>}</div>
                       <p>User Email: {item.useremail}</p>
                       <p>Payment Mode: {purchase.paymentMode}</p>
                       <p>Address: {purchase.address}</p>
@@ -135,7 +149,7 @@ const Profile = () => {
                 ))}
 
               </div>  
-
+ 
             </div>
           )}
 

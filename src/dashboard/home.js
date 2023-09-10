@@ -41,7 +41,7 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
           <div class="spinner-grow text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
-          <div class="spinner-grow text-primary" role="status">
+          <div class="spinner-grow text-primary" role="status"> 
             <span class="visually-hidden">Loading...</span> 
           </div>
         </div>

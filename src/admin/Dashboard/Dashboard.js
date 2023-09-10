@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <div>
         <header className='CustomerHeader'>
-        <div className='title'>CUSTOMER</div>
+        <div className='title'>DASHBOARD</div>
         
       </header>
         <Line data={data} className='LineChart'/>

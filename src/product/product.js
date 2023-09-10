@@ -179,16 +179,16 @@ useEffect(() => {
     <>
       {isLoading ? (
         <div className='LoderComponent'>
-          <div className="spinner-grow text-primary" role="status">
-            <span className="visually-impaired">Loading...</span>
-          </div>
-          <div className="spinner-grow text-primary" role="status">
-            <span className="visually-impaired">Loading...</span>
-          </div>
-          <div className="spinner-grow text-primary" role="status">
-            <span className="visually-impaired">Loading...</span>
-          </div>
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-primary" role="status"> 
+          <span class="visually-hidden">Loading...</span> 
+        </div>
+      </div>
       ) : (
         <>
           <Header productID={productID} setproductID={setproductID} />

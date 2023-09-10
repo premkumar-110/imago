@@ -347,14 +347,15 @@ h3{
         padding: .5rem;
     }
     .OrderHistory{
-        padding: 2rem;
+        padding: 0rem;
         display: grid;
         place-content: center;
         gap: 5rem;
         width: 100%;
-        background-color: #6383FA;
-        color: white;
         border-radius: .5rem;
         text-align: center;
+    }
+    .IdandCancel{
+        flex-direction: column;
     }
 }

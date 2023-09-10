@@ -19,7 +19,7 @@ const Cart = () => {
       if (user_id) {
         try {
           const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
-          console.log(response.data.verifiedUser.email); 
+          
           
               const response1 = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: response.data.verifiedUser.email });
               setCartItems(response1.data);
@@ -28,15 +28,15 @@ const Cart = () => {
               const totalCost = response1.data.reduce((acc, item) => acc + item.price, 0);
               setCost(totalCost);
            
-          
+              setisLoading(false)
         } catch (error) {
-          console.error('Error:', error);
+          alert('Error:', error);
         }
       }
     };
     
     GetCookie();
-    setisLoading(false)
+    
     
   }, []);
 
@@ -95,12 +95,12 @@ const Cart = () => {
               </div>
             ))}
             </div>
-            <div className='PriceContainer'>
+            {/* <div className='PriceContainer'>
               <h3>Price Details</h3>
               <p>Total Product Price: <b>{cost*80} Rs</b></p>
               <hr></hr>
               <button onClick={()=>{navigate('/home')}} className='ViewProduct'>Buy all Products</button>
-            </div>
+            </div> */}
           </div>
         </div>
       }

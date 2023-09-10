@@ -206,7 +206,9 @@ useEffect(() => {
                   ))}
                 </div>
                 <div className='showImage'>
-                  <img src={singleProduct.images?.[imgCount]} alt={singleProduct?.title} />
+                  {id==55 &&
+                  <div className='DiscountTag'><span className='LimitedTime'>Limited Time</span>{singleProduct.discountPercentage} %</div>}
+                  <img src={singleProduct.images?.[imgCount]} alt={singleProduct?.title} ></img>
                 </div>
               </div>
               <div className='productButtons'>
@@ -275,7 +277,7 @@ useEffect(() => {
                   <div>Seconds</div>
                 </div>
               </div>
-              <div><button>View Product <MdViewInAr/></button></div>
+              <div><button onClick={()=>{ handleGetProduct(55)}}>View Product <MdViewInAr/></button></div>
             </div>
             <div className='NewofferImage'>
               <img src={Offer_Image} alt="Offer"/>

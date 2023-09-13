@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../dashboard/home.css';
 import logo from '../logo.svg';
 import { AiOutlineSearch } from "react-icons/ai";
@@ -11,6 +11,8 @@ import '../header/header.css';
 import Cookies from "js-cookie";
 import { IoMdHome } from "react-icons/io";
 import { GoPersonFill } from "react-icons/go";
+import Particles from "react-particles";
+import { loadSlim } from "tsparticles-slim"; 
 
 const Header = ({ productID, setproductID }) => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -19,10 +21,18 @@ const Header = ({ productID, setproductID }) => {
   const [filtereditems, setFilterItems] = useState([]);
   const [productsList, setProduct] = useState([]);
   const [userDetails, setUserDetails] = useState({});
+  const particlesInit = useCallback(async (engine) => {
+    console.log(engine);
+    // Load the tsParticles instance (engine) using tsparticles-slim
+  await loadSlim(engine);
+  }, []);
 
+  const particlesLoaded = useCallback(async (container) => {
+      console.log(container);
+  }, []);
   useEffect(() => {
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       setProduct(productData.data.response);
     };
     products();
@@ -33,7 +43,7 @@ const Header = ({ productID, setproductID }) => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
+          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
           setUserDetails(response.data.verifiedUser)
         } catch (error) {
           console.error('Error:', error);

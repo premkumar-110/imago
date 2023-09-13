@@ -6,7 +6,6 @@ import Home from './dashboard/home';
 import Product from './product/product'
 import Profile from './Profile/profile'
 import { useState, useEffect } from 'react';
-import VerifyNumber from './verify-number/verifyNumber';
 import axios from 'axios';
 import Header from './header/header';
 import Filter from './filter/Filter';
@@ -36,7 +35,7 @@ function App() {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/home' element={<Home productID={productID} setproductID={setproductID} productsList={productsList} setProduct={setProduct}/>}/>
       <Route path='/product/:id' element={<Product productID={productID} setproductID={setproductID} productsList={productsList} setProduct={setProduct}/>}/>
-      <Route path='/verify_details' element={<VerifyNumber userEmail={userEmail}/>}/>
+      
       <Route path='/profile' element={<Profile userEmail={userEmail}/>}/>
       <Route path='/header' element={<Header productID={productID} setproductID={setproductID}/>}/>
       <Route path='/filter' element={<Filter productsList={productsList} setProduct={setProduct}/>}/>

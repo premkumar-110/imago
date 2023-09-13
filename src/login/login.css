@@ -166,6 +166,11 @@
     cursor: pointer;
     padding: .5rem 1rem;
     border-radius: .3rem;
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 .SocialMediaLogin button img{
     width: 25px;

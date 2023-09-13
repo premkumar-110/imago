@@ -5,6 +5,12 @@
 
 .Homesection{
     width: 100%;
+    
+}
+.Homesection header{
+    background-color: red;
+    height: fit-content;
+    overflow: hidden;
 }
 .Homesection header img{
     width: 100%;
@@ -99,7 +105,9 @@
     font-weight: bold;
     border-radius: .4rem;
 }
-
+.particles{
+    width: 100%;
+}
 @media only screen and (max-width: 850px) {
     
     .ProductsSection{

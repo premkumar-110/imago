@@ -38,16 +38,16 @@ const Signup = () => {
   };
 
   const handleGoogleLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/google`, "_self");
+    window.open(`http://localhost:5000/auth/google`, "_self");
   }
   const handleFacebookLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/facebook`, "_self");
+    window.open(`http://localhost:5000/auth/facebook`, "_self");
   }
   const handleGithubLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/github`, "_self");
+    window.open(`http://localhost:5000/auth/github`, "_self");
   }
   const handleDiscordLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/discord`, "_self");
+    window.open(`http://localhost:5000/auth/discord`, "_self");
   }
 
   const handleSignup=async ()=>{
@@ -64,7 +64,7 @@ const Signup = () => {
               
         }
         else{
-            const response = await axios.post('https://imago-backend.vercel.app/api/users/signup', {
+            const response = await axios.post('http://localhost:5000/api/users/signup', {
             email:email,
             password:password,
             });
@@ -173,12 +173,28 @@ const Signup = () => {
             <div className='OrContainer'>
                 <span></span><p>Or</p><span></span>
             </div>
-            <div className='SocialMediaLogin'>
-            <button><img src={google} onClick={handleGoogleLogin} alt='Google'/></button>
-            <button><img src={facebook} onClick={handleFacebookLogin} alt='Facebook' /></button>
-            <button><img src={github} onClick={handleGithubLogin} alt='GitHub'  /></button>
-            <button><img src={discord} onClick={handleDiscordLogin} alt='Discord' /></button>
-            </div>
+            <div className="SocialMediaLogin">
+                <button>
+                  <span>Sign up with Google</span> <img src={google} onClick={handleGoogleLogin} alt="Google" />
+                </button>
+                {/* <button>
+                  <img
+                    src={facebook}
+                    onClick={handleFacebookLogin}
+                    alt="Facebook"
+                  />
+                </button>
+                <button>
+                  <img src={github} onClick={handleGithubLogin} alt="GitHub" />
+                </button>
+                <button>
+                  <img
+                    src={discord}
+                    onClick={handleDiscordLogin}
+                    alt="Discord"
+                  />
+                </button> */}
+              </div>
             <div className='LoginSignup'>
                 <p>Don't have an account? <button onClick={() => navigate('/login')}>Sign In</button></p>
             </div>

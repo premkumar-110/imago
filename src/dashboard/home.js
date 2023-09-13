@@ -26,7 +26,7 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
     navigate(`/product/${id}`);
   };
   const scrollToTop = () => {
-    window.scrollTo({
+    window.scrollTo({ 
       top: 0,
       behavior: 'smooth'
     });

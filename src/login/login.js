@@ -4,10 +4,6 @@ import "../login/login.css";
 import logo from "../logo.svg";
 import { IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
-import discord from "../images/Discord.svg";
-import google from "../images/Google.svg";
-import github from "../images/Github.svg";
-import facebook from "../images/Facebook.svg";
 import axios from "axios";
 import ToasterUi from "toaster-ui";
 import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
@@ -19,11 +15,6 @@ import "aos/dist/aos.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { HiOutlineChevronDoubleRight } from "react-icons/hi";
-import {
-  FacebookLoginButton,
-  GoogleLoginButton,
-} from "react-social-login-buttons";
-import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
 const Login = ({ setUserEmail }) => {
   const toaster = new ToasterUi();
   const navigate = useNavigate();

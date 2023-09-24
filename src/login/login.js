@@ -177,13 +177,23 @@ const Login = ({ setUserEmail }) => {
           email: forgetEmail,
         }
       );
-      toaster.addToast("Email sent successfully", "success", {
-        duration: 4000,
-        styles: {
-          backgroundColor: "green",
-          color: "#ffffff",
-        },
-      });
+      if(response.data.status=="success"){
+        toaster.addToast("Email sent successfully", "success", {
+          duration: 4000,
+          styles: {
+            backgroundColor: "green",
+            color: "#ffffff",
+          },
+        });
+      }else{
+        toaster.addToast("Server error occured please try again later", "failure", {
+          duration: 4000,
+          styles: {
+            backgroundColor: "green",
+            color: "#ffffff",
+          },
+        });
+      }
       const receivedOTP = response.data.data.otp;
       console.log(response.data.data.otpValidity);
       console.log(receivedOTP);

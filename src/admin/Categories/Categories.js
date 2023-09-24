@@ -16,7 +16,7 @@ const Categories = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/admin/getProducts');
+        const response = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
         setProductList(response.data.response); // Set the response data to productList
 
         // Extract unique categories using Set

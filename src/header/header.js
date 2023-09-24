@@ -32,7 +32,7 @@ const Header = ({ productID, setproductID }) => {
   }, []);
   useEffect(() => {
     const products = async () => {
-      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
+      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
       setProduct(productData.data.response);
     };
     products();
@@ -43,7 +43,7 @@ const Header = ({ productID, setproductID }) => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
           setUserDetails(response.data.verifiedUser)
         } catch (error) {
           console.error('Error:', error);

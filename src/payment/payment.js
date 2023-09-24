@@ -61,7 +61,7 @@ const Payment = () => {
   };
   useEffect(() => {
     const productdata = async () => {
-      const response = await axios.post('http://localhost:5000/api/users/getSingleProduct', { id: id });
+      const response = await axios.post('https://imago-backend.vercel.app/api/users/getSingleProduct', { id: id });
       setSingleProduct(response.data.response);
     };
     productdata();
@@ -70,7 +70,7 @@ const Payment = () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
           setUserDetails(response.data.verifiedUser);
         } catch (error) {
           console.error('Error:', error);
@@ -82,7 +82,7 @@ const Payment = () => {
 
   const handlesendotp = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/users/sendSMS', {
+      const response = await axios.post('https://imago-backend.vercel.app/api/users/sendSMS', {
         no: number,
       });
       if (response && response.data && response.data.otp) {
@@ -143,7 +143,7 @@ const Payment = () => {
   const handleBuyProduct = async () => {
       
       const buyProduct = async () => {
-        const response = await axios.post('http://localhost:5000/admin/purchaseProduct', { 
+        const response = await axios.post('https://imago-backend.vercel.app/admin/purchaseProduct', { 
         useremail: userDetails.email, 
         productid: singleProduct.id,
         paymentMode:"Cash On Delivery",
@@ -151,7 +151,7 @@ const Payment = () => {
         price:singleProduct.price*80,
         phoneNumber:userDetails.phoneNumber  });
         console.log(response.data);
-        const response1 = await axios.post('http://localhost:5000/admin/sendEmail',{
+        const response1 = await axios.post('https://imago-backend.vercel.app/admin/sendEmail',{
           email:userDetails.email,
           orderid:singleProduct._id,
           total:singleProduct.price,
@@ -205,7 +205,7 @@ const Payment = () => {
   };
   
   const handleSubmitData=async ()=>{
-    const response=await axios.post('http://localhost:5000/api/users/addDetails',{
+    const response=await axios.post('https://imago-backend.vercel.app/api/users/addDetails',{
       "name":name,
       "email":userDetails.email,
       "phoneNumber":number,
@@ -213,7 +213,7 @@ const Payment = () => {
     });
     if(response.status==200){
       const user_id = Cookies.get("user_id");
-      const response = await axios.post('http://localhost:5000/api/users/verifyToken', { token: user_id });
+      const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
       setUserDetails(response.data.verifiedUser);
       setCurrentProcess(2)
       setGetAddress(false);

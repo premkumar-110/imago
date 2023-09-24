@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Line } from "react-chartjs-2";
+import { Line } from 'react-chartjs-2';
 import '../Dashboard/Dashboard.css';
 import {
   DropboxOutlined, TagsOutlined
@@ -16,7 +16,7 @@ const Dashboard = () => {
       try {
         const response = await axios.get('http://localhost:5000/admin/getPurchase');
         const purchasedData = response.data.response;
-  
+
         // Calculate total price and total purchased items
         let totalPrice = 0;
         let totalPurchasedItem = 0;
@@ -28,33 +28,42 @@ const Dashboard = () => {
         });
         setTotalPurchase(totalPurchasedItem);
         setTotalPrice(totalPrice);
-  
+
         // Set purchasedProducts state
         setPurchasedProducts(purchasedData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
-  // Extract labels and data for the line chart
-  const labels = purchasedProducts.map((user) => user.purchases.length); // Number of products
-  const prices = purchasedProducts.map((user) => {
-    return user.purchases.reduce((sum, purchase) => sum + purchase.price, 0); // Total price
-  });
 
+  // Extract data for the line chart
   const data = {
-    labels: labels,
+    labels: purchasedProducts.map((_, index) => index), // Index from 0
     datasets: [
       {
         label: "Total Price",
+        data: purchasedProducts.map((user) => {
+          return user.purchases.reduce((sum, purchase) => sum + purchase.price, 0); // Total price
+        }),
         backgroundColor: "#5277F7",
         borderColor: "#5277F7",
-        data: prices,
       },
     ],
+  };
+
+  // Chart options to configure y-axis label
+  const options = {
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: 'Total Price',
+        },
+      },
+    },
   };
 
   return (
@@ -78,7 +87,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <Line data={data} className='LineChart' />
+      <Line data={data} options={options} className='LineChart' />
     </div>
   );
 }

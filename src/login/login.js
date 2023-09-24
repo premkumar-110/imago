@@ -70,12 +70,12 @@ const Login = ({ setUserEmail }) => {
   }, []);
 
   const [isValid, setIsValid] = useState(true);
-  const validateEmail = (inputEmail) => {
+  const validateEmail = (inputEmail) => { 
     // Email validation regex pattern
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(inputEmail);
   };
-  const handleBlur = () => {
+  const handleBlur = () => { 
     setIsValid(validateEmail(email));
   };
 

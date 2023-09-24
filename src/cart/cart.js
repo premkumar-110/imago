@@ -12,16 +12,17 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [cost, setCost] = useState(0);
   const navigate=useNavigate();
-  const [qty,setQty] = useState(1)
+  const [qty,setQty] = useState(1);
+  const [userDetails, setUserDetails] = useState({});
   useEffect(() => {
-    const GetCookie = async () => {
+
+    const fetchUserDetails = async () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
           const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
-          
-          
-              const response1 = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: response.data.verifiedUser.email });
+          setUserDetails(response.data.verifiedUser);
+          const response1 = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: userDetails.email });
               setCartItems(response1.data);
       
               // Calculate total cost
@@ -30,24 +31,21 @@ const Cart = () => {
            
               setisLoading(false)
         } catch (error) {
-          alert('Error:', error);
+          console.error('Error fetching user details:', error);
         }
       }
     };
-    
-    GetCookie();
-    
-    
+    fetchUserDetails();    
   }, []);
 
   const handleRemove = async (id) => {
     const removeCartItem = async () => {
-      await axios.post('https://imago-backend.vercel.app/api/users/removefromCart', { email: "scpprem006@gmail.com", id: id });
+      await axios.post('https://imago-backend.vercel.app/api/users/removefromCart', { email: userDetails.email, id: id });
     }
     await removeCartItem();
 
     // After removing the item, update cart items and total cost
-    const response = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: "scpprem006@gmail.com" });
+    const response = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: userDetails.email });
     console.log(response.data);
     setCartItems(response.data);
 

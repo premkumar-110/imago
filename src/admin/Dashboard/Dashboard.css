@@ -3,3 +3,23 @@
     height: 200px;
     margin-top: 2rem;
 }
+
+.AdminDashboardCard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    gap: 2rem;
+}
+.CardAdmin{
+    display: flex;
+    font-size: 1rem;
+    gap: 1rem;
+    border: 1px solid lightgrey;
+    padding: 1rem;
+    width: 25%;
+}
+.DashboardLogo{
+    font-size: 2rem;
+}

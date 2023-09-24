@@ -12,7 +12,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getPurchase');
+        const response = await axios.get('http://localhost:5000/admin/getPurchase');
         setProduct(response.data.response);
         setFilteredProducts(response.data.response); // Initialize filteredProducts with all products
       } catch (error) {
@@ -43,9 +43,9 @@ const Orders = () => {
   const handleDelivered = (id,useremail)=>{
     const deliver = async ()=>{
       console.log(id,useremail)
-      const response = await axios.post('https://imago-backend.vercel.app/admin/setProductDelivered',{id,useremail});
+      const response = await axios.post('http://localhost:5000/admin/setProductDelivered',{id,useremail});
       if(response){
-        const response1 = await axios.get('https://imago-backend.vercel.app/admin/getPurchase');
+        const response1 = await axios.get('http://localhost:5000/admin/getPurchase');
         setProduct(response1.data.response);
         setFilteredProducts(response1.data.response); 
       }

@@ -11,7 +11,7 @@ const Filter = ({ productsList, setProduct }) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       setOriginalProductsList(productData.data.response);
     };
     fetchProducts();

@@ -52,7 +52,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
+        const response = await axios.get('http://localhost:5000/admin/getProducts');
         setProduct(response.data.response);
         setFilteredProducts(response.data.response);
       } catch (error) {
@@ -80,9 +80,9 @@ const Products = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.post(`https://imago-backend.vercel.app/admin/deleteProduct`, { id: id });
+      const response = await axios.post(`http://localhost:5000/admin/deleteProduct`, { id: id });
       if (response.status === 200) {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
+        const response = await axios.get('http://localhost:5000/admin/getProducts');
         setProduct(response.data.response);
         setFilteredProducts(response.data.response);
       }
@@ -116,7 +116,7 @@ const Products = () => {
     };
     console.log(formDataWithDescription)
     try {
-      const response = await axios.post('https://imago-backend.vercel.app/api/users/setProducts', formDataWithDescription);
+      const response = await axios.post('http://localhost:5000/api/users/setProducts', formDataWithDescription);
       if (response.status === 200) {
         toaster.addToast("Item added successfully", 'success', {
           duration: 3000,
@@ -125,7 +125,7 @@ const Products = () => {
             color: '#ffffff',
           },
         });
-        const response1 = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
+        const response1 = await axios.get('http://localhost:5000/admin/getProducts');
         setProduct(response1.data.response);
         setFilteredProducts(response1.data.response);
         setAddProductVisible(false);

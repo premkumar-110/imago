@@ -1,0 +1,18 @@
+.ErrorContainer{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.ErrorContainer img{
+    width: 50%;
+    height: 50%;
+}
+.ErrorContainer button{
+    padding: .5rem 1rem;
+    color: white;
+    background-color: #6383FA;
+    border: none;
+    width: 30%;
+}

@@ -14,13 +14,14 @@ import AdminLogin from './adminlogin/adminlogin';
 import Admindashboard from './admindashboard/admindashboard';
 import Payment from './payment/payment';
 import TandC from './termsandconditions/TandC';
+import Error from './errorPage/error'
 function App() {
   const [productsList, setProduct] = useState([]);
   const [userEmail,setUserEmail]=useState('');
   useEffect(() => {
     
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
       
       setProduct(productData.data.response);
       setUserEmail(sessionStorage.getItem('email'))
@@ -42,8 +43,9 @@ function App() {
       <Route path='/cart' element={<Cart/> }/>
       <Route path='/payment/:id' element={<Payment/> }/>
       <Route path='/adminlogin' element={<AdminLogin/>}/>
-      <Route path='/admindashboard' element={<Admindashboard/>}/>
+      <Route path='/admindashboard' element={<Admindashboard/>}/>  
       <Route path='/terms-and-conditions' element={<TandC/>}/>
+      <Route path='/*' element={<Error/>}/>
     </Routes>
     </>
   );

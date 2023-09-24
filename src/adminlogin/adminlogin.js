@@ -53,7 +53,7 @@ const Adminlogin = () => {
       setonLoginSpinner(true);
       const data = { email: email, password: password };
       const response = await axios.post(
-        "https://imago-backend.vercel.app/api/users/login",
+        "http://localhost:5000/api/users/login",
         data
       );
       if (response.status == 200) {

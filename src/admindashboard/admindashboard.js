@@ -73,7 +73,7 @@ const AdminDashboard = () => {
             onClick={({ key }) => handleMenuClick(key)}
           >
             <Menu.Item key="orders" className="MenuItems"><GiftOutlined /> <div style={{display: collapsed ? "none" : "contents"}}>ORDERS</div></Menu.Item>
-            <Menu.Item key="dashboard" className="MenuItems"><DashboardOutlined/> <div style={{display: collapsed ? "none" : "contents"}}>DASHBOARD</div></Menu.Item>
+            {/* <Menu.Item key="dashboard" className="MenuItems"><DashboardOutlined/> <div style={{display: collapsed ? "none" : "contents"}}>DASHBOARD</div></Menu.Item> */}
             <Menu.Item key="categories" className="MenuItems"><UnorderedListOutlined/> <div style={{display: collapsed ? "none" : "contents"}}>CATEGORIES</div></Menu.Item>
             <Menu.Item key="products" className="MenuItems"><DropboxOutlined/> <div style={{display: collapsed ? "none" : "contents"}}>PRODUCTS</div></Menu.Item>
             <Menu.Item key="customers" className="MenuItems"><TeamOutlined/> <div style={{display: collapsed ? "none" : "contents"}}>CUSTOMERS</div></Menu.Item>

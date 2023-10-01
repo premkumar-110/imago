@@ -74,6 +74,10 @@ img{
     background-color: #5277F7;
     color: white;
     border: none;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 .NoAvailabilityCartContainer img{
     width: 20rem;

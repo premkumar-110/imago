@@ -15,16 +15,20 @@ import "aos/dist/aos.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { HiOutlineChevronDoubleRight } from "react-icons/hi";
+import { auth, provider } from '../config';
+import { signInWithPopup } from 'firebase/auth';
+import google from '../images/Google.svg';
+
+
 const Login = ({ setUserEmail }) => {
   const toaster = new ToasterUi();
   const navigate = useNavigate();
-
   useEffect(() => {
     const GetCookie = async () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
+          const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/verifyToken`, { token: user_id });
           console.log(response.data.verifiedUser); // Access the response data using response.data
           navigate('/home')
         } catch (error) {
@@ -37,35 +41,6 @@ const Login = ({ setUserEmail }) => {
     
     
     AOS.init();
-    // const data= async ()=>{
-    //   const response = await axios.post(
-    //     "https://imago-backend.vercel.app/api/users/verifyToken", 
-    //     {},
-    //     {
-    //       headers: {
-    //         Cookie: `user_id=${Cookies.get("user_id")}`, // Replace with your cookie key
-    //       },
-    //     }
-    //   );
-      
-    //     if (response.status === 200) {
-    //       // User is already logged in, redirect to home page
-    //       navigate("/home");
-    //       return;
-    //     }
-    //     else if (response.status === 401) {
-    //       toaster.addToast("Unauthorized: Please log in or provide valid credentials", "failure", {
-    //         duration: 4000,
-    //         styles: {
-    //           backgroundColor: "#FF3131",
-    //           color: "#ffffff",
-    //         },
-    //       });
-    //     }
-        
-    // }
-    // data();
-
     setisLoading(false);
   }, []);
 
@@ -91,6 +66,25 @@ const Login = ({ setUserEmail }) => {
   const [confirmResetPassword, setConfirmResetPassword] = useState("");
   const [onLoginSpinner, setonLoginSpinner] = useState(false);
   const [isLoading, setisLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  const handleGoogleLogin = ()=>{
+    signInWithPopup(auth, provider)
+    .then(async (result) => {
+      const user = result.user;
+      setUser(user);
+      console.log(user)
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/googleLogin`,{email:user.email,password:'123abc@123'});
+      if(response.status==200){
+        const token = response.data.token; // Update this field name based on the actual response
+        Cookies.set("user_id", token);
+        navigate('/home')
+      }
+    })
+    .catch((error) => {
+      alert(error);
+    });
+  }
 
   const handleLogin = async (e) => {
    
@@ -108,7 +102,7 @@ const Login = ({ setUserEmail }) => {
       setonLoginSpinner(true);
       const data = { email: email, password: password };
       const response = await axios.post(
-        "https://imago-backend.vercel.app/api/users/login",
+        `${process.env.REACT_APP_SERVER_URL}api/users/login`,
         data
       );
       if (response.status == 200) {
@@ -116,7 +110,7 @@ const Login = ({ setUserEmail }) => {
         Cookies.set("user_id", token);
         setonLoginSpinner(false);
         toaster.addToast("Successfully Logged In", "success", {
-          duration: 3000,
+          duration: 1000,
           styles: {
             backgroundColor: "green",
             color: "#ffffff",
@@ -148,18 +142,18 @@ const Login = ({ setUserEmail }) => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    window.open(`https://imago-backend.vercel.app/auth/google`, "_self");
-  };
-  const handleFacebookLogin = async () => {
-    window.open(`https://imago-backend.vercel.app/auth/facebook`, "_self");
-  };
-  const handleGithubLogin = async () => {
-    window.open(`https://imago-backend.vercel.app/auth/github`, "_self");
-  };
-  const handleDiscordLogin = async () => {
-    window.open(`https://imago-backend.vercel.app/auth/discord`, "_self");
-  };
+  // const handleGoogleLogin = async () => {
+  //   window.open(`${process.env.REACT_APP_SERVER_URL}auth/google`, "_self");
+  // };
+  // const handleFacebookLogin = async () => {
+  //   window.open(`${process.env.REACT_APP_SERVER_URL}auth/facebook`, "_self");
+  // };
+  // const handleGithubLogin = async () => {
+  //   window.open(`${process.env.REACT_APP_SERVER_URL}auth/github`, "_self");
+  // };
+  // const handleDiscordLogin = async () => {
+  //   window.open(`${process.env.REACT_APP_SERVER_URL}auth/discord`, "_self");
+  // };
 
   const sendEmail = async () => {
     if (forgetEmail === "") {
@@ -172,18 +166,29 @@ const Login = ({ setUserEmail }) => {
       });
     } else {
       const response = await axios.post(
-        "https://imago-backend.vercel.app/api/users/sendEmail",
+        `${process.env.REACT_APP_SERVER_URL}api/users/sendEmail`,
         {
           email: forgetEmail,
         }
       );
-      toaster.addToast("Email sent successfully", "success", {
-        duration: 4000,
-        styles: {
-          backgroundColor: "green",
-          color: "#ffffff",
-        },
-      });
+      if(response.data.status=="success"){
+        toaster.addToast("Email sent successfully", "success", {
+          duration: 4000,
+          styles: {
+            backgroundColor: "green",
+            color: "#ffffff",
+          },
+        });
+      }else{
+        toaster.addToast("Server error occured please try again later", "failure", {
+          duration: 4000,
+          styles: {
+            backgroundColor: "green",
+            color: "#ffffff",
+          },
+        });
+      }
+      
       const receivedOTP = response.data.data.otp;
       console.log(response.data.data.otpValidity);
       console.log(receivedOTP);
@@ -225,7 +230,7 @@ const Login = ({ setUserEmail }) => {
       });
     } else {
       const response = axios.post(
-        "https://imago-backend.vercel.app/api/users/resetPassword",
+        `${process.env.REACT_APP_SERVER_URL}api/users/resetPassword`,
         {
           email: forgetEmail,
           password: resetPassword,
@@ -344,18 +349,26 @@ const Login = ({ setUserEmail }) => {
                     )}
                   </button>
                 </div>
+                <div className="LoginSignup">
+                <p>
+                  Don't have an account?{" "}
+                  <button onClick={() => navigate("/signup")}>
+                    Create Account
+                  </button>
+                </p>
               </div>
-              {/* <div className="OrContainer">
+              </div>
+              <div className="OrContainer">
                 <span />
                 <p>Or</p>
                 <span />
-              </div> */}
+              </div>
               
-              {/* <div className="SocialMediaLogin">
+               <div className="SocialMediaLogin">
                 <button onClick={handleGoogleLogin} >
                   <span>Login with Google</span> <img src={google} alt="Google" />
                 </button>
-                <button>
+                {/* <button>
                   <img  
                     src={facebook}
                     onClick={handleFacebookLogin}
@@ -371,16 +384,9 @@ const Login = ({ setUserEmail }) => {
                     onClick={handleDiscordLogin}
                     alt="Discord"
                   />
-                </button>  
-              </div> */}
-              <div className="LoginSignup">
-                <p>
-                  Don't have an account?{" "}
-                  <button onClick={() => navigate("/signup")}>
-                    Create Account
-                  </button>
-                </p>
-              </div>
+                </button>   */}
+              </div> 
+              
             </div>
           </div>
           {resetPass === 1 && verifyPass !== 1 && (

@@ -175,10 +175,12 @@ h3{
     background-color: #5277F7;
     border: none;
     color: white;
-    padding: .5rem;display: flex;
+    padding: .5rem 1rem;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    border-radius: .3rem;
 }
 .PersonalCard img{
     color: white;

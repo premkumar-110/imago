@@ -88,15 +88,16 @@
     letter-spacing: 1px;
   }
   .VerifyBtn{
-    width: auto;
+    width: 100%;
     padding: .6rem;
     background-color: #5277F7;
     color: white;
     border: none;
     cursor: pointer;
     letter-spacing: 1px;
+    margin-top: 1rem;
   }
-  .PersonalDetails{
+  .PersonalDetails{ 
     width: 60%;
     padding: 1rem;
   }

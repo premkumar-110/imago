@@ -14,7 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getPurchase');
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}admin/getPurchase`);
         const purchasedData = response.data.response;
 
         // Calculate total price and total purchased items

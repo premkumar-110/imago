@@ -12,7 +12,7 @@ const Customers = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getUsers');
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}admin/getUsers`);
         if (Array.isArray(response.data.data)) {
           setUsers(response.data.data);
           setFilteredUsers(response.data.data);

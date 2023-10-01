@@ -7,6 +7,7 @@ import { Dropdown, Space } from 'antd';
 import { CloseOutlined, FolderViewOutlined } from '@ant-design/icons';
 import { Button, Card, Form } from 'antd';
 import ToasterUi from 'toaster-ui';
+import './products.css'
 
 
 const Products = () => {
@@ -52,7 +53,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}admin/getProducts`);
         setProduct(response.data.response);
         setFilteredProducts(response.data.response);
       } catch (error) {
@@ -80,9 +81,9 @@ const Products = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.post(`https://imago-backend.vercel.app/admin/deleteProduct`, { id: id });
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}admin/deleteProduct`, { id: id });
       if (response.status === 200) {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}admin/getProducts`);
         setProduct(response.data.response);
         setFilteredProducts(response.data.response);
       }
@@ -116,7 +117,7 @@ const Products = () => {
     };
     console.log(formDataWithDescription)
     try {
-      const response = await axios.post('https://imago-backend.vercel.app/api/users/setProducts', formDataWithDescription);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/setProducts`, formDataWithDescription);
       if (response.status === 200) {
         toaster.addToast("Item added successfully", 'success', {
           duration: 3000,
@@ -125,7 +126,7 @@ const Products = () => {
             color: '#ffffff',
           },
         });
-        const response1 = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
+        const response1 = await axios.get(`${process.env.REACT_APP_SERVER_URL}admin/getProducts`);
         setProduct(response1.data.response);
         setFilteredProducts(response1.data.response);
         setAddProductVisible(false);

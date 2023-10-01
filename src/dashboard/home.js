@@ -7,6 +7,9 @@ import Filter from '../filter/Filter';
 import Header from '../header/header';
 import AOS from 'aos';
 import { BsArrowUp } from "react-icons/bs";
+import delivery from '../images/delivery.svg';
+import { BsChevronDoubleDown } from "react-icons/bs";
+
 const Home = ({ productID, setproductID, productsList, setProduct }) => {
   const [isLoading, setisLoading] = useState(true);
   const navigate = useNavigate();
@@ -50,10 +53,23 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
           <Header productID={productID} setproductID={setproductID} />
           
           <div className='Homesection'>
-            <header>
+          <header>
               <img src={coverimg} alt='CoverImage' ></img>
             </header>
-          <hr></hr>
+          <header className='NewHeaderSection'>
+              <div className='NewDesc'>
+                <div className='DiscoverText'>Discover Your Product</div>
+                <p>Where Elegance Meets Convenience - Shop Now for Effortless E-commerce Excellence and Elevate Your Shopping Experience with Imago.</p>
+                <a href='#products' id='products'>Explore Now <BsChevronDoubleDown className='AnimatedDownIcon'/></a>
+              </div>
+              <img src={delivery} className='DeliveryImage' alt='DeliveryImage'></img> 
+              <div className='circle1'></div>
+              <div className='circle2'></div>
+            </header>
+
+           
+          <hr  ></hr>
+            
             <section className='ProductsSection'>
               <div className='FilterSection'>
                 {/* Pass productsList and setProduct to the Filter component */}
@@ -76,7 +92,7 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
                       </div>
                     ); 
                   })
-                }
+                }  
                 { productsList.length===0 &&
                   <h3>No product to display</h3>
                 }

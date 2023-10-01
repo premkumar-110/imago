@@ -6,53 +6,57 @@ import { GrClose } from "react-icons/gr";
 import { useNavigate } from 'react-router-dom';
 import EmptyCart from '../images/Emptycart.svg';
 import Cookies from "js-cookie";
+import { SmileOutlined} from '@ant-design/icons';
+
 
 const Cart = () => {
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
-  const [cost, setCost] = useState(0);
-  const navigate=useNavigate();
-  const [qty,setQty] = useState(1)
+  const [totalCost, setTotalCost] = useState(0);
+  const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useState({});
+  const [error, setError] = useState(null);
   useEffect(() => {
-    const GetCookie = async () => {
+
+    const fetchCartData = async () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
+          const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/verifyToken`, { token: user_id });
+          setUserDetails(response.data.verifiedUser);
+          const response1 = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/getProductById`, { email: userDetails.email });
           
+          setCartItems(response1.data);
           
-              const response1 = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: response.data.verifiedUser.email });
-              setCartItems(response1.data);
-      
-              // Calculate total cost
-              const totalCost = response1.data.reduce((acc, item) => acc + item.price, 0);
-              setCost(totalCost);
-           
-              setisLoading(false)
+          // Calculate total cost
+          const totalCost = response1.data.reduce((acc, item) => acc + item.price, 0);
+          setTotalCost(totalCost);
+
+          setIsLoading(false);
         } catch (error) {
-          alert('Error:', error);
+          console.error('Error fetching user details:', error);
+          setError('An error occurred while fetching data');
+          setIsLoading(false);
         }
       }
     };
-    
-    GetCookie();
-    
-    
-  }, []);
+
+    fetchCartData();
+  }, [userDetails.email]);
 
   const handleRemove = async (id) => {
     const removeCartItem = async () => {
-      await axios.post('https://imago-backend.vercel.app/api/users/removefromCart', { email: "scpprem006@gmail.com", id: id });
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/removefromCart`, { email: userDetails.email, id: id });
     }
     await removeCartItem();
 
     // After removing the item, update cart items and total cost
-    const response = await axios.post('https://imago-backend.vercel.app/api/users/getProductById', { email: "scpprem006@gmail.com" });
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/getProductById`, { email: userDetails.email });
     console.log(response.data);
     setCartItems(response.data);
 
     const newTotalCost = response.data.reduce((acc, item) => acc + item.price, 0);
-    setCost(newTotalCost);
+    setTotalCost(newTotalCost);
   }
   const handleGetProduct = async (id) => {
     // Set the product ID in session storage
@@ -108,7 +112,7 @@ const Cart = () => {
         <div className='Container'>
           <div className='NoAvailabilityCartContainer'>
             <p>No Products is currently available in the cart</p>
-            <button onClick={()=>{navigate('/home')}} className='ViewProduct'>View Products</button>
+            <button onClick={()=>{navigate('/home')}} className='ViewProduct'><SmileOutlined />Explore Now</button>
             <img src={EmptyCart}></img>
           </div>
         </div>

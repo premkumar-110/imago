@@ -87,7 +87,7 @@
   border-radius: 0.3rem;
 }
 .navbar .search input {
-  width: 95%;
+  width: 90%;
   height: 100%;
   border: none;
   outline: none;
@@ -141,6 +141,15 @@
   color: white;
   cursor: pointer;
 }
+.SearchNotFound{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  width: 100%;
+  color: #5277f7;
+}
 @media only screen and (max-width: 850px) {
   .SearchFilter {
     gap: 0.5rem;
@@ -191,6 +200,8 @@
   .SearchFilter {
     gap: .5rem;
     padding: 1rem;
+    width: 75%;
+    left: 12%;
   }
   .SerachItem {
     padding: 0.5rem;

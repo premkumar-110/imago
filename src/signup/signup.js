@@ -15,6 +15,9 @@ import ToasterUi from 'toaster-ui';
 import axios from 'axios';
 import { AiOutlineMenu } from "react-icons/ai";
 import { HiOutlineChevronDoubleRight } from "react-icons/hi";
+import { auth, provider } from '../config';
+import { signInWithPopup } from 'firebase/auth';
+import Cookies from "js-cookie";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -26,7 +29,7 @@ const Signup = () => {
   const [password,setPassword]=useState('');
   const [confirmPassword,setConfirmPassword]=useState('');
   const [isValid, setIsValid] = useState(true);
-
+  const [user, setUser] = useState(null);
 
   const validateEmail = (inputEmail) => {
     // Email validation regex pattern
@@ -37,38 +40,42 @@ const Signup = () => {
     setIsValid(validateEmail(email));
   };
 
-  const handleGoogleLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/google`, "_self");
-  }
-  const handleFacebookLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/facebook`, "_self");
-  }
-  const handleGithubLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/github`, "_self");
-  }
-  const handleDiscordLogin=async ()=>{
-    window.open(`https://imago-backend.vercel.app/auth/discord`, "_self");
+  const handleGoogleLogin = ()=>{
+    signInWithPopup(auth, provider)
+    .then(async (result) => {
+      const user = result.user;
+      setUser(user);
+      console.log(user)
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/googleLogin`,{email:user.email,password:'123abc@123'});
+      if(response.status==200){
+        const token = response.data.token; // Update this field name based on the actual response
+        Cookies.set("user_id", token);
+        navigate('/login')
+      }
+    })
+    .catch((error) => {
+      alert(error);
+    });
   }
 
   const handleSignup=async ()=>{
     setonLoginSpinner(true)
     try{
-        if(!email||!password||!confirmPassword|| !isValid){
+        if(!email||!password){
             toaster.addToast('Email and Password is required', 'success', {
                 duration: 4000,
                 styles: {
                   backgroundColor: 'red', 
                   color: '#ffffff',
                 },
-              }); 
+              });   
               
         }
         else{
-            const response = await axios.post('https://imago-backend.vercel.app/api/users/signup', {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/signup`, {
             email:email,
             password:password,
             });
-            console.log(response.data)
             if(response.data.status=="exists"){
               toaster.addToast('User already exists', 'success', {
                 duration: 4000,
@@ -169,15 +176,18 @@ const Signup = () => {
                     )}
                   </button>
                 </div>
+                <div className='LoginSignup'>
+                <p>Already visited our site? <button onClick={() => navigate('/login')}>Sign In</button></p>
             </div>
-            {/* <div className='OrContainer'>
+            </div>
+            <div className='OrContainer'>
                 <span></span><p>Or</p><span></span>
-            </div> */}
-            {/* <div className="SocialMediaLogin">
-                <button>
-                  <span>Sign up with Google</span> <img src={google} onClick={handleGoogleLogin} alt="Google" />
+            </div> 
+             <div className="SocialMediaLogin">
+                <button onClick={handleGoogleLogin}>
+                  <span>Sign up with Google</span> <img src={google}  alt="Google" />
                 </button>
-                <button>
+                {/* <button>
                   <img
                     src={facebook}
                     onClick={handleFacebookLogin}
@@ -193,11 +203,8 @@ const Signup = () => {
                     onClick={handleDiscordLogin}
                     alt="Discord"
                   />
-                </button>
-              </div> */}
-            <div className='LoginSignup'>
-                <p>Don't have an account? <button onClick={() => navigate('/login')}>Sign In</button></p>
-            </div>
+                </button> */}
+              </div> 
         </div>
     </div>
   )

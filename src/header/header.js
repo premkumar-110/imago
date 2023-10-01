@@ -13,6 +13,7 @@ import { IoMdHome } from "react-icons/io";
 import { GoPersonFill } from "react-icons/go";
 import Particles from "react-particles";
 import { loadSlim } from "tsparticles-slim"; 
+import { InfoCircleOutlined,CloseOutlined } from '@ant-design/icons';
 
 const Header = ({ productID, setproductID }) => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -21,18 +22,19 @@ const Header = ({ productID, setproductID }) => {
   const [filtereditems, setFilterItems] = useState([]);
   const [productsList, setProduct] = useState([]);
   const [userDetails, setUserDetails] = useState({});
-  const particlesInit = useCallback(async (engine) => {
+  const particlesInit = useCallback(async (engine) => {   
     console.log(engine);
     // Load the tsParticles instance (engine) using tsparticles-slim
-  await loadSlim(engine);
+    await loadSlim(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container) => {
-      console.log(container);
+    console.log(container);
   }, []);
+
   useEffect(() => {
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get(`${process.env.REACT_APP_SERVER_URL}api/users/getProducts`);
       setProduct(productData.data.response);
     };
     products();
@@ -43,7 +45,7 @@ const Header = ({ productID, setproductID }) => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
+          const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/verifyToken`, { token: user_id });
           setUserDetails(response.data.verifiedUser)
         } catch (error) {
           console.error('Error:', error);
@@ -63,7 +65,7 @@ const Header = ({ productID, setproductID }) => {
 
   const handleLogout = () => {
     Cookies.remove("user_id");
-    window.location.href = "https://imago-alpha.vercel.app/login";
+    navigate('/login')
   };
 
   const handleGetProduct = async (id) => {
@@ -82,6 +84,7 @@ const Header = ({ productID, setproductID }) => {
         <div className='search'>
           <AiOutlineSearch className='searchLogo' />
           <input type='text' placeholder='Search your products' onChange={(e) => setSearchItem(e.target.value)} value={searchitem}></input>
+          {searchitem.length !== 0 && <CloseOutlined className='searchLogo' onClick={()=>{setSearchItem('')}}/>}
         </div>
         {userDetails.email && <div
           className='ProfileDetails'
@@ -119,6 +122,11 @@ const Header = ({ productID, setproductID }) => {
       </div>
       {searchitem.length !== 0 && (
         <div className='SearchFilter'>
+          {filtereditems.length === 0 && (
+            <div className='SearchNotFound'>
+              <InfoCircleOutlined /> Sorry, No result found for {searchitem}
+            </div>
+          )}
           {filtereditems.map((item) => (
             <div className='SerachItem' key={item.id} onClick={() => handleGetProduct(item.id)}>
               {item.title}

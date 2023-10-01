@@ -21,7 +21,7 @@ const Profile = () => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
+          const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/verifyToken`, { token: user_id });
           setUserDetails(response.data.verifiedUser);
         } catch (error) {
           console.error('Error fetching user details:', error);
@@ -34,10 +34,11 @@ const Profile = () => {
 
       try {
         setLoading(true);
-        const response = await axios.post('https://imago-backend.vercel.app/admin/getUserPurchase', { useremail: userDetails.email });
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}admin/getUserPurchase`, { useremail: userDetails.email });
 
         // Set purchasedItems to the data response from the API
         setPurchasedItems(response.data.response);
+        
 
         setLoading(false);
       } catch (error) {
@@ -56,14 +57,14 @@ const Profile = () => {
 
   const handleLogout = () => {
     document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    window.location.href = "https://imago-alpha.vercel.app/login";
+    navigate('/login')
   };
   const handleCancelOrder = async (id)=>{
     const removeProduct = async ()=>{
-      const response = await axios.post('https://imago-backend.vercel.app/admin/removePurchaseById',{id:id,useremail:userDetails.email})
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}admin/removePurchaseById`,{id:id,useremail:userDetails.email})
       if(response.status==200){
         console.log(response.data)
-        const response1 = await axios.post('https://imago-backend.vercel.app/admin/getUserPurchase', { useremail: userDetails.email });
+        const response1 = await axios.post(`${process.env.REACT_APP_SERVER_URL}admin/getUserPurchase`, { useremail: userDetails.email });
   
           // Set purchasedItems to the data response from the API
           setPurchasedItems(response1.data.response);
@@ -94,7 +95,7 @@ const Profile = () => {
               <div className='AccInfoSection'>
                 <div className='prfiledata'>
                   <img
-                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsEC-AcpMSEBeqwQdUVhjb5fciR-GG2-cuwQ&usqp=CAU'
+                    src='https://source.boringavatars.com/'
                     alt="userLogo"
                     className="avatar"
                   />
@@ -109,13 +110,15 @@ const Profile = () => {
               </div>
 
               <div className='OrderHistory'>
-                {purchasedItems?.length === 0 && (
+              {purchasedItems?.length === 0 && (
                   <div className='EmptyPurchase'>
                     <img src={EmptyPurchase} alt="EmptyPurchase" />
                     <button onClick={() => { navigate('/home') }}>Explore Now</button>
                     <b>YOU HAVE NOT YET PURCHASED ANYTHING</b>
                   </div>
                 )}
+
+
                 {purchasedItems.length !== 0 && (
             <div>
               <div className='PurchasesList'>
@@ -134,6 +137,7 @@ const Profile = () => {
                           description={`Status: ${purchase.delivered==true ? "Delivered" : "In Process"}`} 
                         />
                       </Steps>
+                      <div>
                      <div className='IdandCancel'> <h5>Order ID: {purchase._id}</h5> {purchase.delivered==false && <button onClick={()=>{handleCancelOrder(purchase._id)}}><DeleteOutlined /> Cancel Order</button>}</div>
                       <p>User Email: {item.useremail}</p>
                       <p>Payment Mode: {purchase.paymentMode}</p>
@@ -144,6 +148,11 @@ const Profile = () => {
   <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
   <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
 </svg></button>
+                   </div>
+                   <div>
+                    {/* <img src={purchase.image} alt="Image"/> */}
+                   </div>
+                   
                     </div> 
                   ))
                 ))}

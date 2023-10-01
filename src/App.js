@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     
     const products = async () => {
-      const productData = await axios.get('http://localhost:5000/api/users/getProducts');
+      const productData = await axios.get(`${process.env.REACT_APP_SERVER_URL}api/users/getProducts`);
       
       setProduct(productData.data.response);
       setUserEmail(sessionStorage.getItem('email'))

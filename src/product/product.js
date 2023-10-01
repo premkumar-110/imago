@@ -40,7 +40,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
       const user_id = Cookies.get("user_id");
       if (user_id) {
         try {
-          const response = await axios.post('https://imago-backend.vercel.app/api/users/verifyToken', { token: user_id });
+          const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/verifyToken`, { token: user_id });
           setUserDetails(response.data.verifiedUser);
         } catch (error) {
           console.error('Error:', error);
@@ -50,7 +50,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
 
     GetCookie();
     const products = async () => {
-      const productData = await axios.get('https://imago-backend.vercel.app/api/users/getProducts');
+      const productData = await axios.get(`${process.env.REACT_APP_SERVER_URL}api/users/getProducts`);
       setProduct(productData.data.response);
     };
     products();
@@ -64,14 +64,14 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
           setproductID(1);
         }
       }
-      const response = await axios.post('https://imago-backend.vercel.app/api/users/getSingleProduct', { id: id });
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/getSingleProduct`, { id: id });
       setSingleProduct(response.data.response);
       setisLoading(false);
     };
     productdata();
   }, [productID, setproductID, setProduct, id]);
 
-  const endTime = new Date("2023-10-03T20:01:00"); // Set the end time to a future date and time
+  const endTime = new Date("2023-11-03T20:01:00"); // Set the end time to a future date and time
  // Set the end time here
 
 useEffect(() => {
@@ -109,13 +109,14 @@ useEffect(() => {
     window.scrollTo({
       top: 0
     });
+    setisLoading(true)
     setproductID(id);
     setImageCount(0);
     navigate(`/product/${id}`);
   };
 
   const handleaddtoCart = async (id) => {
-    const response = await axios.post('https://imago-backend.vercel.app/api/users/addToCart', { email: userDetails.email, id: id });
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/addToCart`, { email: userDetails.email, id: id });
     if (response.status === 200) {
       toaster.addToast('Successfully added to Cart', 'success', {
         duration: 3000,
@@ -127,7 +128,7 @@ useEffect(() => {
     } else {
       toaster.addToast(response.message, 'failure', {
         duration: 3000,
-        styles: {
+        styles: {   
           backgroundColor: 'green',
           color: '#ffffff',
         },
@@ -162,7 +163,7 @@ useEffect(() => {
     // pay.open();
     const purchase = async ()=>{
       navigate(`/payment/${singleProduct.id}`)
-      // const response = axios.post('https://imago-backend.vercel.app/api/users/addToPurchased',{email:userDetails.email,id:singleProduct.id});
+      // const response = axios.post('${process.env.REACT_APP_SERVER_URL}api/users/addToPurchased',{email:userDetails.email,id:singleProduct.id});
       // if(response.status===200){
 
       // }

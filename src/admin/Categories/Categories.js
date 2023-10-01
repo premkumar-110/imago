@@ -16,7 +16,7 @@ const Categories = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await axios.get('https://imago-backend.vercel.app/admin/getProducts');
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}admin/getProducts`);
         setProductList(response.data.response); // Set the response data to productList
 
         // Extract unique categories using Set
@@ -48,7 +48,7 @@ const Categories = () => {
             placeholder="Search Category"
             value={searchCustomer}
             onChange={(e) => setSearchCustomer(e.target.value)}
-            prefix={<UserOutlined className="site-form-item-icon" style={{ borderRadius: 0 }} />}
+            prefix={<SearchOutlined className="site-form-item-icon" style={{ borderRadius: 0 }} />}
           />
           <button onClick={clearSearch}>Clear</button>
         </div>

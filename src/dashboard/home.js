@@ -9,6 +9,7 @@ import AOS from 'aos';
 import { BsArrowUp } from "react-icons/bs";
 import delivery from '../images/delivery.svg';
 import { BsChevronDoubleDown } from "react-icons/bs";
+import leaf from '../images/image 9.png'
 
 const Home = ({ productID, setproductID, productsList, setProduct }) => {
   const [isLoading, setisLoading] = useState(true);
@@ -58,7 +59,7 @@ const Home = ({ productID, setproductID, productsList, setProduct }) => {
             </header>
           <header className='NewHeaderSection'>
               <div className='NewDesc'>
-                <div className='DiscoverText'>Discover Your Product</div>
+                <div className='DiscoverText'>Discover Your Product <img src={leaf}  style={{width:70,height:70}}/></div>
                 <p>Where Elegance Meets Convenience - Shop Now for Effortless E-commerce Excellence and Elevate Your Shopping Experience with Imago.</p>
                 <a href='#products' id='products'>Explore Now <BsChevronDoubleDown className='AnimatedDownIcon'/></a>
               </div>

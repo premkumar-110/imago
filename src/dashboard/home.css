@@ -25,6 +25,7 @@
     filter: blur(10px); /* Start with no blur */
     border-radius: 50%;
     animation: circleAnimation 2s linear alternate infinite;
+    
 }
 
 @keyframes circleAnimation {
@@ -208,7 +209,40 @@
     font-weight: bold;
 }
 @media only screen and (max-width: 850px) {
-    
+    .circle1,.circle2{
+        z-index: -1;
+    }
+    .NewHeaderSection{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 1rem;
+    }
+    .NewHeaderSection .DeliveryImage{
+        width: 70%;
+        height: 70%;
+    }
+    .NewDesc{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+    }
+    .NewDesc a{
+        padding: .5rem 2rem;
+        background-color: #5277F7;
+        color: white;
+        border-radius: .3rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
     .ProductsSection{
         width: 100%;
         height: auto;

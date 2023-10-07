@@ -15,7 +15,7 @@ import ToasterUi from 'toaster-ui';
 import axios from 'axios';
 import { AiOutlineMenu } from "react-icons/ai";
 import { HiOutlineChevronDoubleRight } from "react-icons/hi";
-import { auth, provider } from '../config';
+import { auth, provider,FaceBookAuth } from '../config';
 import { signInWithPopup } from 'firebase/auth';
 import Cookies from "js-cookie";
 
@@ -57,7 +57,24 @@ const Signup = () => {
       alert(error);
     });
   }
-
+  const handleFacebookLogin =async ()=>{
+    try{
+    const result = await FaceBookAuth();
+    
+      setUser(result.user);
+      console.log(user.email)
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/googleLogin`,{email:user.email,password:'123abc@123'});
+      if(response.status==200){
+        const token = response.data.token; // Update this field name based on the actual response
+        Cookies.set("user_id", token);
+        navigate('/login')
+      }
+    }
+    catch(e){
+      console.log(e)   
+    }
+    
+  }
   const handleSignup=async ()=>{
     setonLoginSpinner(true)
     try{
@@ -187,14 +204,10 @@ const Signup = () => {
                 <button onClick={handleGoogleLogin}>
                   <span>Sign up with Google</span> <img src={google}  alt="Google" />
                 </button>
-                {/* <button>
-                  <img
-                    src={facebook}
-                    onClick={handleFacebookLogin}
-                    alt="Facebook"
-                  />
+                <button onClick={handleFacebookLogin}>
+                  <span>Sign up with Facebook</span> <img src={facebook} alt="Google" />
                 </button>
-                <button>
+                {/*<button>
                   <img src={github} onClick={handleGithubLogin} alt="GitHub" />
                 </button>
                 <button>

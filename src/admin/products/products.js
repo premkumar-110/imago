@@ -7,7 +7,8 @@ import { Dropdown, Space } from 'antd';
 import { CloseOutlined, FolderViewOutlined } from '@ant-design/icons';
 import { Button, Card, Form } from 'antd';
 import ToasterUi from 'toaster-ui';
-import './products.css'
+import './products.css';
+
 
 
 const Products = () => {

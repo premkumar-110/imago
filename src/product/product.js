@@ -17,6 +17,7 @@ import { AiOutlineDoubleRight, AiOutlineDoubleLeft } from "react-icons/ai";
 import Cookies from "js-cookie";
 import Offer_Image from '../images/Offer_Wish.svg';
 import { MdViewInAr } from "react-icons/md";
+import ReactImageMagnify from 'react-image-magnify';
 
 const Product = ({ productID, setproductID, productsList, setProduct }) => {
   const toaster = new ToasterUi();
@@ -209,7 +210,31 @@ useEffect(() => {
                 <div className='showImage'>
                   {id==55 &&
                   <div className='DiscountTag'><span className='LimitedTime'>Limited Time</span>{singleProduct.discountPercentage} %</div>}
-                  <img src={singleProduct.images?.[imgCount]} alt={singleProduct?.title} ></img>
+                  {/* <img src={singleProduct.images?.[imgCount]} alt={singleProduct?.title} ></img> */}
+                  <ReactImageMagnify
+                        className='magnify'
+                        {...{
+                          smallImage: {
+                            alt: singleProduct?.title,
+                            src: singleProduct.images?.[imgCount],
+                            height: 400, // Adjust the height as needed
+                            width: 500,  // Adjust the width as needed
+                            isFluidWidth: true,
+                          },
+                          largeImage: {
+                            src: singleProduct.images?.[imgCount],
+                            width: 1000, // Adjust the width of the magnified image
+                            height: 1000, // Adjust the height of the magnified image
+                          },
+                          enlargedImagePosition: 'over',
+                          enlargedImageStyle: {
+                            zIndex: 2, // Set the z-index to 5
+                            // You can also add other custom styles here
+                          },
+                          // You can also add other props like lensStyle, lensSize, etc. for further customization
+                        }}
+                      />
+
                 </div>
               </div>
               <div className='productButtons'>

@@ -191,15 +191,16 @@
 
 .UpArrow{
     position: fixed;
-    bottom: 1rem;
+    bottom: 1rem; 
     right: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: .5rem;
     background-color: #5277F7;
     color: white;
-    font-weight: bold;
+    font-weight: bolder;
+    font-size: 1.5rem;
     cursor: pointer;
     border-radius: .5rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -292,6 +293,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    z-index: 1;
 }
 
 @media only screen and (max-width: 850px) {

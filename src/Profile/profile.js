@@ -95,7 +95,7 @@ const Profile = () => {
               <div className='AccInfoSection'>
                 <div className='prfiledata'>
                   <img
-                    src='https://source.boringavatars.com/'
+                    src={`https://eu.ui-avatars.com/api/?name=${userDetails.email}&size=200`}
                     alt="userLogo"
                     className="avatar"
                   />

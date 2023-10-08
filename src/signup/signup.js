@@ -205,7 +205,7 @@ const Signup = () => {
                   <span>Sign up with Google</span> <img src={google}  alt="Google" />
                 </button>
                 <button onClick={handleFacebookLogin}>
-                  <span>Sign up with Facebook</span> <img src={facebook} alt="Google" />
+                  <span>Sign up with FB</span> <img src={facebook} alt="Google" />
                 </button>
                 {/*<button>
                   <img src={github} onClick={handleGithubLogin} alt="GitHub" />

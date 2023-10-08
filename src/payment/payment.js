@@ -151,6 +151,7 @@ const Payment = () => {
         price:singleProduct.price*80,
         phoneNumber:userDetails.phoneNumber  });
         console.log(response.data);
+        navigate('/profile');
         const response1 = await axios.post(`${process.env.REACT_APP_SERVER_URL}admin/sendEmail`,{
           email:userDetails.email,
           orderid:singleProduct._id,
@@ -166,7 +167,7 @@ const Payment = () => {
               color: '#ffffff',
             },
           });
-          navigate('/profile')
+          
         }
       };
       buyProduct();

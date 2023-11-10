@@ -89,10 +89,10 @@ const Login = ({ setUserEmail }) => {
   const handleFacebookLogin =async ()=>{
     try{
     const result = await FaceBookAuth();
-    
+    console.log(result)
       setUser(result.user); 
       console.log(user.email)
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/googleLogin`,{email:user.email,password:'123abc@123'});
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/login`,{email:user.email,password:'123abc@123'});
       if(response.status==200){
         const token = response.data.token; // Update this field name based on the actual response
         Cookies.set("user_id", token);

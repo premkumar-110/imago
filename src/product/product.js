@@ -5,7 +5,7 @@ import '../dashboard/home.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { RxDoubleArrowRight } from "react-icons/rx";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai"; 
 import LowestPrice from '../images/offer.png';
 import CashOnDelivery from '../images/COD.svg';
 import ReturnPolicy from '../images/ReturnProduct.svg';

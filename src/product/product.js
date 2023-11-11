@@ -72,7 +72,7 @@ const Product = ({ productID, setproductID, productsList, setProduct }) => {
     productdata();
   }, [productID, setproductID, setProduct, id]);
 
-  const endTime = new Date("2023-11-03T20:01:00"); // Set the end time to a future date and time
+  const endTime = new Date("2024-01-01T20:01:00"); // Set the end time to a future date and time
  // Set the end time here
 
 useEffect(() => {

@@ -39,8 +39,6 @@ const Login = ({ setUserEmail }) => {
     };
     
     GetCookie();
-    
-    
     AOS.init();
     setisLoading(false);
   }, []);
@@ -69,37 +67,35 @@ const Login = ({ setUserEmail }) => {
   const [isLoading, setisLoading] = useState(true);
   const [user, setUser] = useState(null);
 
-  const handleGoogleLogin = ()=>{
-    signInWithPopup(auth, provider)
-    .then(async (result) => {
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      setUser(user);
+  
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}api/users/googleLogin`,
-        { email: user.email, password: '123abc@123' },
-        { withCredentials: true }
+        { email: user.email, password: '123abc@123' }
       );
-      if(response.status==200){
-        const token = response.data.token; // Update this field name based on the actual response
+  
+      if (response.status === 200) {
+        const token = response.data.token;
         Cookies.set("user_id", token);
-        navigate('/home')
+        navigate('/home');
       }
-    })
-    .catch((error) => {
-      alert("An error occured. Please try again later.")
-      console.log(error);
-    });
-  }
+    } catch (error) {
+      alert("An error occurred. Please try again later.");
+      console.error(error);
+    }
+  };
+  
   const handleFacebookLogin =async ()=>{
     try{
     const result = await FaceBookAuth();
     
-      setUser(result.user);
-      console.log(user.email)
+      setUser(result.user); 
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}api/users/googleLogin`,
         { email: user.email, password: '123abc@123' },
-        { withCredentials: true }
       );
       if(response.status==200){
         const token = response.data.token; // Update this field name based on the actual response

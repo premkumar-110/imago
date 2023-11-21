@@ -171,7 +171,7 @@
     border: none;
     cursor: pointer;
     padding: .5rem;
-    border-radius: .3rem;
+    border-radius: .3rem; 
     display: flex;
     gap: 1rem;
     width: 100%;

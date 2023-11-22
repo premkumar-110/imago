@@ -138,36 +138,9 @@ useEffect(() => {
   };
 
   const handleSubmit = () => {
-    // var option = {
-    //   key: "rzp_test_PVrN8Q8hFzJ7Je",
-    //   key_secret: "jcRs9PXi3lR2eJdm3qgyl1WC",
-    //   amount: singleProduct.price * 80 * 100,
-    //   currency: "INR",
-    //   name: "Payment Check",
-    //   description: "Testing",
-    //   handler: function (res) {
-    //     alert(res.razorpay_payment_id);
-    //   },
-    //   prefill: {
-    //     name: "premkumar",
-    //     email: "scpprem006@gmail.com",
-    //     contact: "1234567890"
-    //   },
-    //   notes: {
-    //     address: "RazorPay Corporate Office"
-    //   },
-    //   theme: {
-    //     color: "#6383FA"
-    //   }
-    // };
-    // var pay = new window.Razorpay(option);
-    // pay.open();
+    
     const purchase = async ()=>{
       navigate(`/payment/${singleProduct.id}`)
-      // const response = axios.post('${process.env.REACT_APP_SERVER_URL}api/users/addToPurchased',{email:userDetails.email,id:singleProduct.id});
-      // if(response.status===200){
-
-      // }
     }
     purchase();
   };
@@ -211,29 +184,7 @@ useEffect(() => {
                   {id==55 &&
                   <div className='DiscountTag'><span className='LimitedTime'>Limited Time</span>{singleProduct.discountPercentage} %</div>}
                   <img src={singleProduct.images?.[imgCount]} alt={singleProduct?.title} ></img>
-                  {/* <ReactImageMagnify
-                        className='magnify'
-                        {...{
-                          smallImage: {
-                            alt: singleProduct?.title,
-                            src: singleProduct.images?.[imgCount],
-                            height: 400, // Adjust the height as needed
-                            width: 500,  // Adjust the width as needed
-                            isFluidWidth: true,
-                          },
-                          largeImage: {
-                            src: singleProduct.images?.[imgCount],
-                            width: 1000, // Adjust the width of the magnified image
-                            height: 1000, // Adjust the height of the magnified image
-                          },
-                          enlargedImagePosition: 'over',
-                          enlargedImageStyle: {
-                            zIndex: 2, // Set the z-index to 5
-                            // You can also add other custom styles here
-                          },
-                          // You can also add other props like lensStyle, lensSize, etc. for further customization
-                        }}
-                      /> */}
+                  
 
                 </div>
               </div>

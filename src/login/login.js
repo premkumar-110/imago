@@ -30,7 +30,6 @@ const Login = ({ setUserEmail }) => {
       if (user_id) {
         try {
           const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}api/users/verifyToken`, { token: user_id });
-          console.log(response.data.verifiedUser); // Access the response data using response.data
           navigate('/home')
         } catch (error) {
           console.error('Error:', error);
@@ -83,7 +82,7 @@ const Login = ({ setUserEmail }) => {
         navigate('/home');
       }
     } catch (error) {
-      alert("An error occurred. Please try again later.");
+      alert("This is already registered with email... ");
       console.error(error);
     }
   };
@@ -107,7 +106,7 @@ const Login = ({ setUserEmail }) => {
       console.log(e)   
     }
     
-  }
+  } 
 
   const handleLogin = async (e) => {
    

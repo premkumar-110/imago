@@ -54,7 +54,7 @@ const Signup = () => {
       }
     })
     .catch((error) => {
-      alert(error);
+      alert("This is already registered with email...");
     });
   }
   const handleFacebookLogin =async ()=>{
@@ -160,6 +160,7 @@ const Signup = () => {
                         <IoMail className='EmailLogo'/>
                         <input onBlur={handleBlur} type='email' placeholder='Enter your email address' onChange={(e)=>setEmail(e.target.value)}></input>
                     </div>
+                    <small style={{color:"red"}}>Please be careful while entering email because all the email and the notifications will be sent to the email that is entered</small>
                     {!isValid && <p style={{ color: "red" }}>Please enter a valid email address.</p>}
                 </div>
                 <div className='email'> 
@@ -205,7 +206,7 @@ const Signup = () => {
                   <span>Sign up with Google</span> <img src={google}  alt="Google" />
                 </button>
                 <button onClick={handleFacebookLogin}>
-                  <span>Sign up with FB</span> <img src={facebook} alt="Google" />
+                  <span>Sign up with Facebook</span> <img src={facebook} alt="Google" />
                 </button>
                 {/*<button>
                   <img src={github} onClick={handleGithubLogin} alt="GitHub" />

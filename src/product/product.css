@@ -552,9 +552,12 @@
         gap: 1rem;
     }
     .RemainingProductContainer .Products .ProductCard{
+        height: 21rem;
+        width: 47%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
         gap: 0;
-        height: 20rem;
-        width: 45%;
     }
     .LimitedTime{
         display: none;
